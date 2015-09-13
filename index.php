@@ -69,7 +69,7 @@
                 Oh no! You messed up.
             </div>
             <div class="progress">
-              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
                 <span >45% Complete</span>
               </div>
             </div>
@@ -86,14 +86,14 @@
     
     (function(){
       
-         $(".progress-bar").animate({width: $(".progress").width() * .75});
+         $(".progress-bar").animate({width: $(".progress").width() }, 2000);
         
         
         
         SomeName = function(){
           
            $(".progress-bar").animate({width: MyObject.IntendedWidth}, 2000);
-        
+
   
         }
         
@@ -109,7 +109,9 @@
         
        // setTimeout( SomeName, 1000);
       
-    })()
+    })();
+    
+    
      SomeName();
     
      
