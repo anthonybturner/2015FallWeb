@@ -90,7 +90,7 @@
         
         
         
-        SomeName = function(){
+         SomeName = function(){
           
            $(".progress-bar").animate({width: MyObject.IntendedWidth}, 2000);
 

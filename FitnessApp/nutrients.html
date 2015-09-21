@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="Nutrients App">
+	<meta name="author" content="turnera1">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/nutrients.css">
+
+	
+	<title>Nutrients</title>
+
+</head>
+
+<body>
+    
+    <div class="container">
+        
+        <div><h1>Nutrition Agenda</h1></div>
+        <hr>
+    
+        <div id="breakfast-nutrition" class="nutrition-area">
+            <h2 class="well">Breakfast</h2>
+    
+        	 <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Calories</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Fiber</th>
+                      <th>Cholestrol</th>
+                      <th>Protien</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                      <td>Fiber One Cereal, original, 0.5 cup (1 serving)</td><!-- Nutrient  -->
+                      <td class="calories">60</td><!-- Calories  -->
+                      <td class="carbs">25</td><!-- Carbs  -->
+                      <td class="fat">1</td><!-- Fat  -->
+                      <td class="fiber">14</td><!-- Fiber  -->
+                      <td class="cholestrol">0</td><!-- Cholestrol  -->
+                      <td class="protien">2</td><!-- Protien  -->
+                    </tr>
+                    
+                    
+                 </tbody>
+            </table>
+            <hr>
+          <form role="form" class="row" action="#breakfast-nutrition">
+              <div class="form-group  col-xs-4">
+                <label for="nutrient">Nutrient name:</label>
+                <input type="text" class="form-control" id="nutrient" name="nutrient">
+              </div>
+              <div class="form-group  col-xs-1">
+                <label for="calories">Calories:</label>
+                <input type="text" class="form-control" id="calories" name="calories">
+              </div>
+             <div class="form-group col-xs-1">
+                <label for="carbs">Carbs:</label>
+                <input type="text" class="form-control" id="carbs" name="carbs">
+
+              </div>
+              
+               <div class="form-group col-xs-1">
+                <label for="fat">Fat:</label>
+                <input type="text" class="form-control" id="fat" name="fat">
+
+              </div>
+              
+            <div class="form-group col-xs-1">
+                <label for="fiber">Fiber:</label>
+                <input type="text" class="form-control" id="fiber" name="fiber">
+
+              </div>
+              
+              <div class="form-group col-xs-1">
+                <label for="cholestrol">Cholestrol:</label>
+                <input type="text" class="form-control" id="cholestrol" name="cholestrol">
+
+              </div>
+              
+               <div class="form-group col-xs-1">
+                <label for="protien">Protien:</label>
+                <input type="text" class="form-control" id="protien" name="protien">
+
+              </div>
+              
+              <div class="form-group col-xs-2">
+                    <label for="carbs"></label>
+                    <button type="submit" class="btn btn-primary form-control">Add Breakfast</button>
+
+              </div>
+
+        </form>
+        </div><!-- End breakfast -->
+        
+        <div id="lunch-nutrition" class="nutrition-area">
+            <h2 class="well">Lunch</h2>
+    
+        	 <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Calories</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Fiber</th>
+                      <th>Cholestrol</th>
+                      <th>Protien</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                      <td class="calories">0</td><!-- Calories  -->
+                      <td class="carbs">0</td><!-- Carbs  -->
+                      <td class="fat">0</td><!-- Fat  -->
+                      <td class="fiber">0</td><!-- Fiber  -->
+                      <td class="cholestrol">0</td><!-- Cholestrol  -->
+                      <td class="protien">0</td><!-- Protien  -->
+                    </tr>
+                    
+                    
+                 </tbody>
+            </table>
+        </div><!-- End Lunch -->
+        
+         <div id="dinner-nutrition" class="nutrition-area">
+            <h2 class="well">Dinner</h2>
+    
+        	 <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Calories</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Fiber</th>
+                      <th>Cholestrol</th>
+                      <th>Protien</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                      <td>Freihofer Split Top Wheat Bread, 4 slices</td><!-- Nutrient  -->
+                      <td class="calories">280</td><!-- Calories  -->
+                      <td class="carbs">52</td><!-- Carbs  -->
+                      <td class="fat">3</td><!-- Fat  -->
+                      <td class="fiber">4</td><!-- Fiber  -->
+                      <td class="cholestrol">0</td><!-- Cholestrol  -->
+                      <td class="protien">10</td><!-- Protien  -->
+                    </tr>
+                    
+                    
+                 </tbody>
+            </table>
+        </div> <!-- End dinner -->
+        
+        
+        <div id="total-nutrition" class="nutrition-area">
+            
+            <h2 class="well">Total Nutrition</h2>
+    
+        	 <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Calories</th>
+                      <th>Carbs</th>
+                      <th>Fat</th>
+                      <th>Fiber</th>
+                      <th>Cholestrol</th>
+                      <th>Protien</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                      <td>All</td><!-- Nutrient  -->
+                      <td class="total-calories">
+                          
+                        
+                          
+                      </td><!-- Calories  -->
+                      <td class="total-carbs">
+                          
+                      </td><!-- Carbs  -->
+                      
+                      <td class="total-fat"></td><!-- Fat  -->
+                      <td class="total-fiber"></td><!-- Fiber  -->
+                      <td class="total-cholestrol"></td><!-- Cholestrol  -->
+                      <td class="total-protien"></td><!-- Protien  -->
+                    </tr>
+                    
+                    
+                 </tbody>
+            </table>
+        
+            <div id="total-progress">
+            	<div class="progress">
+            	    
+    				<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%">
+    					<span class="progress-bar-text">0%</span>
+    				</div>
+    
+    			</div>
+			</div>
+				
+		</div>
+
+
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	
+	    var maxCalories = 400, maxCarbs = 200, maxCholestrol = 300, maxFat = 50, maxFiber = 50, maxProtien = 1000;
+	    
+		(function($) {
+		    
+		    
+		    $("form").submit(function(i){
+		        
+		         var nutrientsList = ($(this).serializeArray());
+		         var nutrientRow = "<tr>";
+
+		      
+		         for( var i = 0; i < nutrientsList.length; i++){
+		             
+		             var nutrientName = nutrientsList[i].name;
+		            
+		             var nutrient = nutrientsList[i].value;
+		             
+		             if( nutrientName =="nutrient")//Special case for not summing nutrient name with nutrient values
+		                 nutrientRow += "<td class='"+nutrientName+"'>" +nutrient+"</td> ";
+		                 
+                     else if( nutrient == "" || isNaN(nutrient))//The user may have entered blank values for nutrients or invalid characters (string data)
+		               nutrientRow += "<td class='"+nutrientName+"'>" +0+"</td> ";
+
+                    else
+		             nutrientRow += "<td class='"+nutrientName+"'>" +nutrient+"</td> ";
+		       
+		             
+		         }
+		         nutrientRow+= "</tr>"
+
+		        var nutritionTableId = $(this).attr('action');
+		        $(nutritionTableId + " table tr:last").after((nutrientRow));
+		        getTotals();
+		        getTotalPrgoress();
+
+		      //  $('#myTable tr:last').after('<tr>...</tr><tr>...</tr>');
+
+		        
+		        
+		        return false;
+		    });
+		    
+		   
+                
+                function initialize(){
+                    
+                     $('.progress-bar').each(function() {
+		        
+                           $(this).attr('aria-valuemax', 100);
+                           
+                     });
+                
+                    $("#total-nutrition td").each(function(){
+    
+                        if( !$(this).hasClass(("") )){//Only add values and progress bars to table cells that are not labels ( such as the label 'nutrient' does not have a progress bar or values)
+                            
+                             $(this).html(" <span class='amount'>  </span> <div class='progress'> <div class='progress-bar progress-bar-striped active' role='progressbar' style='width: 0%'>" +
+                             "<span class='progress-bar-text'>0% reached</span>	</div>  </div>");
+                        }
+                    });
+                }
+		    
+		   
+		    
+    		    function getTotals(){
+    		        
+    		        getTotalNutrient("calories", maxCalories);
+    		        getTotalNutrient("carbs", maxCarbs);
+    		        getTotalNutrient("fiber", maxFiber);
+    		        getTotalNutrient("fat", maxFat);
+                    getTotalNutrient("cholestrol", maxCholestrol);
+                    getTotalNutrient("protien", maxProtien);
+    
+    		    }
+    		    
+    		    
+    		    function getTotalNutrient(nutrient, maxNutrient){
+    		        
+    		        var total = 0, totalPercent = 0;
+    			    var base = 10; //Base to use, base 10 (decimal)
+    			    
+    			    $("."+nutrient).each(function( index ) {//Get the class of the given nutrient
+
+                         var value = 0;
+                         value = parseInt($( this ).text(), base);
+                         if( value != "")
+    			            total += value;
+    			     
+                      
+                    });
+                    
+                    totalPercent = Math.floor((total/maxNutrient)*100);
+                    if( totalPercent > 100)
+                        totalPercent = 100;
+                    
+                    if( total > maxNutrient)
+                        total = maxNutrient;
+                        
+                    $(".total-"+nutrient+" .amount").text(total + " of " +maxNutrient);//Add the total sum to the area for totals
+                    
+                    $(".total-"+nutrient+" .progress-bar").css("width", totalPercent + "%");
+                    $(".total-"+nutrient+" .progress-bar span").text( totalPercent + "% reached");
+    		        
+    		    }
+    		    
+    		    
+    		    function getTotalPrgoress(){
+    		        
+    		        var total = 0, totalPercent = 0;
+    			    var base = 10; //Base to use, base 10 (decimal)
+    			      var maxTotal = maxCalories + maxCarbs + maxFiber + maxFat + maxCholestrol +maxProtien;
+                    
+    			    $("td").each(function( index ) {//Get the class of the given nutrient
+
+
+                        var td = $(this);
+                        var str = td.prop("className");
+                        
+                      //  console.log(str)
+                       var strNeeded =  str.substring(0,5);
+                       if (strNeeded != "total"){
+                       
+                          var value = 0;
+                          value = parseInt($( td ).text(), base);
+                          if( value != "" && !isNaN((value))){
+    			               total += value;
+                          }
+                      
+                       }
+                      
+                    });
+                    
+                    
+                    totalPercent = Math.floor((total/maxTotal)*100);
+                    
+
+                    $("#total-progress .progress-bar").css("width", totalPercent);
+                    $("#total-progress .progress-bar span").text( totalPercent + "% reached");
+                    
+
+    		        
+    		    }
+    		    
+    		   
+    		    
+    		    
+    		    
+    		     $(initialize);
+		    
+		         $(getTotals);
+		         $(getTotalPrgoress);
+		      
+		    
+
+		
+
+		})(jQuery);
+	</script>
+
+</body>
+
+</html>
