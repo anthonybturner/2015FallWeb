@@ -10,7 +10,10 @@
 	<meta name="author" content="turnera1">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
 	<title>Form example - jquery</title>
 
 </head>
@@ -18,56 +21,76 @@
 <body>
 
 	<div class="container">
+		
+		<div class="alert alert-success alert-dismissable" style="display: none">
+    			<button type="button" class="close"  aria-label="Close">
+    				<!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+				  <span aria-hidden="true">&times;</span>
+				</button>
+				
+				<h3><span></span></h3>
+    		</div>
 
+        <div class="page-header"> 
+        	<h1> Runs </h1>
+        	
+        </div>
         
-        	<form class="well" style="margin-top: 100px;">
+        	<form class="form-horizontal" style="margin-top: 100px;">
+        		
+        	
+        	
+			<div id="my-alert" class="alert alert-success alert-dismissable row" style="display: none">
+        			<button type="button" class="close"  aria-label="Close">
+        				<!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+					  <span aria-hidden="true">&times;</span>
+					</button>
+					
+					<h3><span></span></h3>
+        		</div>
+        		
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                <label for="txtLocation">Where</label>
+                <input type="text" class="form-control" id="txtLocation" placeholder="Where">
               </div>
+     
               
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="txtLength">How far did you run? </label>
+                <input type="number" class="form-control" id="txtLength" placeholder="Length (Meters)">
               </div>
               
-              <div class="form-group">
-                <label for="txtAmount">Text amount</label>
-                <input type="text" class="form-control" id="txtAmount" placeholder="">
+                <div class="form-group">
+                <label for="txtLocation">When did you run? </label>
+                <input type="text" class="form-control" id="txtLocation" placeholder="Date">
               </div>
-              
-             
-              
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"> Check me out
-                </label>
-              </div>
-              
-              <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+            
+              <button type="submit" class="btn btn-default  row" id="submit">Submit</button>
+        </form><br>
         
-        	<div class="progress">
-					<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%">
-						<span class="progress-bar-text">0%</span>
-					</div>
-
+    	<div class="progress row">
+				<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%">
+					<span class="progress-bar-text">0%</span>
 				</div>
+
+			</div>
 
 
 	</div>
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script type="text/javascript">
 		(function($) {
 
 			$(function(){
 			    
-			    var $inputs = 
+			   
 			    
-			    $("button").on("click", function(e){
+			    $("#submit").on("click", function(e){
 			        
 			        var self = this;
 			        $(this).prop("disabled", true).html("Working...");//Chained: working with the same object from which was returned and initially called (the button)
@@ -87,21 +110,34 @@
                              
                              $("input").css({backgroundColor: "#FFAAAA"});
 			                  $(self).prop("disabled", false).html("Try again");//Chained: working with the same object from which was returned and initially called (the button)
+			                  $("#my-alert").addClass("alert-danger").show().find("span").html("You must enter an amount");
+			                  toastr.error("You must enter an amount.");
                          }else{
                              
-                             $("form").prepend("<div class='alert alert-success'> Yay you did it </div> ")
+                           //  $("form").prepend("<div class='alert alert-success'> Yay you did it </div> ")
+                            $("#my-alert").addClass("alert-success").show().find("h3 span").html("Yay you did it with span");
+                            toastr.success("Yay you did it.");
+						  // console.error(self);
+
                              
                          }
                          
-                         
+                        
 			           }
 			           
-			       }, 200);
+			       }, 50);
 			       
 			        return false;
 			        
+			    });//End onclick
+			    
+			    $(".close").on("click", function(e){
+			    	
+			    	$(this).closest(".alert").slideUp();
 			    });
 
+				$("input[type='number']").spinner();
+				$("input[type='date']").datepicker();
 			    
 			});
 
