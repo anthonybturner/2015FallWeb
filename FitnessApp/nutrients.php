@@ -28,7 +28,7 @@
         <h2><?=$message?></h2>
         <div class="panel panel-success">
             
-            <div class="panel-heading">Your Data</div>
+            <div class="panel-heading">Profile Info</div>
             
             <div class="panel-body">
                 <dl class="dl-horizontal">
@@ -36,6 +36,11 @@
                     <dd><?=$person['Name']?></dd>
                     <dt>Age</dt>
                     <dd><?=$person['Age']?></dd>
+                    <dt>Weight</dt>
+                    <dd><?=$person['Weight']?></dd>
+                    <dt>Height</dt>
+                    <dd><?=$person['Height']?></dd>
+                    <hr>
                     <dt>Calories Goal</dt>
                     <dd><?=$person['MaxCalories']?></dd>
                     <dt>Today's calorie Intake</dt>
@@ -294,9 +299,9 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='$totalFatPercentage'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxCalories']);?>'
-                                role='progressbar' style='width: <?= $totalCaloriesPercentage?>'>
+                                role='progressbar' style='width: <?= $totalCaloriesPercentage.'%'?>'>
                                  <span class='progress-bar-text'>
-                                      <?=$totalCaloriesPercentage?>
+                                      <?=$totalCaloriesPercentage.'%'?>
                                   </span>	
                              </div>  
                           </div> <!-- end progress bar -->
@@ -312,8 +317,8 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['carbs']); ?>'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxCarbs']);?>' role='progressbar'
-                                style='width:<?= $totalCarbsPercentage ?>'>
-                                 <span class='progress-bar-text'><?=$totalCarbsPercentage?> reached</span>	
+                                style='width:<?= $totalCarbsPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalCarbsPercentage.'%'?></span>	
                              </div>  
                           </div>
                            <div class='label-info'>
@@ -328,8 +333,8 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['fat']); ?>'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxFat']);?>' role='progressbar'
-                                style='width:<?= $totalFatPercentage ?>'>
-                                 <span class='progress-bar-text'><?=$totalFatPercentage?> reached</span>	
+                                style='width:<?= $totalFatPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalFatPercentage.'%'?> </span>	
                              </div>  
                           </div>
                            <div class='label-info'>
@@ -343,8 +348,8 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['fiber']); ?>'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxFiber']);?>' role='progressbar'
-                                style='width:<?= $totalFiberPercentage ?>'>
-                                 <span class='progress-bar-text'><?=$totalFiberPercentage?> reached</span>	
+                                style='width:<?= $totalFiberPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalFiberPercentage.'%'?></span>	
                              </div>  
                           </div>
                            <div class='label-info'>
@@ -359,8 +364,8 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['cholestrol']); ?>'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxCholestrol']);?>' role='progressbar'
-                                style='width:<?= $totalCholestrolPercentage ?>'>
-                                 <span class='progress-bar-text'><?=$totalCholestrolPercentage?> reached</span>	
+                                style='width:<?= $totalCholestrolPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalCholestrolPercentage.'%'?></span>	
                              </div>  
                           </div>
                            <div class='label-info'>
@@ -375,8 +380,8 @@
 
                               <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['protien']); ?>'
                                 aria-valuemin="0" aria-valuemax='<?= ($person['MaxProtien']);?>' role='progressbar'
-                                style='width:<?= $totalProtienPercentage ?>'>
-                                 <span class='progress-bar-text'><?=$totalProtienPercentage?> reached</span>	
+                                style='width:<?= $totalProtienPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalProtienPercentage.'%'?></span>	
                              </div>  
                           </div>
                            <div class='label-info'>
