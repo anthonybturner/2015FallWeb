@@ -36,10 +36,14 @@
                     <dd><?=$person['Name']?></dd>
                     <dt>Age</dt>
                     <dd><?=$person['Age']?></dd>
-                    <dt>Goal</dt>
+                    <dt>Calories Goal</dt>
                     <dd><?=$person['MaxCalories']?></dd>
-                    <dt>Today's Intake</dt>
+                    <dt>Today's calorie Intake</dt>
                     <dd><?=$total['calories']; ?></dd>
+                    <dt>Today's cholestrol Intake</dt>
+                    <dd><?=$total['cholestrol'].'mg' ?></dd>
+                    <dt>Today's fat Intake</dt>
+                    <dd><?=$total['fat'].'mg' ?></dd>
                 </dl>
             </div>
         </div>
@@ -64,8 +68,10 @@
             </div>
 
                 <div class="panel-body">
-                    <form role="form" action="#nutrition">
+                    <form role="form" action="#nutrition" id="add-meal-form">
     
+                     <input type="hidden"  id="Meal" name="Meal">
+
                       <div class="form-group  col-xs-2">
                         <input type="text" class="form-control" id="nutrient" name="nutrient" placeholder="nutrient name">
                       </div>
@@ -104,7 +110,7 @@
                     
     
                 
-                    <a href="#" class="btn btn-success">
+                    <a href="#" class="btn btn-success" id="addMeal">
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Meal
                     </a>
@@ -397,7 +403,7 @@
     
     			</div>
     			 <div class='label-info'>
-                     <?= $totalMax.' of '. $totalMaxAll; ?>
+                     <?= $total['sum'].' of '. $totalMaxAll; ?>
                   </div>
 			</div>
 		    </div>
@@ -409,7 +415,20 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+    <script>
+        
+        $(".dropdown-menu li a").click(function(){//Get the meal selected and save it 
+            var selectedMeal = $(this).text();
+            $("#Meal").val(selectedMeal);
+        });
+        
+        $("#addMeal").click(function(){
+            
+           var mealItem =  $("#add-meal-form").serializeArray();
+          
+        });
+        
+    </script>
 <!--	<script src="scripts/nutrients.js"></script> -->
 
 </body>

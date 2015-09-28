@@ -2,7 +2,6 @@
  
     $name = 'Anthony Turner';
     $message = "Welcome $name";
-    $totalMax =0;
     $totalMaxAll = 0;
     global $person;
    
@@ -29,12 +28,12 @@
     
     foreach ($food as $meal) {
         
-        $totalMax += $total['calories'] += $meal['calories'];
-        $totalMax +=$total['carbs'] += $meal['carbs'];
-        $totalMax +=$total['fat'] += $meal['fat'];
-        $totalMax += $total['fiber'] += $meal['fiber'];
-        $totalMax += $total['cholestrol'] += $meal['cholestrol'];
-        $totalMax += $total['protien'] += $meal['protien'];
+        $total['sum'] += $total['calories'] += $meal['calories'];
+        $total['sum'] +=$total['carbs'] += $meal['carbs'];
+        $total['sum'] +=$total['fat'] += $meal['fat'];
+        $total['sum'] += $total['fiber'] += $meal['fiber'];
+        $total['sum'] += $total['cholestrol'] += $meal['cholestrol'];
+        $total['sum'] += $total['protien'] += $meal['protien'];
     }
         
      $totalCaloriesPercentage = ($total['calories']/$person['MaxCalories'] *100).'%';
@@ -43,4 +42,4 @@
      $totalFiberPercentage = ($total['fiber']/$person['MaxFiber'] *100).'%';
      $totalCholestrolPercentage = ($total['cholestrol']/$person['MaxCholestrol'] *100).'%';
      $totalProtienPercentage = floor(($total['protien']/$person['MaxProtien'] *100)).'%';
-     $totalMaxPercentage = floor(($totalMax/$totalMaxAll *100)).'%';
+     $totalMaxPercentage = floor(($total['sum']/$totalMaxAll *100)).'%';
