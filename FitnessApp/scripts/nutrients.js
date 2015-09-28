@@ -89,7 +89,8 @@
                       
                     });
                     
-                    totalPercent = Math.floor((total/maxNutrient)*100);
+                  
+                    totalPercent = Math.floor((total/600)*100);
                     if( totalPercent > 100)
                         totalPercent = 100;
                     
