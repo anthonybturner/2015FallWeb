@@ -132,52 +132,60 @@
             
         
         <div id="breakfast-nutrition" class="nutrition-area row">
-             <div class="col-md-8 col-xs-10">
-            <h2 class="well">Breakfast</h2>
-    
-        	 <table class="table table-condensed table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nutrient</th>
-                      <th>Time</th>
-                      <th>Calories</th>
-                      <th>Carbs</th>
-                      <th>Fat</th>
-                      <th>Fiber</th>
-                      <th>Cholestrol</th>
-                      <th>Protien</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    
-                    <?php foreach(Food::GetBreakfast() as $i => $meal): ?>
-                  
-                    <tr>
-
-                      <th scope="row"><?=$i?></th>
-                      <td><?=$meal['Name']?></td>
-                      <td><?=date("M d Y  h:i:sa", $meal['Time'])?></td>
-                      <td><?=$meal['calories']?></td>
-                      <td><?=$meal['carbs']?></td>
-                      <td><?=$meal['fat']?></td>
-                      <td><?=$meal['fiber']?></td>
-                      <td><?=$meal['cholestrol']?></td>
-                      <td><?=$meal['protien']?></td>
-
-
-                    </tr>
-                   
-                   <?php endforeach; ?>
-
-                    
-                    
-                 </tbody>
-            </table>
-            <hr>
             
-        </div>
+            <h2 class="well col-md-12">Breakfast</h2>
+
+            <div id="breakfast" class="col-md-8 col-xs-10">
+        
+            	 <table class="table table-condensed table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Nutrient</th>
+                          <th>Time</th>
+                          <th>Calories</th>
+                          <th>Carbs</th>
+                          <th>Fat</th>
+                          <th>Fiber</th>
+                          <th>Cholestrol</th>
+                          <th>Protien</th>
+                          <th>Actions</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        
+                        <?php foreach(Food::GetBreakfast() as $i => $meal): ?>
+                      
+                        <tr>
+    
+                          <th scope="row"><?=$i?></th>
+                          <td><?=$meal['Name']?></td>
+                          <td><?=date("M d Y  h:i:sa", $meal['Time'])?></td>
+                          <td><?=$meal['calories']?></td>
+                          <td><?=$meal['carbs']?></td>
+                          <td><?=$meal['fat']?></td>
+                          <td><?=$meal['fiber']?></td>
+                          <td><?=$meal['cholestrol']?></td>
+                          <td><?=$meal['protien']?></td>
+                          <td>
+                              <a href="" id="edit-meal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                              
+                              <a href="" id="delete-meal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                          </td>
+    
+                        </tr>
+                       
+                       <?php endforeach; ?>
+    
+                        
+                        
+                     </tbody>
+                </table>
+                <hr>
+            
+            </div>
+            <div id="breakfast-modal" class="col-md-3 col-xs-5"><img class="thumbnail" style="width: 100%; height: 150px;" src="images/breakfast.jpg"/></div>
         </div><!-- End breakfast -->
         
         <div id="lunch-nutrition" class="nutrition-area row">
@@ -414,6 +422,11 @@
 		    </div>
 		</div>
 
+    <div class="row">
+        <div id="add-meal-modal" class="col-xs-5">
+        </div>
+        
+    </div>
 
 	</div>
 	
@@ -429,7 +442,46 @@
         
         $("#addMeal").click(function(){
             
-           var mealItem =  $("#add-meal-form").serializeArray();
+            window.location = "edit.php";
+           // $.get("edit.php", function(results){
+               
+                // $("#add-meal-modal").html(results);
+                
+            //});
+            
+          
+          var mealItem =  $("#add-meal-form").serializeArray();
+          
+        });
+        
+        $("#edit-meal").click(function(){
+            
+            //Temp changes hardcoded for only breakfast test
+            var breakfastWindow = $("#breakfast");
+            
+            if( breakfastWindow.hasClass("col-md-8 col-xs-10") ){//Shrink the window
+                
+                  breakfastWindow.removeClass("col-md-8 col-xs-10").addClass("col-md-6 col-xs-5");
+                  
+                   
+                   $.get("edit.php", function(results){
+               
+                     $("#breakfast-modal").removeClass("col-md-3 col-xs-5").addClass("col-md-3 col-md-offset-1 col-xs-5").html(results);
+                
+                     });
+                
+            }else{//Expand the window
+                
+              breakfastWindow.removeClass("col-md-6 col-xs-5").addClass("col-md-8 col-xs-10");
+                $("#breakfast-modal").removeClass("col-md-offset-1 col-xs-5").addClass("col-md-3 col-xs-5").html("<img class='thumbnail' src='images/breakfast.jpg' style='width: 100%;'/>");
+            }
+          
+            
+          
+            
+          
+          var mealItem =  $("#add-meal-form").serializeArray();
+          return false;
           
         });
         
