@@ -27,7 +27,7 @@
         
      
         
-    $total = [ 'calories' => 0, 'carbs' => 0, 'fat' => 0, 'fiber' => 0, 'cholestrol' => 0, 'protien' => 0, 'sum' => 0 ];
+    $total = array( 'calories' => 0, 'carbs' => 0, 'fat' => 0, 'fiber' => 0, 'cholestrol' => 0, 'protien' => 0, 'sum' => 0);
 
     
     foreach ($food as $meal) {
