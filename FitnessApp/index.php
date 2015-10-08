@@ -1,4 +1,6 @@
-<?php   include  'models/Food.php'; ?>
+<?php   include  'models/Food.php';
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -115,14 +117,14 @@
                     
     
                 
-                    <a href="#" class="btn btn-success" id="addMeal">
+                    <a href="edit.php" class="btn btn-success" id="addMeal">
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Meal
                     </a>
                     <a href="#" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
                         Delete All
-                        <span class="badge">4</span>
+                        <span class="badge"><?= $_SESSION["food"] ?>;</span>
                     </a>
                     </div>
                     
@@ -160,6 +162,8 @@
                         <tr>
     
                           <th scope="row"><?=$i?></th>
+                          
+                         
                           <td><?=$meal['Name']?></td>
                           <td><?=date("M d Y  h:i:sa", $meal['Time'])?></td>
                           <td><?=$meal['calories']?></td>
@@ -169,9 +173,16 @@
                           <td><?=$meal['cholestrol']?></td>
                           <td><?=$meal['protien']?></td>
                           <td>
-                              <a href="" id="edit-meal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                               
-                              <a href="" id="delete-meal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                             <span class="btn-group" role="group" aria-label="...">
+                              
+                                 <a href="" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open" ></i></a>
+                                 <a href="" id="edit-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit" ></i> </a>
+                                 <a href="delete.php?id=<?=$i?>"  id="delete-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash" ></i> </a>
+
+                         
+                             </span>
+                              
                           </td>
     
                         </tr>

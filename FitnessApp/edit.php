@@ -2,13 +2,61 @@
    // var_dump( $_GET );
     //var_dump( $_POST );
     //var_dump( $_REQUEST );
+    session_start();
+    $food = $_SESSION["food"];
+    
+    if( $_POST ){
+      
+      if(isset( $_GET['id'])){//Prevents adding another item on refresh
+        
+        $food[$_GET["id"]] = $_POST;//Should change exisiting one
+      }
+      
+      $food[] = $_POST;
+      $_SESSION["food"] = $food;
+      header("Location: ./"); //Redirect user after successfull submit
+    }
+    
+    if( $_GET['id'])
+      $meal = $food[$_GET["id"]];
+    else
+      $meal = array();
+      
 ?>
 
-<div class="row">
+<!DOCTYPE html>
+<html>
 
+<head>
+
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="Nutrients App">
+	<meta name="author" content="turnera1">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/nutrients.css">
+
+	
+	<title>Nutrients</title>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+ <div class="panel panel-info">
+            <div class="panel-heading"> 
+            
+                <h2>Food intake edit</h2>
+            </div>
        
             
-        <form class="form-horizontal" action="nutrients.php" method="post" >
+        <form class="form-horizontal" action="?" method="post" >
           <div class='alert' style="display: none" id="myAlert">
             <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -18,20 +66,19 @@
           <div class="form-group">
             <label for="txtName" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="txtName" name="Name" placeholder="Meal's Name">
+              <input type="text" class="form-control" id="txtName" name="Name" placeholder="Meal's Name" value="<?=$meal['Name']?>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="txtCalories">Callories</label>
             <div class="col-sm-10">
-                  <input type="number" class="form-control" id="txtCalories" name="Calories" placeholder="Calories in this meal">
+                  <input type="number" class="form-control" id="txtCalories" name="Calories" placeholder="Calories in this meal"  value="<?=$meal['calories']?>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="txtDate">When did you eat</label>
             <div class="col-sm-10">
-                  <input type="date" class="form-control" id="txtDate" name="Time" placeholder="Date">
-            </div>
+                  <input type="date" class="form-control date" id="txtDate" name="Time" placeholder="Date"  value="<?=$meal['Time']?>">
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -88,7 +135,8 @@
                   $("#myAlert").removeClass("alert-danger").addClass("alert-success").show()
                     .find("h3").html("Yay! You did it.");
                   toastr.success("Yay! You did it.");
-                  
+                  var food = $("form").serializeArray();
+                  $.get()
                 }
                 
                 
@@ -100,7 +148,13 @@
               $(this).closest(".alert").slideUp()
           });
           $("input[type='number']").spinner();
-          $("input[type='date']").datepicker();
+          $("input.date").datepicker();
         });
       })(jQuery);
     </script>
+    
+    
+</body>
+
+</html>
+
