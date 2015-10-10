@@ -2,7 +2,7 @@
 
 session_start();
 
-include  'models/goal-data.php';
+include  '../models/goal-data.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,18 +20,18 @@ include  'models/goal-data.php';
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 
-	<link rel="stylesheet" href="css/fitness-app.css">
+	<link rel="stylesheet" href="css/nutrients.css">
 
 	
-	<title>Fitness App</title>
+	<title>Exercise</title>
 
 </head>
 
 <body>
     
     <div class="container">
-                <h1>Fitness App 2015</h1>
-
+        
+        <h1>Exercise Agenda</h1>
         <h2><?=$message?></h2>
         <div class="panel panel-success">
             
@@ -61,29 +61,97 @@ include  'models/goal-data.php';
         </div>
         
         <div class="panel panel-info">
-            <div class="panel-heading">  
+            <div class="panel-heading"> &nbsp;Meal Options: 
             
                 
             </div>
 
                 <div class="panel-body">
                    
-                   <div id="navigation" class="col-xs-offset-1">
-                       
-                       <ul>
-                           
-                           <li><a href="food/">Nutrition</a></li>
-                            <li><a href="exercise/">Exercise</a></li>
-
-                       </ul>
-                   </div>
-   
+    
+                
+                    <a href="edit.php" class="btn btn-success" id="addMeal">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        Add Meal
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Delete All
+                        <span class="badge"><?= count($food); ?></span>
+                    </a>
+                
+                    
                 </div>
                 
             </div>
             
         
+        <div id="breakfast-nutrition" class="nutrition-area row">
+            
+            <h2 class="well col-md-12">Meals</h2>
+
+            <div id="breakfast" class="col-md-12 col-xs-10">
         
+            	 <table id="mealTable" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                          
+                          <th class="col-sm-2">#</th>
+                          <th class="col-sm-3">Nutrient</th>
+                          <th class="col-sm-2">Time</th>
+                          <th class="col-sm-2">Cals</th>
+                          <th class="col-sm-2">Carbs</th>
+                          <th class="col-sm-1">Fat</th>
+                          <th class="col-sm-2">Fiber</th>
+                          <th class="col-sm-2">Cholestrol</th>
+                          <th class="col-sm-2">Protien</th>
+                          <th class="col-sm-2">Meal Type</th>
+
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        
+                        <?php foreach($food as $i => $meal): ?>
+                      
+                            <tr>
+                                
+                                  <th scope="row" >
+                                     
+                                    <div class="btn-group" role="group" aria-label="...">
+                                          
+                                             <a href="details.php?id=<?=$i?>" id="detail-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open" ></i></a>
+                                             <a href="edit.php?id=<?=$i?>"    id="edit-meal"   class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit" ></i> </a>
+                                             <a href="delete.php?id=<?=$i?>"  id="delete-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash" ></i> </a>
+                                    </div>
+                                      
+                                  </th>
+    
+                             
+                                  <td><?=$meal['Name']?></td>
+                                  <td><?=date("M d Y  h:i:sa", $meal['Time'])?></td>
+                                  <td><?=$meal['Calories']?></td>
+                                  <td><?=$meal['Carbs']?></td>
+                                  <td><?=$meal['Fat']?></td>
+                                  <td><?=$meal['Fiber']?></td>
+                                  <td><?=$meal['Cholestrol']?></td>
+                                  <td><?=$meal['Protien']?></td>
+                                  <td><?=$meal['Meal']?></td>
+
+                        </tr>
+                       
+                       <?php endforeach; ?>
+    
+                        
+                        
+                     </tbody>
+                </table>
+                <hr>
+            
+            </div>
+        </div><!-- End breakfast -->
+        
+      
         
         <div id="total-nutrition" class="nutrition-area row">
              <div class="col-md-8 col-xs-10">

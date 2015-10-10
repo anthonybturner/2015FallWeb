@@ -8,6 +8,10 @@ session_start();
   }
   
   $meal = $food[$_REQUEST['id']];
+  
+  
+//Creates Form control and labels based upon this list
+$formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Calories"=> "How many Calories?", "Carbs"=>"Carbs", "Fat"=>"Fat","Fiber"=> "Fiber", "Cholestrol"=>"Cholestrol", "Protien"=>"Protien");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +20,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Food Log: Delete</title>
+    <title>Food Log: Details for <?= $meal['Name']?></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -26,19 +30,35 @@ session_start();
   <body>
     <div class="container">
 
-        <div class="page-header">
-          <h1>Food Intake <small>Delete a meal</small></h1>
+       <div class="page-header">
+          <h1>Food Intake <small>Details for meal <?= $meal['Name']?></small></h1>
         </div>
-        <form class="form-horizontal" action="" method="post" >
-          <div class='alert alert-danger alert-block'  id="myAlert">
+        
+        <form class="form-horizontal" action="" method="post" style="box-shadow: 2px 2px 2px 2px #ccc; padding: 16px;" >
+          <div class='alert' style="display: none" id="myAlert">
             <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h3>Are you sure you want to delete <?=$meal['Name']?></h3>
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            <input type="hidden" name="id" value="<?=$_REQUEST['id']?>" />
+            <h3></h3>
           </div> 
+           <?php foreach($formControlMeals as $item => $description): ?>
+          
+            <div class="form-group">
+              <label for="<?= $item ?>" class="col-sm-2 col-sm-offset-2 control-label"><?= $description ?></label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="<?= $item ?>" name="<?= $item ?>" placeholder="Meal's <?= $item ?>" value="<?=$meal[$item] ?>" disabled>
+              </div>
+            </div>
+          
+          <?php endforeach; ?>
+          
         </form>
+
+         
+    </div>
+        
+        
+        
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
