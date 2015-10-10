@@ -86,11 +86,13 @@ include  '../models/goal-data.php';
             </div>
             
         
-        <div id="breakfast-nutrition" class="nutrition-area row">
+        <div class="panel panel-info row">
             
-            <h2 class="well col-md-12">Meals</h2>
-
-            <div id="breakfast" class="col-md-12 col-xs-10">
+            <div class="panel-heading"> &nbsp; <h2>Meals </h2>
+                
+            </div>
+            
+        <div class="col-md-12 col-xs-10 panel-body">
         
             	 <table id="mealTable" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
                     <thead>
@@ -149,13 +151,18 @@ include  '../models/goal-data.php';
                 <hr>
             
             </div>
-        </div><!-- End breakfast -->
+        </div><!-- End meal -->
         
       
         
-        <div id="total-nutrition" class="nutrition-area row">
-             <div class="col-md-8 col-xs-10">
-            <h2 class="well">Total Nutrition</h2>
+        <div id="total-nutrition"  class="panel panel-info row">
+             
+            <div class="panel-heading"> &nbsp; <h2>Total Nutrition </h2>
+                
+            </div>
+            
+            
+             <div class="col-md-12 col-xs-10 panel-body">
     
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>

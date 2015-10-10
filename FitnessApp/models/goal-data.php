@@ -16,7 +16,7 @@
          
          
          array( 'Name' => 'Fiber One Cereal, original, 0.5 cup (1 serving)', "Meal"=> 'Breakfast', 'Time' => strtotime("6pm"), 'Calories' => 60, "Carbs" => 25, "Fat" => 1, "Fiber" => 14, "Cholestrol" => 0, "Protien" => 2 ),
-         array( 'Name' => 'High "Fiber" Maple and Brown Oatmeal, (1 serving)', "Meal"=> 'Breakfast', 'Time' => "2015-10-10", 'Calories' => 30, "Carbs" => 45, "Fat" => 1, "Fiber" => 10, "Cholestrol" => 0, "Protien" => 2 ),
+         array( 'Name' => 'High Fiber Maple and Brown Oatmeal, (1 serving)', "Meal"=> 'Breakfast', 'Time' => "2015-10-10", 'Calories' => 30, "Carbs" => 45, "Fat" => 1, "Fiber" => 10, "Cholestrol" => 0, "Protien" => 2 ),
  
          array( 'Name' => 'Nathans Hot Dogs, (2 servings)', "Meal" => 'Lunch',  'Time' => strtotime("6 hour"), 'Calories' => 260, "Carbs" => 25, "Fat" => 30, "Fiber" => 4, "Cholestrol" => 30, "Protien" => 32 ),
          array( 'Name' => 'Bush Baked Beans, (1 serving', "Meal" => 'Dinner',  'Time' => strtotime("6 hour"), 'Calories' => 50, "Carbs" => 5, "Fat" => 10, "Fiber" => 40, "Cholestrol" => 0, "Protien" => 12 ),

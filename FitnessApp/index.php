@@ -62,7 +62,7 @@ include  'models/goal-data.php';
         
         <div class="panel panel-info">
             <div class="panel-heading">  
-            
+                <h2>Menu</h2>
                 
             </div>
 
@@ -85,9 +85,14 @@ include  'models/goal-data.php';
         
         
         
-        <div id="total-nutrition" class="nutrition-area row">
-             <div class="col-md-8 col-xs-10">
-            <h2 class="well">Total Nutrition</h2>
+         <div id="total-nutrition"  class="panel panel-info row">
+             
+            <div class="panel-heading"> &nbsp; <h2>Total Nutrition </h2>
+                
+            </div>
+            
+            
+             <div class="col-md-12 col-xs-10 panel-body">
     
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -231,6 +236,7 @@ include  'models/goal-data.php';
         </div>
         
     </div>
+
 
 	</div>
 	
