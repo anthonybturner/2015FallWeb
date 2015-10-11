@@ -2,7 +2,7 @@
 
 session_start();
 
-include  '../models/goal-data.php';
+include  '../models/exercise-data.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ include  '../models/goal-data.php';
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 
-	<link rel="stylesheet" href="css/nutrients.css">
+	<link rel="stylesheet" href="../css/exercise.css">
 
 	
 	<title>Exercise</title>
@@ -30,9 +30,24 @@ include  '../models/goal-data.php';
 <body>
     
     <div class="container">
-        
-        <h1>Exercise Agenda</h1>
-        <h2><?=$message?></h2>
+    <?php include "../navigation.php" ?>
+     <div class="panel panel-info">
+            
+            <div class="panel-heading">  
+                        
+                <h1>Exercise Agenda</h1>
+                <h2>Food Burned</h2>
+
+            </div>
+
+                <div class="panel-body">
+                   
+                 
+   
+                </div>
+                
+     </div>
+
         <div class="panel panel-success">
             
             <div class="panel-heading">Profile Info</div>
@@ -48,20 +63,22 @@ include  '../models/goal-data.php';
                     <dt>Height</dt>
                     <dd><?=$person['Height']?></dd>
                     <hr>
-                    <dt>Calories Goal</dt>
+                    <dt>Calories to burn goal</dt>
                     <dd><?=$person['MaxCalories']?></dd>
-                    <dt>Today's calorie Intake</dt>
-                    <dd><?=$total['calories']; ?></dd>
-                    <dt>Today's cholestrol Intake</dt>
-                    <dd><?=$total['cholestrol'].'mg' ?></dd>
-                    <dt>Today's fat Intake</dt>
-                    <dd><?=$total['fat'].'mg' ?></dd>
+                    <dt>Today's cals burned</dt>
+                    <dd><?=$total['Calories']; ?></dd>
+                    <dt>Minutes Goal</dt>
+                    <dd><?=$person['MaxMinutes']?></dd>
+                    <dt>Today's minutes</dt>
+                    <dd><?=$total['Minutes'] ?></dd>
+                     <dt>Exercises completed</dt>
+                    <dd><?= count($exercises); ?></dd>
                 </dl>
             </div>
         </div>
         
         <div class="panel panel-info">
-            <div class="panel-heading"> &nbsp;Meal Options: 
+            <div class="panel-heading"> &nbsp;Excercise Options: 
             
                 
             </div>
@@ -70,14 +87,14 @@ include  '../models/goal-data.php';
                    
     
                 
-                    <a href="edit.php" class="btn btn-success" id="addMeal">
+                    <a href="edit.php" class="btn btn-success" id="addExcercise">
                         <i class="glyphicon glyphicon-plus"></i>
-                        Add Meal
+                        Add Excercise
                     </a>
                     <a href="#" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
                         Delete All
-                        <span class="badge"><?= count($food); ?></span>
+                        <span class="badge"><?= count($exercises); ?></span>
                     </a>
                 
                     
@@ -86,33 +103,31 @@ include  '../models/goal-data.php';
             </div>
             
         
-        <div id="breakfast-nutrition" class="nutrition-area row">
+        <div class="panel panel-info row">
             
-            <h2 class="well col-md-12">Meals</h2>
-
-            <div id="breakfast" class="col-md-12 col-xs-10">
+             <div class="panel-heading"> &nbsp; <h2>Excercises </h2>
+                
+            </div>
+            
+            <div class="col-md-12 col-xs-10 panel-body">
         
-            	 <table id="mealTable" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
+            	 <table class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
                     <thead>
                         <tr>
                           
                           <th class="col-sm-2">#</th>
-                          <th class="col-sm-3">Nutrient</th>
+                          <th class="col-sm-3">Name</th>
                           <th class="col-sm-2">Time</th>
-                          <th class="col-sm-2">Cals</th>
-                          <th class="col-sm-2">Carbs</th>
-                          <th class="col-sm-1">Fat</th>
-                          <th class="col-sm-2">Fiber</th>
-                          <th class="col-sm-2">Cholestrol</th>
-                          <th class="col-sm-2">Protien</th>
-                          <th class="col-sm-2">Meal Type</th>
+                          <th class="col-sm-2">Minutes</th>
+                          <th class="col-sm-2">Calories Burned</th>
+                          <th class="col-sm-2">Excercise Type</th>
 
                         </tr>
                     </thead>
                     
                     <tbody>
                         
-                        <?php foreach($food as $i => $meal): ?>
+                        <?php foreach($exercises as $i => $excercise): ?>
                       
                             <tr>
                                 
@@ -120,23 +135,19 @@ include  '../models/goal-data.php';
                                      
                                     <div class="btn-group" role="group" aria-label="...">
                                           
-                                             <a href="details.php?id=<?=$i?>" id="detail-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open" ></i></a>
-                                             <a href="edit.php?id=<?=$i?>"    id="edit-meal"   class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit" ></i> </a>
-                                             <a href="delete.php?id=<?=$i?>"  id="delete-meal" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash" ></i> </a>
+                                             <a href="details.php?id=<?=$i?>" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open" ></i></a>
+                                             <a href="edit.php?id=<?=$i?>"   class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit" ></i> </a>
+                                             <a href="delete.php?id=<?=$i?>" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash" ></i> </a>
                                     </div>
                                       
                                   </th>
     
                              
-                                  <td><?=$meal['Name']?></td>
-                                  <td><?=date("M d Y  h:i:sa", $meal['Time'])?></td>
-                                  <td><?=$meal['Calories']?></td>
-                                  <td><?=$meal['Carbs']?></td>
-                                  <td><?=$meal['Fat']?></td>
-                                  <td><?=$meal['Fiber']?></td>
-                                  <td><?=$meal['Cholestrol']?></td>
-                                  <td><?=$meal['Protien']?></td>
-                                  <td><?=$meal['Meal']?></td>
+                                  <td><?=$excercise['Name']?></td>
+                                  <td><?=date("M d Y  h:i:sa", $excercise['Time'])?></td>
+                                  <td><?=$excercise['Minutes']?></td>
+                                  <td><?=$excercise['Calories']?></td>
+                                  <td><?=$excercise['Type']?></td>
 
                         </tr>
                        
@@ -153,26 +164,65 @@ include  '../models/goal-data.php';
         
       
         
-        <div id="total-nutrition" class="nutrition-area row">
-             <div class="col-md-8 col-xs-10">
-            <h2 class="well">Total Nutrition</h2>
-    
+        <div id="total-nutrition" class="panel panel-info row">
+            
+            <div class="panel-heading"> &nbsp; <h2>Exercise totals</h2>
+                
+            </div>
+            
+             <div class="col-md-12 col-xs-10 panel-body">
+
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
-                      <th>Nutrient</th>
-                      <th>Calories</th>
-                      <th>Carbs</th>
-                      <th>Fat</th>
-                      <th>Fiber</th>
-                      <th>Cholestrol</th>
-                      <th>Protien</th>
-                    </tr>
-                </thead>
+                        <tr>
+                          
+                          <th class="col-sm-2">#</th>
+                          <th class="col-sm-2">Time</th>
+                          <th class="col-sm-2">Minutes</th>
+                          <th class="col-sm-2">Calories Burned</th>
+
+                        </tr>
+                    </thead>
                 
                 <tbody>
                     <tr>
-                      <td>All</td><!-- Nutrient  -->
+                      <td>All</td>
+                      
+                      <td class="total-time">
+                          
+                          <span class='amount'>  </span> 
+                          <div class='progress'> 
+
+                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['Time']); ?>'
+                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxTime']);?>' role='progressbar'
+                                style='width:<?= $totalTimePercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalTimePercentage.'%'?> </span>	
+                             </div>  
+                          </div>
+                           <div class='label-info'>
+                             <?= $total['Time'].' of '. $person['MaxTime']; ?>
+                          </div>
+                          
+                      </td><!-- Time  -->
+                      
+                      <td class="total-minutes">
+                          
+                          <span class='amount'>  </span> 
+                          <div class='progress'> 
+
+                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['Minutes']); ?>'
+                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxMinutes']);?>' role='progressbar'
+                                style='width:<?= $totalMinutesPercentage.'%' ?>'>
+                                 <span class='progress-bar-text'><?=$totalMinutesPercentage.'%'?></span>	
+                             </div>  
+                          </div>
+                           <div class='label-info'>
+                             <?= $total['Minutes'].' of '. $person['MaxMinutes']; ?>
+                          </div>
+                      </td><!-- Minutes  -->
+                     
+                      
+                      
                       <td class="total-calories">
                           <span class='amount'>  </span> 
                           <div class='progress'> 
@@ -187,118 +237,20 @@ include  '../models/goal-data.php';
                           </div> <!-- end progress bar -->
                           
                           <div class='label-info'>
-                             <?= $total['calories'].' of '. $person['MaxCalories']; ?>
+                             <?= $total['Calories'].' of '. $person['MaxCalories']; ?>
                           </div>
                       </td><!-- Calories  -->
-                      <td class="total-carbs">
-                          
-                          <span class='amount'>  </span> 
-                          <div class='progress'> 
-
-                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['carbs']); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxCarbs']);?>' role='progressbar'
-                                style='width:<?= $totalCarbsPercentage.'%' ?>'>
-                                 <span class='progress-bar-text'><?=$totalCarbsPercentage.'%'?></span>	
-                             </div>  
-                          </div>
-                           <div class='label-info'>
-                             <?= $total['carbs'].' of '. $person['MaxCarbs']; ?>
-                          </div>
-                      </td><!-- Carbs  -->
-                     
-                      <td class="total-fat">
-                          
-                          <span class='amount'>  </span> 
-                          <div class='progress'> 
-
-                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['fat']); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxFat']);?>' role='progressbar'
-                                style='width:<?= $totalFatPercentage.'%' ?>'>
-                                 <span class='progress-bar-text'><?=$totalFatPercentage.'%'?> </span>	
-                             </div>  
-                          </div>
-                           <div class='label-info'>
-                             <?= $total['fat'].' of '. $person['MaxFat']; ?>
-                          </div>
-                          
-                      </td><!-- Fat  -->
-                      <td class="total-fiber">
-                          <span class='amount'>  </span> 
-                          <div class='progress'> 
-
-                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['fiber']); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxFiber']);?>' role='progressbar'
-                                style='width:<?= $totalFiberPercentage.'%' ?>'>
-                                 <span class='progress-bar-text'><?=$totalFiberPercentage.'%'?></span>	
-                             </div>  
-                          </div>
-                           <div class='label-info'>
-                             <?= $total['fiber'].' of '. $person['MaxFiber']; ?>
-                          </div>
-                          
-                      </td><!-- Fiber  -->
                       
-                      <td class="total-cholestrol">
-                          <span class='amount'>  </span> 
-                          <div class='progress'> 
-
-                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['cholestrol']); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxCholestrol']);?>' role='progressbar'
-                                style='width:<?= $totalCholestrolPercentage.'%' ?>'>
-                                 <span class='progress-bar-text'><?=$totalCholestrolPercentage.'%'?></span>	
-                             </div>  
-                          </div>
-                           <div class='label-info'>
-                             <?= $total['cholestrol'].' of '. $person['MaxCholestrol']; ?>
-                          </div>
-                          
-                      </td><!-- Cholestrol  -->
                       
-                      <td class="total-protien">
-                          <span class='amount'>  </span> 
-                          <div class='progress'> 
-
-                              <div class='progress-bar progress-bar-striped active' aria-valuenow='<?= ($total['protien']); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($person['MaxProtien']);?>' role='progressbar'
-                                style='width:<?= $totalProtienPercentage.'%' ?>'>
-                                 <span class='progress-bar-text'><?=$totalProtienPercentage.'%'?></span>	
-                             </div>  
-                          </div>
-                           <div class='label-info'>
-                             <?= $total['protien'].' of '. $person['MaxProtien']; ?>
-                          </div>
-                          
-                          
-                          
-                      </td><!-- Protien  -->
                     </tr>
                     
                     
                  </tbody>
             </table>
         
-            <div id="total-progress">
-            	<div class="progress">
-            	    
-    				<div class="progress-bar progress-bar-striped active" raria-valuenow='<?= ($totalMax); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($totalMaxAll)?>' role='progressbar'
-                                style='width:<?= $totalMaxPercentage ?>'>
-    					<span class="progress-bar-text"><?= $totalMaxPercentage ?></span>
-    				</div>
-    
-    			</div>
-    			 <div class='label-info'>
-                     <?= $total['sum'].' of '. $totalMaxAll; ?>
-                  </div>
-			</div>
+          
 		    </div>
 		</div>
-
-    <div class="row">
-        <div id="add-meal-modal" class="col-xs-5">
-        </div>
-        
-    </div>
 
 	</div>
 	
@@ -307,15 +259,12 @@ include  '../models/goal-data.php';
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="/FitnessApp/scripts/navigation-select.js"></script>
     <script>
-        
-        $(".dropdown-menu li a").click(function(){//Get the meal selected and save it 
-            var selectedMeal = $(this).text();
-            $("#Meal").val(selectedMeal);
-        });
-        
+       /* global setMenuNavActive */
+     setMenuNavActive();
 
-        $('#mealTable').dataTable();
+        $('table').dataTable();
     
     
         

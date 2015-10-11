@@ -1,5 +1,5 @@
 <?php   
-
+$pageName = "Nutrition";
 session_start();
 
 include  '../models/goal-data.php';
@@ -23,16 +23,30 @@ include  '../models/goal-data.php';
 	<link rel="stylesheet" href="../css/nutrients.css">
 
 	
-	<title>Nutrients</title>
+	<title>Nutrition</title>
 
 </head>
 
 <body>
     
     <div class="container">
-        
-        <h1>Nutrition Agenda</h1>
-        <h2>Food Intake</h2>
+        <?php include "../navigation.php" ?>
+        <div class="panel panel-info">
+                    
+            <div class="panel-heading">  
+                        
+                <h1>Nutrition Agenda</h1>
+                <h2>Food Intake</h2>
+
+            </div>
+
+            <div class="panel-body">
+               
+             
+
+            </div>
+                        
+        </div>
         <div class="panel panel-success">
             
             <div class="panel-heading">Profile Info</div>
@@ -157,7 +171,7 @@ include  '../models/goal-data.php';
         
         <div id="total-nutrition"  class="panel panel-info row">
              
-            <div class="panel-heading"> &nbsp; <h2>Total Nutrition </h2>
+            <div class="panel-heading"> &nbsp; <h2>Nutrition totals </h2>
                 
             </div>
             
@@ -302,7 +316,7 @@ include  '../models/goal-data.php';
 		</div>
 
     <div class="row">
-        <div id="add-meal-modal" class="col-xs-5">
+        <div id="meal-modal" class="col-md-3 col-xs-5">
         </div>
         
     </div>
@@ -314,8 +328,13 @@ include  '../models/goal-data.php';
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="/FitnessApp/scripts/navigation-select.js"> </script>
     <script>
         
+     /* global setMenuNavActive */
+     setMenuNavActive();
+
+    
         $(".dropdown-menu li a").click(function(){//Get the meal selected and save it 
             var selectedMeal = $(this).text();
             $("#Meal").val(selectedMeal);
@@ -323,41 +342,36 @@ include  '../models/goal-data.php';
         
 
         $('#mealTable').dataTable();
-    
-    
+
         
-       /*  $("#edit-meal").click(function(){
+        /* $("a").click(function(){
             
-            //Temp changes hardcoded for only breakfast test
-            var breakfastWindow = $("#breakfast");
+            //Temp changes hardcoded for only meal test
+            var mealWindow = $("#meal");
             
-            if( breakfastWindow.hasClass("col-md-8 col-xs-10") ){//Shrink the window
+            if( mealWindow.hasClass("col-md-12 col-xs-10") ){//Shrink the window
                 
-                  breakfastWindow.removeClass("col-md-8 col-xs-10").addClass("col-md-6 col-xs-5");
+                  mealWindow.removeClass("col-md-12 col-xs-10").addClass("col-md-6 col-xs-5");
                   
                    
-                 //  $.get("edit.php", function(results){
+                   $.get("edit.php", function(results){
                
-                  //   $("#breakfast-modal").removeClass("col-md-3 col-xs-5").addClass("col-md-3 col-md-offset-1 col-xs-5").html(results);
+                     $("#meal-modal").removeClass("col-md-3 col-xs-5").addClass("col-md-6 col-xs-10").html(results);
                 
-                 //    });
+                     });
                 
             }else{//Expand the window
                 
-              breakfastWindow.removeClass("col-md-6 col-xs-5").addClass("col-md-8 col-xs-10");
-                $("#breakfast-modal").removeClass("col-md-offset-1 col-xs-5").addClass("col-md-3 col-xs-5").html("<img class='thumbnail' src='images/breakfast.jpg' style='width: 100%;'/>");
+              mealWindow.removeClass("col-md-6 col-xs-5").addClass("col-md-12 col-xs-10");
+                $("#meal-modal").removeClass("col-md-6 col-xs-10").addClass("col-md-3 col-xs-5").html("<img class='thumbnail' src='images/meal.jpg' style='width: 100%;'/>");
             }
           
             
+          return false;
           
-            
-          
-          var mealItem =  $("#add-meal-form").serializeArray();
-          return true;
-          
-        });
+        }); */
         
-        */
+        
         
     </script>
 <!--	<script src="scripts/nutrients.js"></script> -->

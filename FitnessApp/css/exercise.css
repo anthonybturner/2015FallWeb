@@ -1,19 +1,27 @@
-
 #total-nutrition td{
     
     text-align: center
 }
 
-ul{
+.nutrition-area{
+ 
+     border: 1px solid #ccc;
+     border-radius: 4px 4px;  
+     
+     padding-right: 8px;
+     padding-left: 8px;
+     margin-bottom: 16px;
     
-    list-style-type: none;
 }
 
-ul li {
+
+
+.nutrition-area .well{
     
-    display: inline;
-    padding-right: 8px;
-    list-style: none;
+
+    text-align: center;
+    background-color: lightBlue;
+    box-shadow: 2px 2px 2px #CCC;
 }
 
 h1{

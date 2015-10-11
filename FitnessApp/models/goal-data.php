@@ -26,6 +26,17 @@
  
      );
    }
+   
+   $exercises = $_SESSION['exercise'];
+    if( !$exercises ){
+     $_SESSION['exercise'] = $exercises = array(
+        array( 'Name' => 'Stationary bike, general (bicycling, cycling, biking)', 'Minutes' => '30:00', 'Time' => strtotime("10 hour"), 'Count'=>'', 'Calories' => 200,  "Type" => 'Bicycling' ),
+        array( 'Name' => 'Push Ups', 'Minutes' => '2:00', 'Time' => strtotime("10 hour"), 'Count'=>'50', 'Calories' => 20,  "Type" => 'Push-ups' ),
+        array( 'Name' => 'Running', 'Minutes' => '60:00', 'Time' => strtotime("5 hour"), 'Count'=>'', 'Calories' => 400,  "Type" => 'Running' )
+
+ 
+     );
+   }
     
         
      

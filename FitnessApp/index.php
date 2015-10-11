@@ -13,7 +13,7 @@ include  'models/goal-data.php';
 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="description" content="Nutrients App">
+	<meta name="description" content="Fitness App">
 	<meta name="author" content="turnera1">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<!-- Latest compiled and minified CSS -->
@@ -30,9 +30,27 @@ include  'models/goal-data.php';
 <body>
     
     <div class="container">
+      <?php include "navigation.php" ?>
+                   
+        <div class="panel panel-info">
+            
+            <div class="panel-heading">  
+                        
                 <h1>Fitness App 2015</h1>
+                <h2><?=$message?></h2>
 
-        <h2><?=$message?></h2>
+            </div>
+
+                <div class="panel-body">
+                   
+                 
+   
+                </div>
+                
+            </div>
+
+        
+        
         <div class="panel panel-success">
             
             <div class="panel-heading">Profile Info</div>
@@ -60,27 +78,7 @@ include  'models/goal-data.php';
             </div>
         </div>
         
-        <div class="panel panel-info">
-            <div class="panel-heading">  
-                <h2>Menu</h2>
-                
-            </div>
-
-                <div class="panel-body">
-                   
-                   <div id="navigation" class="col-xs-offset-1">
-                       
-                       <ul>
-                           
-                           <li><a href="food/">Nutrition</a></li>
-                            <li><a href="exercise/">Exercise</a></li>
-
-                       </ul>
-                   </div>
-   
-                </div>
-                
-            </div>
+       
             
         
         
@@ -245,7 +243,11 @@ include  'models/goal-data.php';
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/FitnessApp/scripts/navigation-select.js"> </script>
     <script>
+        
+     /* global setMenuNavActive */
+     setMenuNavActive();
         
         $(".dropdown-menu li a").click(function(){//Get the meal selected and save it 
             var selectedMeal = $(this).text();

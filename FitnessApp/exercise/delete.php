@@ -1,13 +1,13 @@
 <?php
 session_start();
-  $food = $_SESSION['food'];
+  $excercises = $_SESSION['exercises'];
   if($_POST){
-    unset($food[$_POST['id']]);
-    $_SESSION['food'] = $food;
+    unset($excercises[$_POST['id']]);
+    $_SESSION['exercises'] = $excercises;
     header('Location: ./');
   }
   
-  $meal = $food[$_REQUEST['id']];
+  $excercise = $excercises[$_REQUEST['id']];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Food Log: Delete</title>
+    <title>Excercise Log: Delete</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -27,14 +27,14 @@ session_start();
     <div class="container">
 
         <div class="page-header">
-          <h1>Food Intake <small>Delete a meal</small></h1>
+          <h1>Excercise Intake <small>Delete a excercise</small></h1>
         </div>
         <form class="form-horizontal" action="" method="post" >
           <div class='alert alert-danger alert-block'  id="myAlert">
             <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h3>Are you sure you want to delete <?=$meal['Name']?></h3>
+            <h3>Are you sure you want to delete <?=$excercise['Name']?></h3>
             <input type="submit" value="Delete" class="btn btn-danger" />
             <input type="hidden" name="id" value="<?=$_REQUEST['id']?>" />
           </div> 

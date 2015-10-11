@@ -1,6 +1,6 @@
 <?php session_start();
 
-    $food = $_SESSION["food"];
+    $exercises = $_SESSION["exercises"];
 
 
     if( $_POST ){
@@ -8,26 +8,26 @@
       
       if(isset($_GET['id'])){
         
-       $food[$_GET['id']] = $_POST;
+       $exercises[$_GET['id']] = $_POST;
        
      }else{
        
-       $food[] = $_POST;
+       $exercises[] = $_POST;
        
     }
       
-    $_SESSION['food'] = $food;
+    $_SESSION['exercises'] = $exercises;
     header('Location: ./');
   }
     
     if(isset($_GET['id'])){
-      $meal = $food[$_GET['id']];
+      $exercise = $exercises[$_GET['id']];
     }else{
-      $meal = array();
+      $exercise = array();
     }
     
 //Creates Form control and labels based upon this list
-$formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Calories"=> "How many Calories?", "Carbs"=>"Carbs", "Fat"=>"Fat","Fiber"=> "Fiber", "Cholestrol"=>"Cholestrol", "Protien"=>"Protien");
+$formControlExcercises = array("Name"=>"Excercise Name:", "Time"=>"Time:", "Minutes"=>"Minutes:","Calories"=> "Calories burned:",  "Count" => "Count:");
 
 ?>
 
@@ -54,7 +54,7 @@ $formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Cal
     <div class="container">
 
         <div class="page-header">
-          <h1>Food Intake <small>Record your daily meals</small></h1>
+          <h1>Excercise Intake <small>Record your daily exercise</small></h1>
         </div>
           <div class='alert alert-warning'>
             <button type="button" class="close" aria-label="Close">
@@ -70,30 +70,29 @@ $formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Cal
             <h3></h3>
           </div> 
           
-    <input type="hidden" id="Meal" value="<?=$meal["Meal"] ?>">
+    <input type="hidden" id="Type" value="<?=$exercise["Type"] ?>">
 
-        <!-- Dynamically create form control meals based on a list of columns (array key value pairs) -->
-    <?php foreach($formControlMeals as $item => $description): ?>
+        <!-- Dynamically create form control excercises based on a list of columns (array key value pairs) -->
+    <?php foreach($formControlExcercises as $item => $description): ?>
           
             <div class="form-group">
               <label for="<?= $item ?>" class="col-sm-2 control-label"><?= $description ?></label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="<?= $item ?>" name="<?= $item ?>" placeholder="Meal's <?= $item ?>" value="<?=$meal[$item] ?>">
+                <input type="text" class="form-control" id="<?= $item ?>" name="<?= $item ?>" placeholder="Excercise's <?= $item ?>" value="<?=$exercise[$item] ?>">
               </div>
             </div>
           
     <?php endforeach; ?>
     
           <div class="form-group">
-            <label for="mealType" class="col-sm-2 control-label">Meal Type</label>
+            <label for="exerciseType" class="col-sm-2 control-label">Excercise Type</label>
 
             <div class="col-sm-10">
-              <select id="mealType" name="Meal">
+              <select id="exerciseType" name="Type">
                 
-                <option value="Breakfast">Breakfast</option>
-                <option value="Lunch">Lunch</option>
-                <option value="Dinner">Dinner</option>
-                <option value="Snack">Snack</option>
+                <option value="Push-ups">Push-ups</option>
+                <option value="Bicycling">Bicycling</option>
+                <option value="Running">Running</option>
 
               </select>
             </div>
@@ -116,10 +115,10 @@ $formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Cal
       (function($){
         $(function(){
           
-          var mealValue = $("#Meal").val();
+          var type = $("#Type").val();
           var myOpts = $('option').each(function(){
             
-              if( $(this).val() == mealValue){
+              if( $(this).val() == type){
                 
                 
                 $(this).prop('selected', true);
