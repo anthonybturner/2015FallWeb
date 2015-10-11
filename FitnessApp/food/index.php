@@ -1,8 +1,11 @@
 <?php   
-$pageName = "Nutrition";
+//Food module
+
 session_start();
 
-include  '../models/goal-data.php';
+include  '../models/nutrition-data.php';
+include  '../shared/global.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ include  '../models/goal-data.php';
 <body>
     
     <div class="container">
-        <?php include "../navigation.php" ?>
+        <?php include "../shared/navigation.php" ?>
         <div class="panel panel-info">
                     
             <div class="panel-heading">  
@@ -328,7 +331,7 @@ include  '../models/goal-data.php';
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="/FitnessApp/scripts/navigation-select.js"> </script>
+    <script src="<?=$path ?>/scripts/navigation-select.js"> </script>
     <script>
         
      /* global setMenuNavActive */
