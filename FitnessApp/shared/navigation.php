@@ -19,6 +19,8 @@
         <li><a href="<?= $path ?>">Home<span class="sr-only">(current)</span></a></li>
         <li><a href="<?= $path ?>food">Nutrition</a></li>
          <li><a href="<?= $path ?>exercise">Exercise</a></li>
+        <li><a href="<?= $path ?>friends">Friends</a></li>
+
         
       </ul>
       <form class="navbar-form navbar-right" role="search">

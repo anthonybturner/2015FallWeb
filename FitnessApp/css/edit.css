@@ -1,0 +1,17 @@
+.search-area{
+    
+    display: none;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px;
+
+    
+}
+
+ul{
+   
+   
+       list-style-type: none;
+
+    
+}
+
