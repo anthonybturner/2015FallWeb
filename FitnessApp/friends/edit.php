@@ -10,12 +10,32 @@ include  '../shared/global.php';
       if(isset($_POST['user-id'])){
         
         $userAdd = $users[$_POST['user-id']];
-        $friends[] = $userAdd;
+        //Check for friend already existing in list
+        for($i = 0; $i < count($friends); $i++){
+          
+          if($i == $_POST['user-id']){
+            $_SESSION["status"] = "warning";
+            $_SESSION["status-msg"] = $userAdd['Name']." is already in your friend list";
+            header('Location: ?');
+           // unset($_POST);
+           die();
+
+          }
+          
+        }
+        
+         $friends[] = $userAdd;
+         $_SESSION['friends'] = $friends;
+         $_SESSION['status'] = 'success';
+         $_SESSION['status-msg'] = $userAdd['Name'].' added to friends list';
+         header('Location: ./');
+    
+         
        
      }
-      
-    $_SESSION['friends'] = $friends;
-    header('Location: ./');
+   
+     
+    
   }
 
 ?>
@@ -45,12 +65,17 @@ include  '../shared/global.php';
         <div class="page-header">
           <h1>Friends  <small>Add a Friend</small></h1>
         </div>
-          <div class='alert alert-warning'>
-            <button type="button" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <b>Special Offer</b> Free ice cream today!
-          </div>
+          <?php if( isset($_SESSION['status'] )) : ?>
+                            
+           <div class='alert alert-<?=$_SESSION["status"]?>'>
+              <button type='button' class='close' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                  </button>
+                 <?= $_SESSION['status-msg']; unset($_SESSION['status']);  unset($_SESSION['status-msg']);?>
+                 
+              </div>
+              
+          <?php endif; ?>
           
         <form class="form-horizontal" action="" method="post" >
          
@@ -157,7 +182,8 @@ include  '../shared/global.php';
           });
           
           $(".close").on('click', function(e) {
-              $(this).closest(".alert").slideUp()
+            
+              $(this).closest(".alert").slideUp();
           });
       
         });

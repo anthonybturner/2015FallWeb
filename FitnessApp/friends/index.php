@@ -1,10 +1,10 @@
 <?php   
 //Friends module
 session_start();
+ var_dump($_SESSION);
 
 include  '../shared/global.php';
 include  '../models/friends-data.php';
-
 
 ?>
 
@@ -44,8 +44,19 @@ include  '../models/friends-data.php';
                 </div>
     
                     <div class="panel-body">
-                       
-                     
+                    
+                        <?php if( isset($_SESSION['status'] )) : ?>
+                            
+                         <div class='alert alert-<?=$_SESSION["status"]?>'>
+
+                            <button type='button' class='close' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                               <?= $_SESSION['status-msg']; unset($_SESSION['status']); ?>
+                               
+                            </div>
+                            
+                        <?php endif; ?>
        
                     </div>
                     
@@ -150,6 +161,10 @@ include  '../models/friends-data.php';
         $('table').dataTable();
     
     
+     $(".close").on('click', function(e) {
+            
+        $(this).closest(".alert").slideUp();
+    });
         
        
         
