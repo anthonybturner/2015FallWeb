@@ -1,35 +1,22 @@
 <?php session_start();
+include  '../shared/global.php';
 
     $friends = $_SESSION["friends"];
-    $users = $_SESSION["users"];
-
 
     if( $_POST ){
-      
-      
-      if(isset($_GET['user-id'])){
+      //Simulating a list of users for the app
+      include  '../models/users-data.php';
+
+      if(isset($_POST['user-id'])){
         
-        $userAdd = $users[$_GET['user-id']];
+        $userAdd = $users[$_POST['user-id']];
         $friends[] = $userAdd;
        
-     }else{
-       
-       $friends[] = $_POST;
-       
-    }
+     }
       
     $_SESSION['friends'] = $friends;
     header('Location: ./');
   }
-    
-    if(isset($_GET['id'])){
-      $friend = $friends[$_GET['id']];
-    }else{
-      $friend = array();
-    }
-    
-//Creates Form control and labels based upon this list
-$formControlFriends = array("Name"=>"Search for friend:");
 
 ?>
 
@@ -64,47 +51,38 @@ $formControlFriends = array("Name"=>"Search for friend:");
             </button>
             <b>Special Offer</b> Free ice cream today!
           </div>
+          
         <form class="form-horizontal" action="" method="post" >
+         
           <div class='alert' style="display: none" id="myAlert">
             <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <h3></h3>
           </div> 
-          
-    <input type="hidden" id="Type" value="<?=$friend["Type"] ?>">
+        
 
-        <!-- Dynamically create form control Friends based on a list of columns (array key value pairs) -->
-    <?php foreach($formControlFriends as $item => $description): ?>
-          
-            <div class="form-group" style="margin-bottom: 0;">
-              <label for="<?= $item ?>" class="col-sm-2 control-label"><?= $description ?></label>
-              <div class="col-sm-10">
-                <input id="name-input" type="text" class="form-control" id="<?= $item ?>" name="<?= $item ?>" placeholder="Friend's <?= $item ?>" value="<?=$friend[$item] ?>">
-                <input id="hidden-results" type="hidden" name="user-id" value=""/>
+          <div class="form-group" style="margin-bottom: 0;">
+            
+            <label for="name-input" class="col-sm-2 control-label">Search for friend:</label>
+            
+            <div class="col-sm-10">
+              <input id="name-input" type="text" class="form-control" placeholder="Search for friend">
+              <input id="user-id" type="hidden" name="user-id"/>
 
-                  <ul id="search-results" class="col-md-3 search-area" >
-    
-                   </ul>
-   
-             
-              </div>
-              
-              
-    
+                <ul id="search-results" class="col-md-3 search-area" >
+  
+                 </ul>
             </div>
+            
+          </div>
           
-    <?php endforeach; ?>
-    
-    
-    
-      
-         
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-success" id="submit">Record</button>
             </div>
           </div>
+          
         </form>
 
     </div>
@@ -123,7 +101,7 @@ $formControlFriends = array("Name"=>"Search for friend:");
           
            $( "#name-input" ).val(element.innerHTML);
            searchArea.css("display", "none");
-          $("#hidden-results").val(id);
+          $("#user-id").val(id);
 
           
           return false;
@@ -169,10 +147,7 @@ $formControlFriends = array("Name"=>"Search for friend:");
           
         });
         
-        
-        
-          
-          
+
           $("#submit").on('click', function(e){
             var self = this;
 
@@ -180,6 +155,7 @@ $formControlFriends = array("Name"=>"Search for friend:");
             
            
           });
+          
           $(".close").on('click', function(e) {
               $(this).closest(".alert").slideUp()
           });
