@@ -1,7 +1,6 @@
 <?php   
 //Friends module
 session_start();
- var_dump($_SESSION);
 
 include  '../shared/global.php';
 include  '../models/friends-data.php';
