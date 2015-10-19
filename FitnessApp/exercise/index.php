@@ -24,7 +24,7 @@ include  '../shared/global.php';
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 
-	<link rel="stylesheet" href="../css/exercise.css">
+	<link rel="stylesheet" href="../css/fitness-app.css">
 
 	
 	<title>Exercise</title>
@@ -44,42 +44,10 @@ include  '../shared/global.php';
 
             </div>
 
-                <div class="panel-body">
-                   
-                 
-   
-                </div>
-                
+              
      </div>
 
-        <div class="panel panel-success">
-            
-            <div class="panel-heading">Profile Info</div>
-            
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>Name</dt>
-                    <dd><?=$person['Name']?></dd>
-                    <dt>Age</dt>
-                    <dd><?=$person['Age']?></dd>
-                    <dt>Weight</dt>
-                    <dd><?=$person['Weight']?></dd>
-                    <dt>Height</dt>
-                    <dd><?=$person['Height']?></dd>
-                    <hr>
-                    <dt>Calories to burn goal</dt>
-                    <dd><?=$person['MaxCalories']?></dd>
-                    <dt>Today's cals burned</dt>
-                    <dd><?=$total['Calories']; ?></dd>
-                    <dt>Minutes Goal</dt>
-                    <dd><?=$person['MaxMinutes']?></dd>
-                    <dt>Today's minutes</dt>
-                    <dd><?=$total['Minutes'] ?></dd>
-                     <dt>Exercises completed</dt>
-                    <dd><?= count($exercises); ?></dd>
-                </dl>
-            </div>
-        </div>
+
         
         <div class="panel panel-info">
             <div class="panel-heading"> &nbsp;Excercise Options: 
@@ -95,7 +63,7 @@ include  '../shared/global.php';
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Excercise
                     </a>
-                    <a href="#" class="btn btn-danger">
+                    <a href="#" id="delete-all-friends" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
                         Delete All
                         <span class="badge"><?= count($exercises); ?></span>
@@ -107,15 +75,15 @@ include  '../shared/global.php';
             </div>
             
         
-        <div class="panel panel-info row">
+        <div class="panel panel-info">
             
-             <div class="panel-heading"> &nbsp; <h2>Excercises </h2>
+             <div class="panel-heading"> &nbsp; <h2>Exercises </h2>
                 
             </div>
             
-            <div class="col-md-12 col-xs-10 panel-body">
+            <div class="panel-body">
         
-            	 <table class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
+            	 <table id="exercise-table" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
                     <thead>
                         <tr>
                           
@@ -168,13 +136,13 @@ include  '../shared/global.php';
         
       
         
-        <div id="total-nutrition" class="panel panel-info row">
+        <div id="total-nutrition" class="panel panel-info">
             
             <div class="panel-heading"> &nbsp; <h2>Exercise totals</h2>
                 
             </div>
             
-             <div class="col-md-12 col-xs-10 panel-body">
+             <div class="panel-body">
 
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -255,7 +223,7 @@ include  '../shared/global.php';
           
 		    </div>
 		</div>
-
+ <?php include "../shared/footer.php" ?>
 	</div>
 	
 
@@ -264,11 +232,14 @@ include  '../shared/global.php';
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="<?=$path ?>/scripts/navigation-select.js"> </script>
+    <script src="<?=$path ?>/scripts/utilities.js"></script>
+    
+
     <script>
        /* global setMenuNavActive */
      setMenuNavActive();
 
-        $('table').dataTable();
+        $('#exercise-table').dataTable();
     
     
         

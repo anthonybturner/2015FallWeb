@@ -1,4 +1,7 @@
-<?php session_start();
+<?php 
+
+session_start();
+include  '../shared/global.php';
 
     $food = $_SESSION["food"];
 
@@ -44,15 +47,14 @@ $formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Cal
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/nutrients.css">
-
+<link rel="stylesheet" href="../css/fitness-app.css">
 	
 	<title>Nutrients</title>
 
 </head>
  <body>
     <div class="container">
-
+ <?php include "../shared/navigation.php" ?>
         <div class="page-header">
           <h1>Food Intake <small>Record your daily meals</small></h1>
         </div>

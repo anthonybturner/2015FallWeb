@@ -23,7 +23,7 @@ include  '../shared/global.php';
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 
-	<link rel="stylesheet" href="../css/nutrients.css">
+	<link rel="stylesheet" href="../css/fitness-app.css">
 
 	
 	<title>Nutrition</title>
@@ -42,41 +42,10 @@ include  '../shared/global.php';
                 <h2>Food Intake</h2>
 
             </div>
-
-            <div class="panel-body">
-               
-             
-
-            </div>
                         
         </div>
-        <div class="panel panel-success">
-            
-            <div class="panel-heading">Profile Info</div>
-            
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>Name</dt>
-                    <dd><?=$person['Name']?></dd>
-                    <dt>Age</dt>
-                    <dd><?=$person['Age']?></dd>
-                    <dt>Weight</dt>
-                    <dd><?=$person['Weight']?></dd>
-                    <dt>Height</dt>
-                    <dd><?=$person['Height']?></dd>
-                    <hr>
-                    <dt>Calories Goal</dt>
-                    <dd><?=$person['MaxCalories']?></dd>
-                    <dt>Today's calorie Intake</dt>
-                    <dd><?=$total['calories']; ?></dd>
-                    <dt>Today's cholestrol Intake</dt>
-                    <dd><?=$total['cholestrol'].'mg' ?></dd>
-                    <dt>Today's fat Intake</dt>
-                    <dd><?=$total['fat'].'mg' ?></dd>
-                </dl>
-            </div>
-        </div>
         
+ 
         <div class="panel panel-info">
             <div class="panel-heading"> &nbsp;Meal Options: 
             
@@ -91,7 +60,7 @@ include  '../shared/global.php';
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Meal
                     </a>
-                    <a href="#" class="btn btn-danger">
+                    <a href="#" id="delete-all-friends" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
                         Delete All
                         <span class="badge"><?= count($food); ?></span>
@@ -103,15 +72,15 @@ include  '../shared/global.php';
             </div>
             
         
-        <div class="panel panel-info row">
+        <div class="panel panel-info">
             
             <div class="panel-heading"> &nbsp; <h2>Meals </h2>
                 
             </div>
             
-        <div class="col-md-12 col-xs-10 panel-body">
+        <div class="panel-body">
         
-            	 <table id="mealTable" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
+            	 <table id="meal-table" class="table table-condensed table-striped table-bordered table-hover" style="table-layout: fixed;">
                     <thead>
                         <tr>
                           
@@ -172,14 +141,14 @@ include  '../shared/global.php';
         
       
         
-        <div id="total-nutrition"  class="panel panel-info row">
+        <div id="total-nutrition"  class="panel panel-info">
              
             <div class="panel-heading"> &nbsp; <h2>Nutrition totals </h2>
                 
             </div>
             
             
-             <div class="col-md-12 col-xs-10 panel-body">
+             <div class="panel-body">
     
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -301,37 +270,20 @@ include  '../shared/global.php';
                  </tbody>
             </table>
         
-            <div id="total-progress">
-            	<div class="progress">
-            	    
-    				<div class="progress-bar progress-bar-striped active" raria-valuenow='<?= ($totalMax); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($totalMaxAll)?>' role='progressbar'
-                                style='width:<?= $totalMaxPercentage ?>'>
-    					<span class="progress-bar-text"><?= $totalMaxPercentage ?></span>
-    				</div>
-    
-    			</div>
-    			 <div class='label-info'>
-                     <?= $total['sum'].' of '. $totalMaxAll; ?>
-                  </div>
-			</div>
+           
 		    </div>
 		</div>
 
-    <div class="row">
-        <div id="meal-modal" class="col-md-3 col-xs-5">
-        </div>
-        
-    </div>
-
+ <?php include "../shared/footer.php" ?>
 	</div>
 	
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="<?=$path ?>/scripts/navigation-select.js"> </script>
+    <script src="<?=$path ?>/scripts/utilities.js"></script>
+
     <script>
         
      /* global setMenuNavActive */
@@ -344,41 +296,11 @@ include  '../shared/global.php';
         });
         
 
-        $('#mealTable').dataTable();
-
-        
-        /* $("a").click(function(){
-            
-            //Temp changes hardcoded for only meal test
-            var mealWindow = $("#meal");
-            
-            if( mealWindow.hasClass("col-md-12 col-xs-10") ){//Shrink the window
-                
-                  mealWindow.removeClass("col-md-12 col-xs-10").addClass("col-md-6 col-xs-5");
-                  
-                   
-                   $.get("edit.php", function(results){
-               
-                     $("#meal-modal").removeClass("col-md-3 col-xs-5").addClass("col-md-6 col-xs-10").html(results);
-                
-                     });
-                
-            }else{//Expand the window
-                
-              mealWindow.removeClass("col-md-6 col-xs-5").addClass("col-md-12 col-xs-10");
-                $("#meal-modal").removeClass("col-md-6 col-xs-10").addClass("col-md-3 col-xs-5").html("<img class='thumbnail' src='images/meal.jpg' style='width: 100%;'/>");
-            }
-          
-            
-          return false;
-          
-        }); */
+        $('#meal-table').dataTable();
         
         
         
     </script>
-<!--	<script src="scripts/nutrients.js"></script> -->
-
 </body>
 
 </html>

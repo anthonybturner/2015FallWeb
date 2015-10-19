@@ -1,9 +1,9 @@
 <?php   
 
 session_start();
-
-include  'models/goal-data.php';
+//$_SESSION['friends']  = null;
 include 'shared/global.php';
+include  'models/all-data.php';
 
 ?>
 
@@ -35,39 +35,33 @@ include 'shared/global.php';
       <?php include "shared/navigation.php" ?>
                    
         <div class="panel panel-info">
-            
             <div class="panel-heading">  
-                        
-                <h1>Fitness App 2015</h1>
-                <h2><?=$message?></h2>
-
-            </div>
-
-                <div class="panel-body">
-                   
-                 
-   
-                </div>
+            
                 
+                <div id="header-avatar" >
+                  
+                    <img  class="thumbnail" src="<?=$avatar?>"/>
+                    
+                </div>
+                        
+                        
+                <div id="header-title">
+                   <h1>Fitness App 2015</h1>
+                    <h2> <?=$message?></h2>
+                </div>
+
             </div>
 
-        
-        
+           
+        </div>
+
         <div class="panel panel-success">
             
-            <div class="panel-heading">Profile Info</div>
+            <div class="panel-heading">Diet Info</div>
             
             <div class="panel-body">
                 <dl class="dl-horizontal">
-                    <dt>Name</dt>
-                    <dd><?=$person['Name']?></dd>
-                    <dt>Age</dt>
-                    <dd><?=$person['Age']?></dd>
-                    <dt>Weight</dt>
-                    <dd><?=$person['Weight']?></dd>
-                    <dt>Height</dt>
-                    <dd><?=$person['Height']?></dd>
-                    <hr>
+                   
                     <dt>Calories Goal</dt>
                     <dd><?=$person['MaxCalories']?></dd>
                     <dt>Today's calorie Intake</dt>
@@ -81,18 +75,14 @@ include 'shared/global.php';
         </div>
         
        
-            
-        
-        
-        
-         <div id="total-nutrition"  class="panel panel-info row">
+        <div id="total-nutrition"  class="panel panel-info">
              
-            <div class="panel-heading"> &nbsp; <h2>Total Nutrition </h2>
+            <div class="panel-heading"> &nbsp; <h2>Totals </h2>
                 
             </div>
             
             
-             <div class="col-md-12 col-xs-10 panel-body">
+             <div class="panel-body">
     
         	 <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -217,26 +207,22 @@ include 'shared/global.php';
             <div id="total-progress">
             	<div class="progress">
             	    
-    				<div class="progress-bar progress-bar-striped active" raria-valuenow='<?= ($totalMax); ?>'
-                                aria-valuemin="0" aria-valuemax='<?= ($totalMaxAll)?>' role='progressbar'
-                                style='width:<?= $totalMaxPercentage ?>'>
-    					<span class="progress-bar-text"><?= $totalMaxPercentage ?></span>
-    				</div>
+    				
     
     			</div>
     			 <div class='label-info'>
-                     <?= $total['sum'].' of '. $totalMaxAll; ?>
+                    
                   </div>
 			</div>
 		    </div>
 		</div>
 
-    <div class="row">
-        <div id="add-meal-modal" class="col-xs-5">
+        <div class="row">
+            <div id="add-meal-modal" class="col-xs-5">
+            </div>
+            
         </div>
-        
-    </div>
-
+ <?php include "shared/footer.php" ?>
 
 	</div>
 	
@@ -250,52 +236,9 @@ include 'shared/global.php';
         
      /* global setMenuNavActive */
      setMenuNavActive();
-        
-        $(".dropdown-menu li a").click(function(){//Get the meal selected and save it 
-            var selectedMeal = $(this).text();
-            $("#Meal").val(selectedMeal);
-        });
-        
-
-        $('#mealTable').dataTable();
-    
-    
-        
-       /*  $("#edit-meal").click(function(){
-            
-            //Temp changes hardcoded for only breakfast test
-            var breakfastWindow = $("#breakfast");
-            
-            if( breakfastWindow.hasClass("col-md-8 col-xs-10") ){//Shrink the window
-                
-                  breakfastWindow.removeClass("col-md-8 col-xs-10").addClass("col-md-6 col-xs-5");
-                  
-                   
-                 //  $.get("edit.php", function(results){
-               
-                  //   $("#breakfast-modal").removeClass("col-md-3 col-xs-5").addClass("col-md-3 col-md-offset-1 col-xs-5").html(results);
-                
-                 //    });
-                
-            }else{//Expand the window
-                
-              breakfastWindow.removeClass("col-md-6 col-xs-5").addClass("col-md-8 col-xs-10");
-                $("#breakfast-modal").removeClass("col-md-offset-1 col-xs-5").addClass("col-md-3 col-xs-5").html("<img class='thumbnail' src='images/breakfast.jpg' style='width: 100%;'/>");
-            }
-          
-            
-          
-            
-          
-          var mealItem =  $("#add-meal-form").serializeArray();
-          return true;
-          
-        });
-        
-        */
-        
+      
     </script>
-<!--	<script src="scripts/nutrients.js"></script> -->
+
 
 </body>
 

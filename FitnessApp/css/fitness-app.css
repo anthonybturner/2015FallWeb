@@ -1,19 +1,76 @@
+#header-avatar{
+    
+    display: inline-block;
+    width: 150px;
+}
+
+#header-avatar img{
+    
+    width: 100%;
+   display: inline-block;
+}
+
+#header-title{
+    
+   display: inline-block; 
+   margin-left: 32px; 
+   width: 70%;
+  
+   
+}
+
+#header-title h1, h2{
+    
+    padding-top: 0; 
+    margin-top: 0;
+    text-align: center;
+}
+
+body{
+
+    background: url("../images/background.jpg");
+    background-size: cover;
+    
+}
+
+
+.alert{
+    
+
+text-align: center;    
+}
+
 
 #total-nutrition td{
     
     text-align: center
 }
 
-ul{
+#navigation ul{
     
     list-style-type: none;
 }
 
-ul li {
+#navigation ul li {
     
     display: inline;
     padding-right: 8px;
     list-style: none;
+}
+
+#footer-navigation{
+    
+        list-style-type: none;
+
+    
+}
+
+#footer-navigation ul li{
+    
+           display: block !important;
+
+    background-color:#000;
+    
 }
 
 h1{

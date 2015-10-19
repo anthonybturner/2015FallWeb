@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,7 +17,8 @@
         <li><a href="<?= $path ?>">Home<span class="sr-only">(current)</span></a></li>
         <li><a href="<?= $path ?>food">Nutrition</a></li>
          <li><a href="<?= $path ?>exercise">Exercise</a></li>
-        <li><a href="<?= $path ?>friends">Friends</a></li>
+        <li><a href="<?= $path ?>friends">Friends</a></li>       
+        <li><a href="<?= $path ?>profile">Profile</a></li>
 
         
       </ul>

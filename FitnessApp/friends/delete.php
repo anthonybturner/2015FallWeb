@@ -1,14 +1,22 @@
 <?php
 session_start();
+include '../shared/global.php';
+
   $friends = $_SESSION['friends'];
   if($_POST){
+    
+    $friend = $friends[$_POST['id']];
     unset($friends[$_POST['id']]);
     $_SESSION['friends'] = $friends;
-    header('Location: ./');
+    $_SESSION['status'] = 'success';
+    $_SESSION['status-msg'] = $friend['Name'].' has been deleted from your friends list.';
+     header('Location: ./');
+    
   }
   
   $friend = $friends[$_REQUEST['id']];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,21 +33,38 @@ session_start();
   </head>
   <body>
     <div class="container">
+ <?php include "../shared/navigation.php" ?>
+ 
+ 
+ 
+ 
+ 
+ <div class="panel panel-info">
 
-        <div class="page-header">
-          <h1>Friends <small>Delete a Friend</small></h1>
-        </div>
-        <form class="form-horizontal" action="" method="post" >
-          <div class='alert alert-danger alert-block'  id="myAlert">
-            <button type="button" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h3>Are you sure you want to delete <?=$friend['Name']?> from your friends list?</h3>
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            <input type="hidden" name="id" value="<?=$_REQUEST['id']?>" />
-          </div> 
-        </form>
-    </div>
+         <div class="panel-heading">  
+                                  
+               <h1>Friends <small>Delete a Friend</small></h1>
+          
+          </div>
+                      
+      </div>
+      
+       <form class="form-horizontal" action="" method="post" >
+                
+                <div class='alert alert-danger alert-block'  id="myAlert">
+                  <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h3>Are you sure you want to delete <?=$friend['Name']?> from your friends list?</h3>
+                  <input type="submit" value="Delete" class="btn btn-danger" />
+                  <input type="hidden" name="id" value="<?=$_REQUEST['id']?>" />
+                  
+                </div> 
+       </form>
+              
+ 
+
+       
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include  '../shared/global.php';
+
   $food = $_SESSION['food'];
   if($_POST){
     unset($food[$_POST['id']]);
@@ -11,7 +13,7 @@ session_start();
   
   
 //Creates Form control and labels based upon this list
-$formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Calories"=> "How many Calories?", "Carbs"=>"Carbs", "Fat"=>"Fat","Fiber"=> "Fiber", "Cholestrol"=>"Cholestrol", "Protien"=>"Protien");
+$formControlMeals = array("Name"=>"Meal Name", "Time"=>"Time", "Calories"=> "Calories", "Carbs"=>"Carbs", "Fat"=>"Fat","Fiber"=> "Fiber", "Cholestrol"=>"Cholestrol", "Protien"=>"Protien");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +28,13 @@ $formControlMeals = array("Name"=>"Meal Name", "Time"=>"When Did you Eat?", "Cal
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" type="text/css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="../css/fitness-app.css">
   </head>
+  
+  
   <body>
     <div class="container">
-
+ <?php include "../shared/navigation.php" ?>
        <div class="page-header">
           <h1>Food Intake <small>Details for meal <?= $meal['Name']?></small></h1>
         </div>
