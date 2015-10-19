@@ -1,7 +1,7 @@
  <?php
  
     $name = 'Anthony Turner';
-    $avatar = $path.'images/glasses-person.jpg';
+    $avatar = $path.'images/at.png';
     $message = "Welcome $name";
     global $person;
    
