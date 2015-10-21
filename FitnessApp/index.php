@@ -1,5 +1,5 @@
 <?php   
-
+//CREATE USER turnera1@
 session_start();
 //$_SESSION['friends']  = null;
 include 'shared/global.php';
