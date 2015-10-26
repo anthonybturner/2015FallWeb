@@ -1,18 +1,19 @@
 <?php
     ini_set('display_errors', 1);
     
-    $servername = getenv('IP');
+  //  $servername = getenv('IP');
     
         include 'password.php';
-    
-        $username = getenv('C9_USER');
-        $database = "turnera1_db";
-        $dbport = 3306;
+        global $username;
+        $usern = 'anthonybjturner';
+      //  $username = getenv('C9_USER');
+       // $database = "turnera1_db";
+       // $dbport = 3306;
         
     
     function GetConnection(){
         
-        return mysqli_connect(getenv('IP'), getenv('C9_USER'), $password, 'turnera1_db');
+        return mysqli_connect(getenv('IP'), 'anthonybjturner', $password, 'turnera1_db');
         
     }
     
@@ -22,6 +23,29 @@
         print_r($v);
        echo("</pre>");
                
+    }
+    
+    function fetchAll($sql){
+        
+        $ret = array();
+        $conn = GetConnection();
+        $results = $conn->query($sql);
+        
+        $error = $conn->error;
+        if($error){
+            
+            //or echo $error
+            my_print($error);
+        }else{
+            
+            while($rs = $results->fetch_assoc()){
+                
+                $ret[] = $rs;
+            }
+        }
+          $conn->close();
+        
+        return $ret;
     }
 
 
