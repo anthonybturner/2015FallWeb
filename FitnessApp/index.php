@@ -3,7 +3,7 @@
 session_start();
 //$_SESSION['friends']  = null;
 include 'shared/global.php';
-include  'models/all-data.php';
+include  'Models/all-data.php';
 
 ?>
 

@@ -3,7 +3,7 @@
 session_start();
 
 include  '../shared/global.php';
-include  '../models/friends-data.php';
+include  '../Models/friends-data.php';
 
 
 ?>

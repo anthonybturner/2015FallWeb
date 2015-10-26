@@ -2,7 +2,7 @@
 //Exercise module
 session_start();
 
-include  '../models/exercise-data.php';
+include  '../Models/exercise-data.php';
 include  '../shared/global.php';
 
 
