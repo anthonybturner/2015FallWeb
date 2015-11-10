@@ -296,7 +296,6 @@ include  '../shared/global.php';
         });
         
 
-        $('#meal-table').dataTable();
         
         
         

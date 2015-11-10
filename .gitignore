@@ -12,4 +12,4 @@ CakePHP 2
 /app/Config/database.php
 /vendors/*
 phpMyAdmin/*
-/FitnessApp/inc/password.php
+*password*

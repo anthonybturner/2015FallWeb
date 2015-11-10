@@ -1,10 +1,10 @@
 <?php
 require_once '../inc/global.php';
 
-class User {
+class Food {
 	
     public static function Get($id = null){
-        $sql = "SELECT * FROM 2015Fall_Users";
+        $sql = "SELECT * FROM 2015Fall_Exercises";
         
 		if($id){
 			$sql .= " WHERE id=$id ";
@@ -19,7 +19,7 @@ class User {
     static public function Delete($id){
         
 		$conn = GetConnection();
-		$sql = "DELETE FROM 2015Fall_Users WHERE id = $id";
+		$sql = "DELETE FROM 2015Fall_Exercises WHERE id = $id";
 		//echo $sql;
 		$results = $conn->query($sql);
 		$error = $conn->error;
@@ -44,12 +44,14 @@ class User {
 	
 		if( $row['id']){
 			
-			$sql = "Update 2015Fall_Users set Name='$row[Name]',  Age= '$row[Age]', Height= '$row[Height]', Weight= '$row[Weight]', Avatar= '$row[Avatar]' WHERE id= $row[id] )";
+			$sql = "UPDATE 2013Fall_Exercises "
+				.	" Set Name = '$row[Name]', Minutes='$row[Minutes]', Calories_Burned='$row[Minutes]', Users_id='$row[Users_id]', 2015Fall_ExerciseTypes_id='$row[Users_id]' "
+				. " WHERE id=$row[id] ";
 
 			
 		}else{
 		
-				$sql = "Insert Into 2015Fall_Users (Name, Age, Height, Weight, Avatar) Values ( '$row[Name]', '$row[Age]', '$row[Height]', '$row[Weight]', '$row[Avatar]' )";
+			//	$sql = "Insert Into 2013Fall_Exercises (Name, Minutes, Calories_Burned,  Users_id, f2015Fall_ExerciseTypes_id) Values ('$row[Name]', '$row[Minutes]', '$row[Calories_Burned]', '$row[Users_id]', $row[2015Fall_ExerciseTypes_id])";
 
 		}
 		

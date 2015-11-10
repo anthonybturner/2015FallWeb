@@ -25,7 +25,8 @@
                
     }
     
-    function fetchAll($sql){
+    
+    function FetchAll($sql){
         
         $ret = array();
         $conn = GetConnection();

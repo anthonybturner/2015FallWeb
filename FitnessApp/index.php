@@ -1,9 +1,13 @@
 <?php   
+
+header("location: Views/users/index.html");
+
 //CREATE USER turnera1@
 session_start();
 //$_SESSION['friends']  = null;
 include 'shared/global.php';
 include  'Models/all-data.php';
+
 
 ?>
 
@@ -20,7 +24,7 @@ include  'Models/all-data.php';
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 
 	<link rel="stylesheet" href="css/fitness-app.css">
 

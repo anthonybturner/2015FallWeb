@@ -1,0 +1,214 @@
+<?php
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Fitness App 2015</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/FitnessApp/css/fitness-app.css">
+  </head>
+  <body>
+      
+      <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?= $path ?>">Fitness App</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul id="navigation" class="nav navbar-nav">
+        <li><a href="/FitnessApp/">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="/FitnessApp/Views/users/index.html">Users</a></li>
+        <li><a href="/FitnessApp/Views/foods//index.html" class="ajax">Meals</a></li>
+         <li><a href="">Exercise</a></li>
+        <li><a href="/FitnessApp/Views/friends/index.html">Friends</a></li>       
+        <li><a href="/FitnessApp/Views/profile/index.html">Profile</a></li>
+
+        
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+      
+      
+    <div class="container">
+           
+
+           <div class="panel panel-info">
+            <div class="panel-heading" style="background: url('/FitnessApp/images/banner.png'); background-size: 100% 250px" >
+        
+                
+                      <h1>Fitness App 2015</h1>
+                     
+                     </div>
+                   
+
+            </div>
+
+        <div id="View">
+            
+            
+        </div>
+        
+   
+
+    </div>
+    
+    <!--  Tech stuff here  -->
+    <div class="modal fade" id="myDialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    
+    <!-- load handlebars here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	    
+	//	var editTemplate = Handlebars.compile($("#edit-tmpl").html());
+		var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+ 
+	    $(".ajax").on("click", ".ajax", (function(){
+	        
+
+	        
+	        var $self = $(this);
+	 	    $.getJSON(this.href+"?format=plain").then(function(data){
+ 			
+ 		    	var html = indexTemplate( data);
+ 		    	$("#View").html(html);
+                
+ 		    })    
+		
+		    return false;
+	        
+	        
+	    }));
+	    
+	    
+	    $.getJSON("/FitnessApp/Controllers/exercises.php?format=json",function(data){
+ 			
+ 			var html = indexTemplate({rows: data});
+ 			$("#View").html(html);
+ 			
+ 			
+ 		})
+	    
+					
+		$(".table").dataTable();
+		
+		$(".alert .close").click(function(){
+			$(this).closest(".alert").slideUp();
+		});
+		
+		$("#View").on("click", ".edit", (function(data){
+		    
+		    var $self = $(this);
+	 	   $.getJSON(this.href+"&format=json").then(function(data){
+ 			
+ 		    //	var html = editTemplate( data);
+ 		    //	$("#View").html(html);
+              //  var $tr = $self.closest("tr").after(html).hide();
+ 			
+ 			
+ 			
+ 		    })    
+		
+		    return false;
+		}));
+	
+	})
+	</script>
+	
+  
+</script>
+	
+	</script>
+	
+    <script type="text/template" id="index-tmpl">
+    
+            <div class="panel panel-info">
+            
+            <div class="panel-heading"> &nbsp;Menu Options: </div>
+        
+            <div class="panel-body">
+               
+                <a href="?action=create" class="btn btn-success ajax">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    New Record
+                </a>
+                
+                <a href="#" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Delete All
+                    <span class="badge">{{count}}</span>
+                </a>
+            
+            </div>
+        </div>
+                
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-2">Action</th>
+                    <th class="col-sm-3">Name</th>
+                    <th class="col-sm-2">Time</th>
+                    <th class="col-sm-2">Minutes</th>
+                    <th class="col-sm-2">Calories Burned</th>
+                    <th class="col-sm-1">Excercise Type</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+              
+                {{#each rows}}
+                    <tr>
+                          <th scope="row">
+                            <div class="btn-group" role="group" aria-label="...">
+                              <a href="/FitnessApp/Controllers/exercises.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                              <a href="/FitnessApp/Controllers/exercises.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs ajax edit"><i class="glyphicon glyphicon-edit"></i></a>
+                              <a href="/FitnessApp/Controllers/exercises.php?&action=delete&id={{id}}" title="Delete" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
+                          </th>
+                          <td>{{Name}}</td>
+                          <td>{{Time}}</td>
+                          <td>{{Minutes}}</td>
+                          <td>{{Calories}}</td>
+                          <td>{{Type}}</td>
+                    </tr>
+               {{/each}}
+            </tbody>
+        </table>
+        
+    </script>
+   
+  </body>
+</html>
