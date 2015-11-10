@@ -1,10 +1,11 @@
-<?php
-    ?>
+<?php?>
+
 <form class="form-horizontal" action="?action=delete" method="post" >
   <div class="modal-header">
     <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
     <h4 class="modal-title" id="myModalLabel">Delete a user</h4>
   </div>
+  
   	<div class="modal-body">
         
         <? my_print($errors); ?>

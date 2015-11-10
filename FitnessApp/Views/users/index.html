@@ -86,10 +86,11 @@
     <!-- load handlebars here -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-	
 
     <script type="text/template" id="index-tmpl">
     
@@ -116,13 +117,13 @@
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                     <th class="col-sm-2">Actions</th>
-                     <th class="col-sm-3">Name</th>
+                     <th class="col-sm-1">Actions</th>
+                     <th class="col-sm-2">Name</th>
                      <th class="col-sm-1">Age</th>
                      <th class="col-sm-1">Height</th>
                      <th class="col-sm-1">Weight</th>
-                     <th class="col-sm-2">Avatar</th>
-                     <th class="col-sm-2">Status</th>
+                     <th class="col-sm-1">Avatar</th>
+                     <th class="col-sm-1">Status</th>
 
                 </tr>
             </thead>
@@ -132,16 +133,16 @@
                     <tr>
                         <td scope="row">
                           <div class="btn-group" role="group" aria-label="...">
-                            <a href="/FitnessApp/Controllers/foods.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                            <a href="/FitnessApp/Controllers/foods.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs ajax edit"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/FitnessApp/Controllers/foods.php?&action=delete&id={{id}} title="Delete" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-trash"></i></a>
+                          
+                            <a href="/FitnessApp/Controllers/users.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs ajax details"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <a href="/FitnessApp/Controllers/users.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs ajax edit"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/FitnessApp/Controllers/users.php?&action=delete&id={{id}}" title="Delete" class="btn btn-default btn-xs ajax delete"><i class="glyphicon glyphicon-trash" ></i></a>
                           </div>
                         </td>
                         <td>{{Name}}</td>
                         <td>{{Age}}</td>
                         <td>{{Height}}</td>
                         <td>{{weight}}</td>
-                        <td>{{Fiber}}</td>
                         <td><img src="{{Avatar}}"/></td>
                         <td>{{Status}}</td>
                     </tr>
@@ -153,6 +154,7 @@
     
 <script type="text/javascript">
 
+  
   //	var editTemplate = Handlebars.compile($("#edit-tmpl").html());
   var indexTemplate = Handlebars.compile($("#index-tmpl").html());
 		
@@ -166,25 +168,30 @@
  			
  		});
 	    
-	
- 
-    $(".ajax").on("click", ".ajax", function(e){
+	   
+	 $("#View").on("click", ".ajax", function(e){
 
 	      var $self = $(this);
-	 	    $.getJSON(this.href+"?format=plain").then(function(data){
- 			
- 		    	//var html = indexTemplate( data);
- 		      //$(".modal-content").html(html);
- 		    	
-                
- 		    });    
-	
-	    
-	    e.preventDefault();
-	     return false;
-	    });
-	    
-	   
+	 	    $.get(this.href+"&format=plain").then(function(data){
+
+              $("#myDialog .modal-content").html(data);
+              $("#myDialog").modal('show');
+              $("#myDialog form").submit(function(e){
+                                          
+                  e.preventDefault();
+                  $.post(this.action + "&format=json", $(this).serialize(), null, 'json').then( function(data){
+                          console.log(data)
+                      }, function(e) {
+                          console.log(e);
+                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + data.Name + ' can not be deleted</div>')
+
+                        }
+                      );
+              });
+          });
+          return false;
+	 });
+ 
 					
 		$(".table").dataTable();
 		
@@ -193,7 +200,7 @@
 		});
 		
 		$("#View").on("click", ".edit", (function(data){
-		    
+		     console.log("view edit click");
 		    var $self = $(this);
 	 	   $.getJSON(this.href+"&format=json").then(function(data){
  			
@@ -201,14 +208,35 @@
  		    //	$("#View").html(html);
               //  var $tr = $self.closest("tr").after(html).hide();
  			
- 			
- 			
  		    })    
 		
 		    return false;
 		}));
 	
 	})
+	
+	function showModa(href){
+
+      $.get(href+"&format=plain").then(function(data){
+
+              $("#myDialog .modal-content").html(data);
+              $("#myDialog").modal('show');
+              $("#myDialog form").submit(function(e){
+                                          
+                  e.preventDefault();
+                  $.post(this.action + "&format=json", $(this).serialize(), null, 'json').then( function(data){
+                          console.log(data)
+                      }, function(e) {
+                          console.log(e);
+                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + data.Name + ' can not be deleted</div>')
+
+                        }
+                      );
+              });
+          });
+          return false;
+  }
+    
 	</script>
    
   </body>

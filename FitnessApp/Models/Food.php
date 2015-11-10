@@ -4,7 +4,7 @@ require_once '../inc/global.php';
 class Food {
 	
     public static function Get($id = null){
-        $sql = "SELECT * FROM 2015Fall_Meals";
+        $sql = "SELECT * FROM 2015Fall_Meals m inner join 2015Fall_MealTypes mt on mt.id=m.2015Fall_MealTypes_id ";
         
 		if($id){
 			$sql .= " WHERE id=$id ";
@@ -13,6 +13,7 @@ class Food {
 		}else{
 			return FetchAll($sql);			
 		}
+
 		
     }
     
@@ -44,14 +45,13 @@ class Food {
 	
 		if( $row['id']){
 			
-			$sql = "UPDATE 2013Fall_Users "
-				.	" Set Name = '$row[Name]', Calories='$row[Calories]', Carbohydrates='$row[Carbohydrates]', Fiber='$row[Fiber]', Cholestrol='$row[Cholestrol]' "
-				.	" Protein='$row[Protein]', Users_id='$row[Users_id]', 2015Fall_MealTypes_id=1 WHERE id=$row[id] ";
+			$sql = "UPDATE 2013Fall_MealTypes "
+				.	" Set MealType = '$row[MealType]' WHERE id=$row[id] ";
 
 			
 		}else{
 		
-				$sql = "Insert Into 2015Fall_Meals (Name, Calories, Carbohydrates,  Fiber, Cholestrol, Protein,  Users_id, 2015Fall_MealTypes_id) Values ('$row[Name]', '$row[Calories]', '$row[Carbs]', '$row[Fiber]', '$row[Cholestrol]', '$row[Protein]' , 1, 1 )";
+				$sql = "Insert Into 2015Fall_Meals (MealType) Values ('$row[MealType]']' )";
 
 		}
 		
