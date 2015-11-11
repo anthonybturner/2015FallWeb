@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,13 +118,13 @@
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                     <th class="col-sm-1">Actions</th>
-                     <th class="col-sm-2">Name</th>
-                     <th class="col-sm-1">Age</th>
-                     <th class="col-sm-1">Height</th>
-                     <th class="col-sm-1">Weight</th>
-                     <th class="col-sm-1">Avatar</th>
-                     <th class="col-sm-1">Status</th>
+                     <th class="col-sm-1 label label-primary">Actions</th>
+                     <th class="col-sm-2 label label-primary">Name</th>
+                     <th class="col-sm-1 label label-primary">Age</th>
+                     <th class="col-sm-1 label label-primary">Height</th>
+                     <th class="col-sm-1 label label-primary">Weight</th>
+                     <th class="col-sm-1 label label-primary">Avatar</th>
+                     <th class="col-sm-1 label label-primary">Status</th>
 
                 </tr>
             </thead>
@@ -142,7 +143,7 @@
                         <td>{{Name}}</td>
                         <td>{{Age}}</td>
                         <td>{{Height}}</td>
-                        <td>{{weight}}</td>
+                        <td>{{Weight}}</td>
                         <td><img src="{{Avatar}}"/></td>
                         <td>{{Status}}</td>
                     </tr>
@@ -169,7 +170,7 @@
  		});
 	    
 	   
-	 $("#View").on("click", ".ajax", function(e){
+	  $("#View").on("click", ".ajax", function(e){
 
 	      var $self = $(this);
 	 	    $.get(this.href+"&format=plain").then(function(data){
@@ -179,11 +180,17 @@
               $("#myDialog form").submit(function(e){
                                           
                   e.preventDefault();
-                  $.post(this.action + "&format=json", $(this).serialize(), null, 'json').then( function(data){
-                          console.log(data)
+                  console.log( $(this).serialize());
+                  console.log(this.action)
+                  $.post(this.action+"&format=json", $(this).serialize(), null, 'json').then( function(data){
+                          
+                          $("#myDialog .modal-content").append('<div class="alert alert-success">' + data.Name + ' saved...</div>')
+
+                          setInterval(closeModal, 3000);
+
                       }, function(e) {
-                          console.log(e);
-                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + data.Name + ' can not be deleted</div>')
+                         
+                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + e.responseText + ' can not be deleted</div>')
 
                         }
                       );
@@ -213,29 +220,17 @@
 		    return false;
 		}));
 	
-	})
+	});
 	
-	function showModa(href){
+	function closeModal(){
+	  
+	  
+	   $("#myDialog").slideUp( function(){
+                            
+        location.reload();
 
-      $.get(href+"&format=plain").then(function(data){
-
-              $("#myDialog .modal-content").html(data);
-              $("#myDialog").modal('show');
-              $("#myDialog form").submit(function(e){
-                                          
-                  e.preventDefault();
-                  $.post(this.action + "&format=json", $(this).serialize(), null, 'json').then( function(data){
-                          console.log(data)
-                      }, function(e) {
-                          console.log(e);
-                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + data.Name + ' can not be deleted</div>')
-
-                        }
-                      );
-              });
-          });
-          return false;
-  }
+     });
+	}
     
 	</script>
    

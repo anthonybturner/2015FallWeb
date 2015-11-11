@@ -15,23 +15,45 @@
               </tr>
               
               <tr>
-                <td><label for="" class="">Age</label></td>
+                <td><label for="" class="">Calories</label></td>
                 <td class="col-md-12">
-                   <?= $model["Age"] ?> </div>
+                   <?= $model["Calories"] ?> </div>
                 </td>
               </tr>
               
               <tr>
-                <td><label for="" class="" >Height</label></td>
+                <td><label for="" class="" >Carbohydrates</label></td>
                 <td class="col-md-12">
-                   <?= $model["Height"] ?> </div>
+                   <?= $model["Carbohydrates"] ?> </div>
                 </td>
               </tr>
               
               <tr>
-                <td><label for="" class="">Weight</label></td>
+                <td><label for="" class="">Cholestrol</label></td>
                 <td class="col-md-12">
-                   <?= $model["Weight"] ?> </div>
+                   <?= $model["Cholestrol"] ?> </div>
+                </td>
+              </tr>
+              
+              <tr>
+                <td><label for="" class="">Fiber</label></td>
+                <td class="col-md-12">
+                   <?= $model["Fiber"] ?> </div>
+                </td>
+              </tr>
+              
+              <tr>
+                <td><label for="" class="">Protein</label></td>
+                <td class="col-md-12">
+                   <?= $model["Protein"] ?> </div>
+                </td>
+              </tr>
+              
+              
+              <tr>
+                <td><label for="" class="">Meal Type</label></td>
+                <td class="col-md-12">
+                   <?= $model["MealType"] ?> </div>
                 </td>
               </tr>
             </table>

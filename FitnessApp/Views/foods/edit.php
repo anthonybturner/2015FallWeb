@@ -2,18 +2,16 @@
     
       <div class="panel-heading">
         
-          <h1><small>edit</small>  <?= $model['Name']?></h1>
+          <h1><small><?=  isset($model['Name']) ? "Edit Meal:" : "Add Meal"; ?></small>  [<?= $model['Name']?>]</h1>
       </div>
 
     
     <div class="panel-body" style="padding: 8px">
         
         
-        <form class="form-horizontal" role="form"  method="post" action="?action=save">
-            <input type="hidden" name="id" class="form-control"  value="<?=$model['id']?>" />
+        <form class="form-horizontal" role="form"  method="post" action="/FitnessApp/Controllers/foods.php?action=save">
+           <input type="hidden" name="id" class="form-control"  value="<?= $model['id'] ?>" />
            <input type="hidden" name="Users_id" class="form-control"  value="1" />
-           <input type="hidden" name="2015Fall_MealTypes_id" class="form-control"  value="1" />
-
 
             <div class="form-group">
                 
@@ -69,6 +67,24 @@
                 </div>
             </div>
             
+             <div class="form-group">
+                
+               <label class="control-label col-sm-1" for ="age">Meal type:</label> 
+               <div class="col-sm-11">
+                   <select name="MealType" id='meal-types'>
+                       <option value="1">Breakfast</option>
+                       <option value="2">Lunch</option>
+                       <option value="3">Dinner</option>
+                       <option value="4">Snack</option>
+
+
+                   </select>
+                   
+                  
+                </div>
+            </div>
+            
+            
         <input type="submit" id="submit" value="Submit" class="btn btn-primary form-control"/>
             
         </form>
@@ -76,6 +92,15 @@
     </div>
 
 </div>
-<script>
-  
-</script>
+
+
+<?php
+
+    echo( "<script type='text/javascript'>
+            	$(function(){
+            		$('#meal-types').val($model[MealType_Id]);
+            	})	
+           </script>"
+        );
+
+php?>

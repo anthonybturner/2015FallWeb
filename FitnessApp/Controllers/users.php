@@ -23,6 +23,7 @@ switch ($action . '_' . $method) {
 		
 		
 				$errors = User::Save($_REQUEST);
+				var_dump($errors);
 		//	}
 			
 			if(!$errors){
@@ -60,7 +61,8 @@ switch ($action . '_' . $method) {
 		
 	case 'delete_GET':
 		$model = User::Get($_REQUEST['id']);
-		$view = "users/delete.php";		
+		$view = "users/delete.php";	
+	
 		break;
 		
 	case 'delete_POST':
@@ -71,8 +73,14 @@ switch ($action . '_' . $method) {
 				
 		}else{
 		
-				header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
-				die();			
+			if($format == 'json'){
+					header("Location: ?action=edit&format=json&id=$_REQUEST[id]");
+				}else{
+					header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
+			}
+		
+				//header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
+							
 		}
 		break;
 		

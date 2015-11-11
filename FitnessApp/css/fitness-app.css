@@ -1,3 +1,16 @@
+.panel-success>.panel-heading{
+    
+     background-image: url("/FitnessApp/images/gradient-white.png");
+
+}
+
+
+.panel-success>.panel-body{
+    
+       
+ background-image: url("/FitnessApp/images/gradient-white.png");
+    
+}
 #header-avatar{
     
     display: inline-block;

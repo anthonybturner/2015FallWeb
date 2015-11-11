@@ -2,14 +2,14 @@
     
       <div class="panel-heading">
         
-          <h1><small>edit</small>  <?= $model['Name']?></h1>
+          <h1><small><?= isset($model['Name']) ? "Edit User:" : "Add User"; ?></small>  <?= $model['Name']?></h1>
       </div>
 
     
     <div class="panel-body" style="padding: 8px">
         
         
-        <form class="form-horizontal" role="form"  method="post" action="?action=save">
+        <form class="form-horizontal" role="form"  method="post" action="/FitnessApp/Controllers/users.php?action=save">
             <input type="hidden" name="id" class="form-control" placeholder="Enter Name" value="<?=$model['id']?>" />
 
             <div class="form-group">
@@ -32,9 +32,9 @@
              
            <div class="form-group">
                 
-               <label class="control-label col-sm-1" for ="height">Height</label> 
+               <label class="control-label col-sm-1" for ="Height">Height</label> 
                <div class="col-sm-11">
-                    <input type="text"  id="height" name="Height" class="form-control" placeholder="Enter Height" value="<?=$model['Height']?>" />
+                    <input type="text"  id="Height" name="Height" class="form-control" placeholder="Enter Height" value="<?=$model['Height']?>" />
                     </div>
             </div>
             

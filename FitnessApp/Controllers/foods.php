@@ -22,12 +22,11 @@ switch ($action . '_' . $method) {
 		//	$errors = Food::Validate($_REQUEST);
 		//	if(!$errors){
 		
-		
 				$errors = Food::Save($_REQUEST);
-				var_dump($errors);
 		//	}
 			
 			if(!$errors){
+
 				if($format == 'json'){
 					header("Location: ?action=edit&format=json&id=$_REQUEST[id]");
 				}else{
@@ -35,6 +34,9 @@ switch ($action . '_' . $method) {
 				}
 				die();
 			}else{
+				
+				var_dump($errors);
+
 				//my_print($errors);
 				$model = $_REQUEST;
 				$view = "foods/edit.php";		
@@ -57,6 +59,7 @@ switch ($action . '_' . $method) {
 		
 	case 'edit_GET':
 		$model = Food::Get($_REQUEST['id']);
+	
 		$view = "foods/edit.php";		
 		break;
 		

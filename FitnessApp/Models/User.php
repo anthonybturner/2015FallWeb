@@ -1,4 +1,5 @@
 <?php
+
 require_once '../inc/global.php';
 
 class User {
@@ -33,6 +34,8 @@ class User {
 		return array();
 	}
 	
+	
+	
 	static public function Validate(){
 		
 		
@@ -44,12 +47,12 @@ class User {
 	
 		if( $row['id']){
 			
-			$sql = "Update 2015Fall_Users set Name='$row[Name]',  Age= '$row[Age]', Height= '$row[Height]', Weight= '$row[Weight]', Avatar= '$row[Avatar]' WHERE id= $row[id] )";
+			$sql = "Update 2015Fall_Users set Name='$row[Name]',  Age='$row[Age]', Height='$row[Height]', Weight='$row[Weight]', Avatar='$row[Avatar]', Status='offline' WHERE id= $row[id]";
 
 			
 		}else{
 		
-				$sql = "Insert Into 2015Fall_Users (Name, Age, Height, Weight, Avatar) Values ( '$row[Name]', '$row[Age]', '$row[Height]', '$row[Weight]', '$row[Avatar]' )";
+			$sql = "Insert Into 2015Fall_Users (Name, Age, Height, Weight, Avatar, Status) Values ( '$row[Name]', '$row[Age]', '$row[Height]', '$row[Weight]', '$row[Avatar]', 'offline' )";
 
 		}
 		

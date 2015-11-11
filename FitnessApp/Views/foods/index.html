@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,17 +59,12 @@
                       <h1>Fitness App 2015</h1>
                      
                      </div>
-                   
 
             </div>
 
         <div id="View">
-            
-            
+  
         </div>
-        
-   
-
     </div>
     
     <!--  Tech stuff here  -->
@@ -83,76 +76,14 @@
     </div><!-- /.modal -->
     
     
-    <!-- load handlebars here -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-	<script type="text/javascript">
-	$(function(){
-	    
-	//	var editTemplate = Handlebars.compile($("#edit-tmpl").html());
-		var indexTemplate = Handlebars.compile($("#index-tmpl").html());
- 
-	    $(".ajax").on("click", ".ajax", (function(){
-	        
 
-	        
-	        var $self = $(this);
-	 	    $.getJSON(this.href+"?format=plain").then(function(data){
- 			
- 		    	var html = indexTemplate( data);
- 		    	$("#View").html(html);
-                
- 		    })    
-		
-		    return false;
-	        
-	        
-	    }));
-	    
-	    
-	    $.getJSON("/FitnessApp/Controllers/foods.php?format=json",function(data){
- 			
- 			var html = indexTemplate({rows: data});
- 			$("#View").html(html);
- 			
- 			
- 		})
-	    
-	
-		
-		$(".alert .close").click(function(){
-			$(this).closest(".alert").slideUp();
-		});
-		
-		$("#View").on("click", ".edit", (function(data){
-		    
-		    var $self = $(this);
-	 	   $.getJSON(this.href+"&format=json").then(function(data){
- 			
- 		    //	var html = editTemplate( data);
- 		    //	$("#View").html(html);
-              //  var $tr = $self.closest("tr").after(html).hide();
- 			
- 			
- 			
- 		    })    
-		
-		    return false;
-		}));
-						
-		$(".table").dataTable();
-	
-	})
-	</script>
-	
-  
-</script>
-	
-	</script>
-	
     <script type="text/template" id="index-tmpl">
     
             <div class="panel panel-info">
@@ -161,7 +92,7 @@
         
             <div class="panel-body">
                
-                <a href="?action=create" class="btn btn-success ajax">
+                <a href="/FitnessApp/Controllers/foods.php?action=create" class="btn btn-success ajax">
                     <i class="glyphicon glyphicon-plus"></i>
                     New Record
                 </a>
@@ -175,43 +106,127 @@
             </div>
         </div>
                 
-        <table class="table  table-condensed table-striped table-bordered table-hover">
+        <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="col-sm-2">Actions</th>
-                    <th class="col-sm-3">Meal Name</th>
-                    <th class="col-sm-1">Calories</th>
-                    <th class="col-sm-2">Carbohydrates</th>
-                    <th class="col-sm-1">Fiber</th>
-                    <th class="col-sm-1">Cholestrol</th>
-                    <th class="col-sm-1">Protien</th>
-                    <th class="col-sm-1">Meal Type</th>
+                     <th class="col-sm-1 label label-primary">Actions</th>
+                     <th class="col-sm-2 label label-primary">Name</th>
+                     <th class="col-sm-1 label label-primary">Calories</th>
+                     <th class="col-sm-1 label label-primary">Carbohydrates</th>
+                     <th class="col-sm-1 label label-primary">Cholestrol</th>
+                     <th class="col-sm-1 label label-primary">Fiber</th>
+                     <th class="col-sm-1 label label-primary">Protein</th>
+                     <th class="col-sm-1 label label-primary">Meal Type</th>
+
                 </tr>
             </thead>
+            
             <tbody>
                 {{#each rows}}
                     <tr>
-                        <th scope="row">
+                        <td scope="row">
                           <div class="btn-group" role="group" aria-label="...">
-                            <a href="/FitnessApp/Controllers/foods.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                            <a href="/FitnessApp/Controllers/foods.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs ajax edit"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/FitnessApp/Controllers/foods.php?&action=delete&id={{id}} title="Delete" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-trash"></i></a>
-                          </div>
-                        </th>
                           
+                            <a href="/FitnessApp/Controllers/foods.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs ajax details"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <a href="/FitnessApp/Controllers/foods.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs ajax edit"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/FitnessApp/Controllers/foods.php?&action=delete&id={{id}}" title="Delete" class="btn btn-default btn-xs ajax delete"><i class="glyphicon glyphicon-trash" ></i></a>
+                          </div>
+                        </td>
                         <td>{{Name}}</td>
                         <td>{{Calories}}</td>
                         <td>{{Carbohydrates}}</td>
-                        <td>{{Fiber}}</td>
                         <td>{{Cholestrol}}</td>
-                        <td>{{Protien}}</td>
+                        <td>{{Fiber}}</td>
+                        <td>{{Protein}}</td>
                         <td>{{MealType}}</td>
+
                     </tr>
                {{/each}}
             </tbody>
         </table>
         
     </script>
+    
+<script type="text/javascript">
+
+  
+  //	var editTemplate = Handlebars.compile($("#edit-tmpl").html());
+  var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+		
+	$(function(){
+	  
+	   $.getJSON("/FitnessApp/Controllers/foods.php?format=json",function(data){
+ 			
+ 			var html = indexTemplate({rows: data});
+ 			$("#View").html(html);
+ 			
+ 			
+ 		});
+	    
+	   
+	 $("#View").on("click", ".ajax", function(e){
+
+	      var $self = $(this);
+	 	    $.get(this.href+"&format=plain").then(function(data){
+
+              $("#myDialog .modal-content").html(data);
+              $("#myDialog").modal('show');
+              $("#myDialog form").submit(function(e){
+                                          
+                  e.preventDefault();
+                  console.log( $(this).serialize());
+                  
+                  $.post(this.action+"&format=json", $(this).serialize(), null, 'json').then( function(data){
+                          
+                          $("#myDialog .modal-content").append('<div class="alert alert-success">' + data.Name + ' saved...</div>')
+
+                          setInterval(closeModal, 3000);
+
+                      }, function(e) {
+                          console.log(e);
+                       $("#myDialog .modal-content").append('<div class="alert alert-danger">' + data.Name + ' can not be deleted</div>')
+
+                        }
+                      );
+              });
+          });
+          return false;
+	 });
+ 
+					
+		$(".table").dataTable();
+		
+		$(".alert .close").click(function(){
+			$(this).closest(".alert").slideUp();
+		});
+		
+		$("#View").on("click", ".edit", (function(data){
+		     console.log("view edit click");
+		    var $self = $(this);
+	 	   $.getJSON(this.href+"&format=json").then(function(data){
+ 			
+ 		    //	var html = editTemplate( data);
+ 		    //	$("#View").html(html);
+              //  var $tr = $self.closest("tr").after(html).hide();
+ 			
+ 		    })    
+		
+		    return false;
+		}));
+	
+	});
+	
+	function closeModal(){
+	  
+	  
+	   $("#myDialog").slideUp( function(){
+                            
+        location.reload();
+
+     });
+	}
+    
+	</script>
    
   </body>
 </html>
