@@ -5,17 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Fitness App 2015</title>
+    <title>Users</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       
     <div class="container">
-        <h1>Home</h1>
+        <h1>Users</h1>
               <nav class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -28,9 +30,9 @@
             <a class="navbar-brand" href="#">Fitness App 2015</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="/Views/users">Users</a></li>
+           <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li class="active"><a>Users</a></li>
               <li><a href="/Views/foods">Foods</a></li>
               <li><a href="/Views/exercises">Exercises</a></li>
               <li><a href="/Views/friends">Friends</a></li>
@@ -85,9 +87,10 @@
             var editTemplate = Handlebars.compile($("#edit-tmpl").html());
             var indexTemplate = Handlebars.compile($("#index-tmpl").html());
 
-            $.getJSON("/food").then(function(data){
+            $.getJSON("/user").then(function(data){
                     var html = indexTemplate({rows: data});
                     $("#view").html(html);
+                      $('table').dataTable(); 
             });
 
             $("#view").on("click", ".ajax", function(){
@@ -113,6 +116,7 @@
                 });
                 return false;
             });
+            
             $("#view").on("click", ".edit", function(){
                 var $self = $(this);
                 $.getJSON(this.href).then(function(data){
@@ -130,6 +134,7 @@
                 });
                 return false;
             });
+            
             $("#view").on("click", ".delete", function(){
                 $self = $(this); 
                 $.get(this.href).then(function(data){
@@ -150,11 +155,16 @@
                 return false;
             });
         });
+
     </script>
     <script type="text/template" id="edit-tmpl" >
         <tr>
+        <td></td>
            <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
            <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
+           <td><input type="text" name="Height" class="form-control" placeholder="Height" value="{{Height}}" /></td>
+           <td><input type="text" name="Weight" class="form-control" placeholder="Weight" value="{{Weight}}" /></td>
+           <td><input type="text" name="Avatar" class="form-control" placeholder="Avatar" value="{{Avatar}}" /></td>
            <td>
              <input type="submit" value="Submit" class="btn btn-primary submit"/>
              <input type="hidden" name="id" value="{{id}}" /> 
@@ -162,18 +172,67 @@
         </tr>
     </script>
     <script type="text/template" id="index-tmpl" >
-       
+    
+    
                    
     <div class="panel panel-info">
     
-    <div class="panel-heading" style="text-align: center;"> <h2>Welcome Anthony</h2></div>
+         <div class="panel-heading" style="text-align: center;"> 
+            <h2>Welcome Anthony</h2>
+           
+         </div>
+         
+         <div class="panel-heading" style="text-align: center;"> 
+            <a class="btn btn-success create">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    New Record
+                </a>
+                <a href="#" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Delete All
+                    <span class="badge">{{rows.length}}</span>
+                </a>
+             </div>
 
-    <div class="panel-body">
-       
-        
+        <div class="panel-body">
     
+        <br />
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="label label-primary col-sm-1">Actions</th>
+                    <th class="label label-primary col-sm-2">Name</th>
+                    <th class="label label-primary col-sm-2">Age</th>
+                    <th class="label label-primary col-sm-2">Height</th>
+                    <th class="label label-primary col-sm-2">Weight</th>
+                    <th class="label label-primary col-sm-2">Avatar</th>
+                    <th class="label label-primary col-sm-1">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                    <tr>
+                          <th scope="row">
+                            <div class="btn-group" role="group" aria-label="...">
+                              <a href="/user/{{id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                              <a href="/user/{{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                              <a href="/user/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                               
+                            </div>
+                          </th>
+                        <td>{{Name}}</td>
+                        <td>{{Age}}</td>
+                        <td>{{Height}}</td>
+                        <td>{{Weight}}</td>
+                        <td>{{Avatar}}</td>
+                        <td>{{Status}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        </div>
     </div>
-</div>
     </script>
 
   </body>
