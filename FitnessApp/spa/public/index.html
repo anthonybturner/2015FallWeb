@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +10,14 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
+  
   <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-      
+    
     <div class="container">
+                           
         <h1>Home</h1>
               <nav class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
@@ -34,6 +37,8 @@
               <li><a href="/Views/foods">Foods</a></li>
               <li><a href="/Views/exercises">Exercises</a></li>
               <li><a href="/Views/friends">Friends</a></li>
+             <li><a href="/Views/profile">Profile</a></li>
+
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -54,9 +59,57 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-
-            <div id="view"></div>
+         
+         
+         <div id="view"  ng-controller="main">
+         <div class="panel panel-info">
+    
+            <div class="panel-heading" style="text-align: center;"> 
+                <h2>Welcome Anthony</h2> 
+                  {{Intro.Title}}  
+              
+            </div>
+        
+                <div class="panel-body">
+                    <table class="table table-condensed table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="label label-primary col-sm-1">Actions</th>
+                                <th class="label label-primary col-sm-2">Name</th>
+                                <th class="label label-primary col-sm-2">Age</th>
+                                <th class="label label-primary col-sm-2">Height</th>
+                                <th class="label label-primary col-sm-2">Weight</th>
+                                <th class="label label-primary col-sm-2">Avatar</th>
+                                <th class="label label-primary col-sm-1">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                         
+                                <tr ng-repeat="user in Intro.Users">
+                                      <th scope="user">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                          <a href="/user/{{user.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                          <a href="/user/{{user.id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                          <a href="/user/{{user.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                           
+                                        </div>
+                                      </th>
+                                    <td>{{user.Name}}</td>
+                                    <td>{{user.Age}}</td>
+                                    <td>{{user.Height}}</td>
+                                    <td>{{user.Weight}}</td>
+                                    <td>{{user.Avatar}}</td>
+                                    <td>{{user.Status}}</td>
+                                </tr>
             
+                        </tbody>
+                    </table>
+                    
+                
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <!--      ### Tech Stuff ###      -->
@@ -80,14 +133,52 @@
     </div><!-- /.modal -->
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
-    <script type="text/javascript">
+    <script type="text/template" id="edit-tmpl" >
+        <tr>
+           <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
+           <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
+           <td>
+             <input type="submit" value="Submit" class="btn btn-primary submit"/>
+             <input type="hidden" name="id" value="{{id}}" /> 
+           </td>
+        </tr>
+    </script>
+    <script type="text/template" id="index-tmpl" >
+       
+        
+        
+    </script>
+     <script type="text/javascript">
+     
+        var mainApp = angular.module("app", []);
+         
+             mainApp.controller('main', function($scope, $http) {
+                 
+                 var self = this;
+                 $http.get("/user").success(function(data){
+                    
+                    $scope.Intro = {
+                                    "Title" : "This page is starting to use Angularjs with NodeJs and Express",
+                                    "Users" : data
+                        
+                    }
+                        
+
+                    self.rows = data;
+                    console.log(self)
+                  // $scope.rows = data;
+                });
+                
+             });
+
         $(function(){
-            var editTemplate = Handlebars.compile($("#edit-tmpl").html());
-            var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+          var editTemplate = Handlebars.compile($("#edit-tmpl").html());
+        //var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+
 
             $.getJSON("/food").then(function(data){
-                    var html = indexTemplate({rows: data});
-                    $("#view").html(html);
+                 //   var html = indexTemplate({rows: data});
+                   // $("#view").html(html);
             });
 
             $("#view").on("click", ".ajax", function(){
@@ -97,6 +188,7 @@
                 });
                 return false;
             });
+            
             $("#view").on("click", ".create", function(){
                 $("#myDialog .modal-title").html("Add a user");
                 $("#myDialog .modal-body").html(editTemplate({}));
@@ -113,6 +205,7 @@
                 });
                 return false;
             });
+            
             $("#view").on("click", ".edit", function(){
                 var $self = $(this);
                 $.getJSON(this.href).then(function(data){
@@ -130,6 +223,7 @@
                 });
                 return false;
             });
+            
             $("#view").on("click", ".delete", function(){
                 $self = $(this); 
                 $.get(this.href).then(function(data){
@@ -150,31 +244,13 @@
                 return false;
             });
         });
-    </script>
-    <script type="text/template" id="edit-tmpl" >
-        <tr>
-           <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
-           <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
-           <td>
-             <input type="submit" value="Submit" class="btn btn-primary submit"/>
-             <input type="hidden" name="id" value="{{id}}" /> 
-           </td>
-        </tr>
-    </script>
-    <script type="text/template" id="index-tmpl" >
-       
-                   
-    <div class="panel panel-info">
-    
-    <div class="panel-heading" style="text-align: center;"> <h2>Welcome Anthony</h2></div>
-
-    <div class="panel-body">
-       
         
-    
-    </div>
-</div>
+        
     </script>
+    
+    
+    
+    
 
   </body>
 </html>

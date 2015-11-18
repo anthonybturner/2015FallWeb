@@ -33,10 +33,14 @@ class Food {
 		return array();
 	}
 	
-	static public function Validate(){
-		
-		
-		return null;
+	static public function Validate($row){
+			$errors = array();
+			if(empty($row['Name'])) $errors['Name'] = "is required";
+			if(empty($row['Calories_Burned'])) $errors['Calories_Burned'] = "is required";
+
+			if(strtotime($row['Minutes']) > time()) $errors['Minutes'] = "is required";
+			
+			return count($errors) > 0 ? $errors : false ;
 	}
 	
 	static public function Save($row){
@@ -45,7 +49,7 @@ class Food {
 		if( $row['id']){
 			
 			$sql = "UPDATE 2013Fall_Exercises "
-				.	" Set Name = '$row[Name]', Minutes='$row[Minutes]', Calories_Burned='$row[Minutes]', Users_id='$row[Users_id]', 2015Fall_ExerciseTypes_id='$row[Users_id]' "
+				.	" Set Name = '$row[Name]', Minutes='$row[Minutes]', Calories_Burned='$row[Calories_Burned]', Users_id='$row[Users_id]', 2015Fall_ExerciseTypes_id='$row[Users_id]' "
 				. " WHERE id=$row[id] ";
 
 			

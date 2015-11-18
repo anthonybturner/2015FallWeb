@@ -5,7 +5,7 @@ module.exports =  {
     
     get: function(id, ret){
         var conn = GetConnection();
-        var sql = "SELECT m.updated_at, m.Name, m.id, m.Calories, m.Carbohydrates, m.Fiber, m.Protein, m.Cholestrol, m.Users_id, mt.id as MealType_Id, mt.MealType FROM 2015Fall_Meals m left join 2015Fall_MealTypes mt on mt.id=m.2015Fall_MealTypes_id ";
+        var sql = "SELECT m.updated_at,m.created_at, m.Name, m.id, m.Calories_Burned, m.Users_id, m.2015Fall_ExcerciseTypes_id, mt.id as ExerciseType_Id, mt.Name as ExerciseName FROM 2015Fall_Exercises m left join 2015Fall_ExcerciseTypes mt on mt.id=m.2015Fall_ExcerciseTypes_id ";
         if(id){
           sql += " WHERE m.id = " + id;
         }
@@ -16,7 +16,7 @@ module.exports =  {
     },
     delete: function(id, ret){
         var conn = GetConnection();
-        conn.query("DELETE FROM 2015Fall_Meals WHERE id = " + id, function(err,rows){
+        conn.query("DELETE FROM 2015Fall_Exercises WHERE id = " + id, function(err,rows){
           ret(err);
           conn.end();
         });        
@@ -26,13 +26,13 @@ module.exports =  {
         var conn = GetConnection();
         //  TODO Sanitize
         if (row.id) {
-				  sql = " Update 2015Fall_Meals "
-							+ " Set updated_at= NOW(), Name=?, Calories=? , Fiber=?, Protein=?, Carbohydrates=?, Cholestrol=?, 2015Fall_MealTypes_id=?, Users_id=1"
+				  sql = " Update 2015Fall_Exercises "
+							+ " Set updated_at= NOW(), Name=?, Minutes=? , Calories_Burned=?, Users_id=1, 2015Fall_ExcerciseTypes_id=?"
 						  + " WHERE id = ? ";
 			  }else{
-				  sql = "INSERT INTO 2015Fall_Meals "
-						  + " (created_at, updated_at, Name, Calories, Fiber, Protein, Carbohydrates, Cholestrol, 2015Fall_MealTypes_id, Users_id ) "
-						  + "VALUES (CURDATE(), NOW(), ?, ?, ?, ?, ?, ?, 2, 1 ) ";				
+				  sql = "INSERT INTO 2015Fall_Exercises "
+						  + " (created_at, updated_at, Name, Minutes, Calories_Burned, Users_id, 2015Fall_ExcerciseTypes_id) "
+						  + "VALUES (CURDATE(), NOW(), ?, ?, ?, 1, 1 ";				
 			  }
 
         conn.query(sql, [ row.Name, row.Calories, row.Fiber, row.Protein, row.Carbohydrates, row.Cholestrol, row.MealTypes_id, row.id],function(err,data){

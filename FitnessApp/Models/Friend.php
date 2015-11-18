@@ -33,10 +33,14 @@ class Friend {
 		return array();
 	}
 	
-	static public function Validate(){
-		
-		
-		return null;
+	static public function Validate($row){
+			$errors = array();
+			if(empty($row['Friend_id'])) $errors['Friend_id'] = "is required";
+			if(empty($row['Users_id'])) $errors['Users_id'] = "is required";
+
+			//if(strtotime($row['Birthday']) > time()) $errors['Birthday'] = "must be in the past";
+			
+			return count($errors) > 0 ? $errors : false ;
 	}
 	
 	static public function Save($row){

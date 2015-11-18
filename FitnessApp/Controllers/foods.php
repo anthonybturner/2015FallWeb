@@ -14,16 +14,21 @@ switch ($action . '_' . $method) {
 		$model = Food::Blank();
 		$view = "foods/edit.php";
 		break;
+
+	case 'sum_GET':
+		$model = Food::Sum($_REQUEST['category']);
+		$view = "foods/edit.php";
+		break;
 		
 	case 'save_POST':
 			
 			$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';
 			
-		//	$errors = Food::Validate($_REQUEST);
-		//	if(!$errors){
+			$errors = Food::Validate($_REQUEST);
+			if(!$errors){
 		
 				$errors = Food::Save($_REQUEST);
-		//	}
+			}
 			
 			if(!$errors){
 
@@ -35,7 +40,7 @@ switch ($action . '_' . $method) {
 				die();
 			}else{
 				
-				var_dump($errors);
+			//	var_dump($errors);
 
 				//my_print($errors);
 				$model = $_REQUEST;
@@ -71,13 +76,14 @@ switch ($action . '_' . $method) {
 	case 'delete_POST':
 		$errors = Food::Delete($_REQUEST['id']);
 		if($errors){
-				$model = Food::Get($_REQUEST['id']);
-				$view = "foods/delete.php";
+			
+			$model = Food::Get($_REQUEST['id']);
+			$view = "foods/delete.php";
 				
 		}else{
 		
-				header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
-				die();			
+			header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
+			die();			
 		}
 		break;
 		

@@ -36,10 +36,16 @@ class User {
 	
 	
 	
-	static public function Validate(){
-		
-		
-		return null;
+	static public function Validate($row){
+			$errors = array();
+			if(empty($row['Name'])) $errors['Name'] = "is required";
+			if(empty($row['Age'])) $errors['Age'] = "is required";
+			if(empty($row['Height'])) $errors['Height'] = "is required";
+			if(empty($row['Weight'])) $errors['Weight'] = "is required";
+
+			//if(strtotime($row['Birthday']) > time()) $errors['Birthday'] = "must be in the past";
+			
+			return count($errors) > 0 ? $errors : false ;
 	}
 	
 	static public function Save($row){

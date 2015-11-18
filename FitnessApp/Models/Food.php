@@ -18,6 +18,17 @@ class Food {
 		
     }
     
+    public static function Sum($category){
+        $sql = "SELECT sum($category)  from 2015Fall_Meals";
+        
+			return $ret[0];
+
+		
+    }
+    
+    
+    
+    
     static public function Delete($id){
         
 		$conn = GetConnection();
@@ -35,10 +46,14 @@ class Food {
 		return array();
 	}
 	
-	static public function Validate(){
-		
-		
-		return null;
+	static public function Validate($row){
+			$errors = array();
+			if(empty($row['Calories'])) $errors['Calories'] = "is required";
+			if(empty($row['MealType'])) $errors['MealType'] = "is required";
+
+			//if(strtotime($row['Birthday']) > time()) $errors['Birthday'] = "must be in the past";
+			
+			return count($errors) > 0 ? $errors : false ;
 	}
 	
 	static public function Save($row){

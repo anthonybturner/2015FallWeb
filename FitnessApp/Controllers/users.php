@@ -18,13 +18,13 @@ switch ($action . '_' . $method) {
 	case 'save_POST':
 			
 			$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';
-		//	$errors = User::Validate($_REQUEST);
-		//	if(!$errors){
+			$errors = User::Validate($_REQUEST);
+			if(!$errors){
 		
 		
 				$errors = User::Save($_REQUEST);
-				var_dump($errors);
-		//	}
+			//	var_dump($errors);
+			}
 			
 			if(!$errors){
 				if($format == 'json'){
@@ -36,7 +36,8 @@ switch ($action . '_' . $method) {
 			}else{
 				//my_print($errors);
 				$model = $_REQUEST;
-				$view = "users/edit.php";		
+				$view = "users/edit.php";
+				
 			}
 			break;
 			

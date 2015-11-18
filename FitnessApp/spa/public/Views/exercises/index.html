@@ -5,19 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Users</title>
+    <title>Exercise Intake</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
-  <body>
+  <body ng-app="app">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       
     <div class="container">
-        <h1>Users</h1>
+        <h1>Exercises</h1>
               <nav class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -32,9 +30,9 @@
           <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav">
               <li><a href="/">Home</a></li>
-              <li class="active"><a>Users</a></li>
+              <li><a href="/Views/users">Users</a></li>
               <li><a href="/Views/foods">Foods</a></li>
-              <li><a href="/Views/exercises">Exercises</a></li>
+              <li class="active"><a>Exercises</a></li>
               <li><a href="/Views/friends">Friends</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -49,6 +47,8 @@
                 </ul>
               </li>
             </ul>
+              </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
               <li><a href="../navbar-fixed-top/">Fixed top</a></li>
@@ -57,20 +57,26 @@
         </div><!--/.container-fluid -->
       </nav>
 
-            <div id="view"></div>
+            <div id="view" ></div>
             
+             <div ng-repeat="row in main.rows">
+        
+                <span>{{row.Name}}</span>
+                <a ng-click="main.delete(row)" href="#">Delete</a>
+            </div>
     </div>
     
+   
     <!--      ### Tech Stuff ###      -->
     <div class="modal fade" id="myDialog">
       <div class="modal-dialog">
-        <div class="modal-content" style="background: url('/images/gradient-white.png')">
+        <div class="modal-content">
         <form class="form-horizontal" >
           <div class="modal-header">
             <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-            <h4 class="modal-title" ></h4>
+            <h4 class="modal-title" >{{main.modalData.title}}</h4>
           </div>
-        	<div class="modal-body">
+        	<div class="modal-body"> {{main.modalData.body}}
         	</div>
         	<div class="modal-footer">
         		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
@@ -80,34 +86,69 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
     <script type="text/javascript">
+    
+    
+    angular.module("app", [])
+    .controller("main", function($http){
+       
+
+        var self = this;
+        
+        $http.get("/user").then(function(data){
+        self.rows = data.data;
+       
+       });
+        
+        self.create = function(){
+            
+            self.rows.push({"Name": ""});
+        };
+        
+        
+        self.delete = function(row){
+           self.modalData={
+                
+                title: "Delete a user",
+                body: "<h5> Are ou sure you want to delete " + row.Name + "?</h5>",
+                confirm: function(){
+                    $http.delete({url: "/url/" + data.id})
+                        .done(function(data){
+                            $self.rows.splice(self.rows.indexof(row), 1);
+                            $("#myDialog").modal('hide');
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                    
+                }
+              
+            };
+               
+               $("#myDialog").modal('show');
+                    
+            return false;
+            
+        }
+      
+
+    });
+    
         $(function(){
             var editTemplate = Handlebars.compile($("#edit-tmpl").html());
             var indexTemplate = Handlebars.compile($("#index-tmpl").html());
             var viewTemplate = Handlebars.compile($("#detail-tmpl").html());
 
-            $.getJSON("/user").then(function(data){
+            $.getJSON("/exercise").then(function(data){
                     var html = indexTemplate({rows: data});
                     $("#view").html(html);
-                      $('table').dataTable(); 
             });
 
-            $("#view").on("click", ".detail", function(){
-                $.getJSON(this.href).then(function(data){
-                    
-                    var html = viewTemplate(data);
-                    $("#myDialog .modal-title").html("Details for user <h2>" + data.Name+"</h2>");
-                    $("#myDialog .modal-body").html(html);
-                    $("#myDialog .modal-content .btn").hide();
-                    $("#myDialog").modal('show');
-                });
-                return false;
-            });
-            
+           
             $("#view").on("click", ".create", function(){
-                $("#myDialog .modal-title").html("Add a user");
+                $("#myDialog .modal-title").html("Add a exercise");
                 $("#myDialog .modal-body").html(editTemplate({}));
                 $("#myDialog").modal('show');
                 $("#myDialog .modal-content .btn").show();
@@ -115,7 +156,8 @@
                 $("#myDialog .modal-body .btn-primary").hide();
 
                 $("#myDialog .submit").one('click', function(){
-                    $.ajax({ url: '/user/', type: 'POST', data: $("#myDialog input").serialize() })
+                    console.log($("#myDialog input").serialize())
+                    $.ajax({ url: '/exercise/', type: 'POST', data: $("#myDialog input").serialize() })
                     .done(function(data){
                         location.reload();
                     }).fail(function(data){
@@ -131,8 +173,13 @@
                 $.getJSON(this.href).then(function(data){
                     var html = editTemplate(data);
                     var $tr = $self.closest("tr").after(html).hide()
+
                     $(".submit").one('click', function(){
-                        $.ajax({ url: '/user/', type: 'POST', data: $tr.next().find("input").serialize() })
+                        
+                        var exerciseData = $tr.next().find("input").serialize();
+                        exerciseData+= "&2015Fall_ExcerciseTypes_id="+$tr.next().find("select").val();
+
+                        $.ajax({ url: '/exercise/', type: 'POST', data: exerciseData })
                         .done(function(data){
                             location.reload();
                         }).fail(function(data){
@@ -144,15 +191,29 @@
                 return false;
             });
             
+            
+            $("#view").on("click", ".detail", function(){
+                $.getJSON(this.href).then(function(data){
+                    
+                    var html = viewTemplate(data);
+                    $("#myDialog .modal-title").html("Details for <h2>" + data.Name+"</h2>");
+                    $("#myDialog .modal-body").html(html);
+                    $("#myDialog .modal-content .btn").hide();
+                    $("#myDialog").modal('show');
+                });
+                return false;
+            });
+            
+           
             $("#view").on("click", ".delete", function(){
-                $self = $(this); 
+                var $self = $(this); 
                 $.get(this.href).then(function(data){
                     $("#myDialog .modal-title").html("Delete a user");
                     $("#myDialog .modal-body").html("<h5>Are you sure you want to delete " + data.Name + "?</h5>");
                     $("#myDialog .modal-content .btn").show();
 
                     $("#myDialog .submit").one('click', function(){
-                        $.ajax({ url: '/user/' + data.id, type: 'DELETE'})
+                        $.ajax({ url: '/exercise/' + data.id, type: 'DELETE'})
                         .done(function(data){
                             $self.closest('tr').remove();
                             $("#myDialog").modal('hide');
@@ -166,114 +227,107 @@
                 return false;
             });
         });
-
+       
     </script>
     <script type="text/template" id="edit-tmpl" >
         <tr>
-           <th scope="row">
-                <div class="btn-group" role="group" aria-label="...">
-                  <a href="/user/{{id}}" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
-                  <a href="/user/{{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                  <a href="/user/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
-                   
-                </div>
-            </th>
-           <td><input type="text" name="Avatar" class="form-control" placeholder="Avatar" value="{{Avatar}}" /></td>
+           <td></td>
+            <td></td>
+           <td><input type="hidden" name="updated_at" class="form-control" placeholder="Last updated" value="" /></td>
            <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
-           <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
-           <td><input type="text" name="Height" class="form-control" placeholder="Height" value="{{Height}}" /></td>
-           <td><input type="text" name="Weight" class="form-control" placeholder="Weight" value="{{Weight}}" /></td>
-           <td>{{Status}}</td>
-            <input type="hidden" name="id" value="{{id}}" /> 
+           <td><input type="text" name="Minutes" class="form-control" placeholder="Minutes" value="{{Minutes}}" /></td>
+           <td><input type="text" name="Calories_Burned" class="form-control" placeholder="Calories Burned" value="{{Calories_Burned}}" /></td>
+            <td>
+               <select name="2015Fall_ExcerciseTypes_id">
+                   <option value="1">Sit ups</option>
+                   <option value="2">Push ups</option>
+                   <option value="3">Running</option>
+                   <option value="4">Walking</option>
+               </select>
+            </td>
+            <input type="hidden" name="id" value="{{id}}" />
+
 
         </tr>
-        
         <tr>
-          <td colspan="6"></td>
+          <td colspan="7"></td>
            <td colspan="1">
              <input type="submit" value="Submit" class="btn btn-primary submit"/>
            </td>
          </tr>
     </script>
     
-    <script type="text/template" id="detail-tmpl" >
+     <script type="text/template" id="detail-tmpl" >
         <tr> 
             <th>Name:</th>
-            <td>&nbsp;{{Name}}</td>
+            <td>&nbsp;{{Name}}<hr></td>
         </tr>
         <tr> 
-            <th>Age:</th>
-            <td>&nbsp;{{Age}}</td>
+            <th>Minutes:</th>
+            <td>&nbsp;{{Minutes}}<hr></td>
         </tr>
         
          <tr> 
-            <th>Height:</th>
-            <td> &nbsp;{{Height}}</td>
+            <th>Calories burned:</th>
+            <td> &nbsp;{{Calories_Burned}}<hr></td>
          </tr>
          
          <tr> 
-            <th>Weight:</th>
-            <td> &nbsp;{{Weight}}</td>
+            <th>Cholestrol:</th>
+            <td> &nbsp;{{Cholestrol}}<hr></td>
          </tr>
          
          
           <tr> 
-            <th>Status:</th>
-            <td> &nbsp;{{Status}} <hr></td>
+            <th>Users_id:</th>
+            <td> &nbsp;{{Users_id}} <hr></td>
          </tr>
          
          <tr> 
-            <th></th>
-            <td> 
-                {{#if Avatar}}
-                    &nbsp;<img class="thumbnail" src="{{Avatar}}" height="343" width="343"></td>
-
-                {{else}}
-                    
-                {{/if}}
-            
+            <th>2015Fall_ExcerciseTypes_id:</th>
+            <td> &nbsp;{{2015Fall_ExcerciseTypes_id}} <hr></td>
          </tr>
          
-         
-
+        
     </script>
     
     <script type="text/template" id="index-tmpl" >
     
-    
                    
     <div class="panel panel-info">
     
-         <div class="panel-heading" style="text-align: center;"> 
-            <h2>Welcome Anthony</h2> This page is using nodejs and express (no angularjs)
-           
-         </div>
-         
-         <div class="panel-heading" style="text-align: center;"> 
+        <div class="panel-heading" style="text-align: center;"> 
+            <h2>Exercise - workouts</h2>
+            Your recorded exercise details
+            
+        </div>
+        <div class="panel-heading" > 
             <a class="btn btn-success create">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    New Record
-                </a>
-                <a href="#" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    Delete All
-                    <span class="badge">{{rows.length}}</span>
-                </a>
-             </div>
-
-        <div class="panel-body">
-    
-        <br />
+                <i class="glyphicon glyphicon-plus"></i>
+                New Record
+            </a>
+            <a href="#" class="btn btn-danger">
+                <i class="glyphicon glyphicon-trash"></i>
+                Delete All
+                <span class="badge">{{rows.length}}</span>
+            </a>
+            <br />
+        </div>
+        
+    <div class="panel-body">
+       
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="label label-primary col-sm-1">Actions</th>
-                    <th class="label label-primary col-sm-1">Avatar</th>
+                    <th class="label label-primary col-sm-2">Actions</th>
+                    <th class="label label-primary col-sm-1">Time</th>
+                    <th class="label label-primary col-sm-1">Updated</th>
                     <th class="label label-primary col-sm-2">Name</th>
-                    <th class="label label-primary col-sm-2">Age</th>
-                    <th class="label label-primary col-sm-2">Height</th>
-                    <th class="label label-primary col-sm-2">Weight</th>
-                    <th class="label label-primary col-sm-1">Status</th>
+                    <th class="label label-primary col-sm-2">Minutes</th>
+                    <th class="label label-primary col-sm-2">Calories_Burned</th>
+                    <th class="label label-primary col-sm-2">Users_id</th>
+                    <th class="label label-primary col-sm-2">2015Fall_ExerciseTypes_id</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -281,23 +335,24 @@
                     <tr>
                           <th scope="row">
                             <div class="btn-group" role="group" aria-label="...">
-                              <a href="/user/{{id}}" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
-                              <a href="/user/{{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                              <a href="/user/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
-                               
+                              <a href="/exercise/{{id}}" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
+                              <a href="/exercise/{{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                              <a href="/exercise/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                             </div>
                           </th>
-                        <td><img class="thumbnail" style="margin-bottom: 0; padding: 0;" src="{{Avatar}}" height="48px" width="48px"/></td>
+                        <td>{{created_at}}</td>
+                        <td>{{updated_at}}</td>
                         <td>{{Name}}</td>
-                        <td>{{Age}}</td>
-                        <td>{{Height}}</td>
-                        <td>{{Weight}}</td>
-                        <td>{{Status}}</td>
+                        <td>{{Minutes}}</td>
+                        <td>{{Calories_Burned}}</td>
+                        <td>{{Users_id}}</td>
+                        <td>{{2015Fall_ExerciseTypes_id}}</td>
+                        
+                        
                     </tr>
                 {{/each}}
             </tbody>
         </table>
-        
         </div>
     </div>
     </script>

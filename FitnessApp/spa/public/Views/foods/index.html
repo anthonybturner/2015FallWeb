@@ -10,7 +10,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
-  <body>
+  <body ng-app="app">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       
@@ -57,10 +57,16 @@
         </div><!--/.container-fluid -->
       </nav>
 
-            <div id="view"></div>
+            <div id="view" ></div>
             
+             <div ng-repeat="row in main.rows">
+        
+                <span>{{row.Name}}</span>
+                <a ng-click="main.delete(row)" href="#">Delete</a>
+            </div>
     </div>
     
+   
     <!--      ### Tech Stuff ###      -->
     <div class="modal fade" id="myDialog">
       <div class="modal-dialog">
@@ -68,9 +74,9 @@
         <form class="form-horizontal" >
           <div class="modal-header">
             <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-            <h4 class="modal-title" ></h4>
+            <h4 class="modal-title" >{{main.modalData.title}}</h4>
           </div>
-        	<div class="modal-body">
+        	<div class="modal-body"> {{main.modalData.body}}
         	</div>
         	<div class="modal-footer">
         		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
@@ -80,48 +86,78 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
     <script type="text/javascript">
+    
+    
+    angular.module("app", [])
+    .controller("main", function($http){
+       
+
+        var self = this;
+        
+        $http.get("/user").then(function(data){
+        self.rows = data.data;
+       
+       });
+        
+        self.create = function(){
+            
+            self.rows.push({"Name": ""});
+        };
+        
+        
+        self.delete = function(row){
+           self.modalData={
+                
+                title: "Delete a user",
+                body: "<h5> Are ou sure you want to delete " + row.Name + "?</h5>",
+                confirm: function(){
+                    $http.delete({url: "/url/" + data.id})
+                        .done(function(data){
+                            $self.rows.splice(self.rows.indexof(row), 1);
+                            $("#myDialog").modal('hide');
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                    
+                }
+              
+            };
+               
+               $("#myDialog").modal('show');
+                    
+            return false;
+            
+        }
+      
+
+    });
+    
         $(function(){
             var editTemplate = Handlebars.compile($("#edit-tmpl").html());
             var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+            var viewTemplate = Handlebars.compile($("#detail-tmpl").html());
 
             $.getJSON("/food").then(function(data){
                     var html = indexTemplate({rows: data});
                     $("#view").html(html);
             });
 
-            $("#view").on("click", ".ajax", function(){
-                $.get(this.href).then(function(data){
-                    $("#myDialog .modal-content").html(data);
-                    $("#myDialog").modal('show');
-                });
-                return false;
-            });
+           
             $("#view").on("click", ".create", function(){
-                $("#myDialog .modal-title").html("Add a user");
+                $("#myDialog .modal-title").html("Add a food");
                 $("#myDialog .modal-body").html(editTemplate({}));
                 $("#myDialog").modal('show');
+                $("#myDialog .modal-content .btn").show();
+
                 $("#myDialog .modal-body .btn-primary").hide();
+
                 $("#myDialog .submit").one('click', function(){
-                    $.ajax({ url: '/user/', type: 'POST', data: $("#myDialog input").serialize() })
-                    .done(function(data){
-                        location.reload();
-                    }).fail(function(data){
-                        alert(data.responseJSON.code);
-                    });
-                    return false;
-                });
-                return false;
-            });
-            $("#view").on("click", ".edit", function(data){
-                 $("#myDialog .modal-title").html("Edit a food");
-                $("#myDialog .modal-body").html(editTemplate(data));
-                $("#myDialog").modal('show');
-                $("#myDialog .modal-body .btn-primary").hide();
-                $("#myDialog .submit").one('click', function(){
-                    $.ajax({ url: '/food/{{id}}', type: 'POST', data: $("#myDialog input").serialize() })
+                    console.log($("#myDialog input").serialize())
+                    $.ajax({ url: '/food/', type: 'POST', data: $("#myDialog input").serialize() })
                     .done(function(data){
                         location.reload();
                     }).fail(function(data){
@@ -132,12 +168,50 @@
                 return false;
             });
             
-           $("#view").on("click", ".delete", function(){
-                $self = $(this); 
-                console.log(this.href)
+            $("#view").on("click", ".edit", function(){
+                var $self = $(this);
+                $.getJSON(this.href).then(function(data){
+                    var html = editTemplate(data);
+                    var $tr = $self.closest("tr").after(html).hide()
+
+                    $(".submit").one('click', function(){
+                        
+                        var foodData = $tr.next().find("input").serialize();
+                        foodData+= "&MealTypes_id="+$tr.next().find("select").val();
+
+                        $.ajax({ url: '/food/', type: 'POST', data: foodData })
+                        .done(function(data){
+                            location.reload();
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                        return false;
+                    });
+                });
+                return false;
+            });
+            
+            
+            $("#view").on("click", ".detail", function(){
+                $.getJSON(this.href).then(function(data){
+                    
+                    var html = viewTemplate(data);
+                    $("#myDialog .modal-title").html("Details for <h2>" + data.Name+"</h2>");
+                    $("#myDialog .modal-body").html(html);
+                    $("#myDialog .modal-content .btn").hide();
+                    $("#myDialog").modal('show');
+                });
+                return false;
+            });
+            
+           
+            $("#view").on("click", ".delete", function(){
+                var $self = $(this); 
                 $.get(this.href).then(function(data){
-                    $("#myDialog .modal-title").html("Delete a food");
+                    $("#myDialog .modal-title").html("Delete a user");
                     $("#myDialog .modal-body").html("<h5>Are you sure you want to delete " + data.Name + "?</h5>");
+                    $("#myDialog .modal-content .btn").show();
+
                     $("#myDialog .submit").one('click', function(){
                         $.ajax({ url: '/food/' + data.id, type: 'DELETE'})
                         .done(function(data){
@@ -157,21 +231,89 @@
     </script>
     <script type="text/template" id="edit-tmpl" >
         <tr>
+           <td></td>
+            <td></td>
+           <td><input type="hidden" name="updated_at" class="form-control" placeholder="Last updated" value="" /></td>
            <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
            <td><input type="text" name="Calories" class="form-control" placeholder="Calories" value="{{Calories}}" /></td>
+           <td><input type="text" name="Carbohydrates" class="form-control" placeholder="Carbohydrates" value="{{Carbohydrates}}" /></td>
+
            <td><input type="text" name="Fiber" class="form-control" placeholder="Fiber" value="{{Fiber}}" /></td>
-           <td>
-             <input type="submit" value="Submit" class="btn btn-primary submit"/>
-             <input type="hidden" name="id" value="{{id}}" /> 
-           </td>
+           <td><input type="text" name="Cholestrol" class="form-control" placeholder="Cholestrol" value="{{Cholestrol}}" /></td>
+           <td><input type="text" name="Protein" class="form-control" placeholder="Protein" value="{{Protein}}" /></td>
+
+            <td>
+               <select name="2015Fall_MealTypes_id">
+                   <option value="1">Breakfast</option>
+                   <option value="2">Lunch</option>
+                   <option value="3">Dinner</option>
+                   <option value="4">Snack</option>
+               </select>
+            </td>
+            <input type="hidden" name="id" value="{{id}}" />
+
+
         </tr>
+        <tr>
+          <td colspan="7"></td>
+           <td colspan="1">
+             <input type="submit" value="Submit" class="btn btn-primary submit"/>
+           </td>
+         </tr>
     </script>
+    
+     <script type="text/template" id="detail-tmpl" >
+        <tr> 
+            <th>Name:</th>
+            <td>&nbsp;{{Name}}<hr></td>
+        </tr>
+        <tr> 
+            <th>Calories:</th>
+            <td>&nbsp;{{Calories}}<hr></td>
+        </tr>
+        
+         <tr> 
+            <th>Fiber:</th>
+            <td> &nbsp;{{Fiber}}<hr></td>
+         </tr>
+         
+         <tr> 
+            <th>Cholestrol:</th>
+            <td> &nbsp;{{Cholestrol}}<hr></td>
+         </tr>
+         
+         
+          <tr> 
+            <th>Protein:</th>
+            <td> &nbsp;{{Protein}} <hr></td>
+         </tr>
+         
+         <tr> 
+            <th>Carbohydrates:</th>
+            <td> &nbsp;{{Carbohydrates}} <hr></td>
+         </tr>
+         
+          <tr> 
+            <th>MealType:</th>
+            <td> &nbsp;{{MealType}} <hr></td>
+         </tr>
+         
+         
+        
+         
+
+    </script>
+    
     <script type="text/template" id="index-tmpl" >
     
                    
     <div class="panel panel-info">
     
-        <div class="panel-heading" style="text-align: center;"> <h2>Welcome Anthony</h2></div>
+        <div class="panel-heading" style="text-align: center;"> 
+            <h2>Nutrition - Meals</h2>
+            Your recorded food nutrition details
+            
+        </div>
         <div class="panel-heading" > 
             <a class="btn btn-success create">
                 <i class="glyphicon glyphicon-plus"></i>
@@ -190,7 +332,9 @@
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="label label-primary col-sm-1">Actions</th>
+                    <th class="label label-primary col-sm-2">Actions</th>
+                    <th class="label label-primary col-sm-1">Time</th>
+                    <th class="label label-primary col-sm-1">Updated</th>
                     <th class="label label-primary col-sm-2">Name</th>
                     <th class="label label-primary col-sm-2">Calories</th>
                     <th class="label label-primary col-sm-2">Carbohydrates</th>
@@ -205,21 +349,20 @@
                     <tr>
                           <th scope="row">
                             <div class="btn-group" role="group" aria-label="...">
-                              <a href="/food/" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                              <a href="/food/{{id}}" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
                               <a href="/food/{{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
                               <a href="/food/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                             </div>
                           </th>
+                        <td>{{created_at}}</td>
+                        <td>{{updated_at}}</td>
                         <td>{{Name}}</td>
                         <td>{{Calories}}</td>
                         <td>{{Carbohydrates}}</td>
                         <td>{{Fiber}}</td>
                         <td>{{Cholestrol}}</td>
                         <td>{{Protein}}</td>
-                        
-                        
                         <td>
-                            
                             {{MealType}}
                         </td>
                         
