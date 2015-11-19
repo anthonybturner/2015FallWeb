@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Friends List</title>
+    <title>FitnessApp 2015- Friends List</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -14,10 +14,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       
-    <div class="container">
-        <h1>Friends</h1>
-              <nav class="navbar navbar-default navbar-inverse">
-        <div class="container-fluid">
+
+     <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -34,28 +33,22 @@
               <li><a href="/Views/foods">Foods</a></li>
               <li><a href="/Views/exercises">Exercises</a></li>
               <li class="active"><a>Friends</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
+               <li><a href="/Views/profile">Profile</a></li>
+
             </ul>
               </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-              <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-            </ul>
+           <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+      
+    <div class="container">
 
             <div id="view" ></div>
             
@@ -301,7 +294,10 @@
             Your friends list
             
         </div>
-        <div class="panel-heading" > 
+        
+         <div class="panel-heading"> 
+                
+
             <a class="btn btn-success create">
                 <i class="glyphicon glyphicon-plus"></i>
                 New Record
@@ -312,6 +308,7 @@
                 <span class="badge">{{rows.length}}</span>
             </a>
             <br />
+ 
         </div>
         
     <div class="panel-body">

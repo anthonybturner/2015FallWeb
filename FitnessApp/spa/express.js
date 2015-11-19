@@ -1,6 +1,7 @@
 var express = require('express'),   app = express();
 
 var bodyParser = require('body-parser');
+var goal = require("./Models/goal");
 var user = require("./Models/user");
 var food = require("./Models/food");
 var exercise = require("./Models/exercise");
@@ -75,20 +76,30 @@ app.get("/food", function(req, res){
       if(err){
         res.status(500).send(err);
       }else{
-        res.send(req.params.id);
+        res.send(req.body.params.id);
       }
   })
   
 })
 .get("/user", function(req, res){
-  
-  user.get(null, function(err, rows){
-    res.send(rows);
-  })
-    
+     console.log(req.query.id);
+     if( req.query.id ){
+       
+       user.get(req.query.id, function(err, rows){
+       
+          res.send(rows[0]);
+        
+       })
+      
+     }else{
+      
+        user.get(null, function(err, rows){
+          res.send(rows);
+        })
+     }
 })
 .get("/user/:id", function(req, res){
-  
+  console.log("called")
   user.get(req.params.id, function(err, rows){
     res.send(rows[0]);
   })
@@ -127,7 +138,51 @@ app.get("/food", function(req, res){
     res.send(rows[0]);
   })
   
+}).get("/goal", function(req, res){
+     console.log(req.query.id);
+     if( req.query.id ){
+       
+       goal.get(req.query.id, function(err, rows){
+       
+          res.send(rows[0]);
+        
+       })
+      
+     }else{
+      
+        goal.get(null, function(err, rows){
+          res.send(rows);
+        })
+     }
 })
+.get("/goal/:id", function(req, res){
+  console.log("called")
+  goal.get(req.params.id, function(err, rows){
+    res.send(rows[0]);
+  })
+  
+})
+.post("/goal", function(req, res){
+  var errors = goal.validate(req.body);
+  if(errors){
+    res.status(500).send(errors);
+    return;
+  }
+  goal.save(req.body, function(err, row){
+    res.send(row);
+  })
+})
+.delete("/goal/:id", function(req, res){
+  
+  goal.delete(req.params.id, function(err, rows){
+      if(err){
+        res.status(500).send(err);
+      }else{
+        res.send(req.params.id);
+      }
+  })
+})
+  
 
 
 app.listen(process.env.PORT);

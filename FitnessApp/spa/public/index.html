@@ -5,22 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Fitness App 2015</title>
+    <title>Fitness App 2015 - Goals</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+      
+                  
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
+ 
   <body>
     
-    <div class="container">
-                           
-        <h1>Home</h1>
-              <nav class="navbar navbar-default navbar-inverse">
-        <div class="container-fluid">
+
+        <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -39,98 +40,137 @@
               <li><a href="/Views/friends">Friends</a></li>
              <li><a href="/Views/profile">Profile</a></li>
 
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
+              
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-              <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
          
-         
-         <div id="view"  ng-controller="main">
-         <div class="panel panel-info">
-    
-            <div class="panel-heading" style="text-align: center;"> 
-                <h2>Welcome Anthony</h2> 
-                  {{Intro.Title}}  
-              
-            </div>
+    <div class="container">
         
-                <div class="panel-body">
-                    <table class="table table-condensed table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="label label-primary col-sm-1">Actions</th>
-                                <th class="label label-primary col-sm-2">Name</th>
-                                <th class="label label-primary col-sm-2">Age</th>
-                                <th class="label label-primary col-sm-2">Height</th>
-                                <th class="label label-primary col-sm-2">Weight</th>
-                                <th class="label label-primary col-sm-2">Avatar</th>
-                                <th class="label label-primary col-sm-1">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody >
-                         
-                                <tr ng-repeat="user in Intro.Users">
-                                      <th scope="user">
-                                        <div class="btn-group" role="group" aria-label="...">
-                                          <a href="/user/{{user.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                          <a href="/user/{{user.id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                                          <a href="/user/{{user.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
-                                           
-                                        </div>
-                                      </th>
-                                    <td>{{user.Name}}</td>
-                                    <td>{{user.Age}}</td>
-                                    <td>{{user.Height}}</td>
-                                    <td>{{user.Weight}}</td>
-                                    <td>{{user.Avatar}}</td>
-                                    <td>{{user.Status}}</td>
-                                </tr>
-            
-                        </tbody>
-                    </table>
+        <div id="view"  ng-controller="main">
+        
+            <div class="panel panel-info">
+        
+                <div class="panel-heading" style="text-align: center;"> 
+                    <h2>{{Heading.Message}}</h2> 
+                    <h3>{{Description.Message}}</h3>
+                      <h5>{{Intro.Title}}</h5>
+                      
                     
-                
                 </div>
-            </div>
-        </div>
 
+               <div class="panel-body"><a class="btn btn-success create" ng-click="newRecordButton()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        New Goal
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Delete All
+                        <span class="badge">{{rows.length}}</span>
+                    </a></div>
+           
+           </div>
+           
+           <div class="panel panel-info">
+               
+
+                <div class="panel-heading" style="text-align: center;"> 
+                <i class="glyphicon glyphicon-list-alt"></i>
+                    <strong>Track your goals</strong>
+                </div>
+           
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="label label-primary col-sm-1">Actions</th>
+                                    <th class="label label-primary col-sm-9">Goal Name</th>
+                                    <th class="label label-primary col-sm-1">Percentage Complete</th>
+                                    <th class="label label-primary col-sm-1">Accomplished</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                             
+                                    <tr ng-repeat="goal in Goals">
+                                          <th scope="goal">
+                                            <div class="btn-group" role="group" aria-label="...">
+                                              <a ng-href="/goal/{{goal.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                              <a ng-href="/goal/{{goal.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( goal.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
+                                              <a href="/goal/{{goal.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                               
+                                            </div>
+                                          </th>
+                                        <td>{{goal.Name}}</td>
+                                        <td>{{goal.PercentageComplete}}%</td>
+                                        <td>{{goal.Accomplished}}</td>
+                                       
+                                    </tr>
+                
+                            </tbody>
+                        </table>
+                        
+                    
+                    </div>
+                </div>
+                
+            </div> <!-- end main area -->
+                
+            <!--      ### Tech Stuff ###      -->
+            <div class="modal fade" id="myDialog" >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  
+                    <form class="form-horizontal">
+                        
+                      <div class="modal-header" >
+                        <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                        
+                        <h4 class="modal-title" >{{Modal.Title}}</h4>
+                      </div>
+                      
+                      <div class="modal-body">
+                          
+                          
+                          <div ng-repeat="data in Modal.Data">
+                              
+                               <tr>
+                                    <th>{{data.key}}</th>
+                                    <td><input type="text" name="{{data.key}}" class="form-control" placeholder="{{data.key}}" value="{{data.value}}" /> <br></td>
+                                </tr>
+                                
+                              
+                          </div>
+  
+                        <tr
+                            <th></th>
+                            <td><img src="{{Modal.Avatar}}" height="256" width="256px"> <br></td>
+                             <input type="hidden" name="id" class="form-control" value="{{Modal.id}}" />   
+                         </tr>
+                      </div>
+                           
+                
+                	<div class="modal-footer">
+                		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+                		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" ng-click="saveRecordButton()"/>
+                	</div>
+                </form>
+                
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            
+        </div><!-- End controller main -->
     </div>
-    
-    <!--      ### Tech Stuff ###      -->
-    <div class="modal fade" id="myDialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        <form class="form-horizontal" >
-          <div class="modal-header">
-            <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-            <h4 class="modal-title" ></h4>
-          </div>
-        	<div class="modal-body">
-        	</div>
-        	<div class="modal-footer">
-        		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
-        		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" />
-        	</div>
-        </form>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+
+   
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
     <script type="text/template" id="edit-tmpl" >
@@ -143,11 +183,12 @@
            </td>
         </tr>
     </script>
+    
     <script type="text/template" id="index-tmpl" >
        
-        
-        
+
     </script>
+    
      <script type="text/javascript">
      
         var mainApp = angular.module("app", []);
@@ -155,21 +196,89 @@
              mainApp.controller('main', function($scope, $http) {
                  
                  var self = this;
-                 $http.get("/user").success(function(data){
-                    
+                 var methodValue = "GET";
+                 $http({ url: '/goal/', method :methodValue  }).success(function(data){
+                     
+                    $scope.Heading = {"Message": "Welcome to FitnessApp 2015"};
+                    $scope.Description = {"Message":"Track your eating habits, keep fit with exercise goals, and talk with other members"};
                     $scope.Intro = {
-                                    "Title" : "This page is starting to use Angularjs with NodeJs and Express",
-                                    "Users" : data
+                                    "Title" : "This page uses NodeJs for server side scripting, Express for routing, and is starting to use AngularJs."+
+                                    "It also uses Handlebars for some templating."
                         
-                    }
-                        
-
-                    self.rows = data;
-                    console.log(self)
-                  // $scope.rows = data;
+                                    },
+                    $scope.Goals = data
+                    
                 });
                 
-             });
+                
+                
+                $scope.editButton = function(goalid){
+                    
+                    var methodValue = "GET";
+                    var title = "Edit Goal"
+
+                     $http({ url: '/goal/', method :methodValue, params: {id: goalid}  }).success(function(row){
+                         
+                        console.log(row)
+                         $scope.Modal = {
+                            "Title" :title,
+                            "Data": [
+
+                                        {"key": "Name", "value": row.Name },
+                                        {"key": "PercentageComplete", "value": row.PercentageComplete },
+                                        {"key": "Accomplish", "value": row.Accomplish }
+                                    ],
+                                     
+                            "id" : row.id
+                        }
+                             
+                         $("#myDialog").modal('show');
+                         $("#myDialog .modal-body .btn-primary").hide();
+
+                     }).error(function(data){
+
+                         console.log(data)
+                     });
+                         
+                 };
+                    
+                $scope.newRecordButton = function(){
+                    
+                    var methodValue = "GET";
+                    var title = "Add a goal";
+                    
+                     $("#myDialog").modal('show');
+                     $("#myDialog .modal-body .btn-primary").hide();
+                     
+                     $scope.Modal = {
+                             "Title" :title,
+                             "Data" : null
+                             
+                    }
+                }
+                        
+                        
+                $scope.saveRecordButton = function(){
+                    
+                    var methodValue = "POST";
+
+                    $http({ url: '/goal/', method :methodValue, params: {id: goalid}  }).success(function(row){
+                     
+                        location.reload();
+
+                     }).error(function(data){
+
+                         alert(data.responseJSON.code);
+                         console.log(data)
+                     });
+                    
+                };
+                        
+   
+                 return true;
+                        
+            });
+
 
         $(function(){
           var editTemplate = Handlebars.compile($("#edit-tmpl").html());
@@ -181,21 +290,15 @@
                    // $("#view").html(html);
             });
 
-            $("#view").on("click", ".ajax", function(){
-                $.get(this.href).then(function(data){
-                    $("#myDialog .modal-content").html(data);
-                    $("#myDialog").modal('show');
-                });
-                return false;
-            });
+        
             
-            $("#view").on("click", ".create", function(){
-                $("#myDialog .modal-title").html("Add a user");
+            $("#view").on("click", ".creat", function(){
+                $("#myDialog .modal-title").html("Add a goal");
                 $("#myDialog .modal-body").html(editTemplate({}));
                 $("#myDialog").modal('show');
                 $("#myDialog .modal-body .btn-primary").hide();
                 $("#myDialog .submit").one('click', function(){
-                    $.ajax({ url: '/user/', type: 'POST', data: $("#myDialog input").serialize() })
+                    $.ajax({ url: '/goal/', type: 'POST', data: $("#myDialog input").serialize() })
                     .done(function(data){
                         location.reload();
                     }).fail(function(data){
@@ -206,31 +309,14 @@
                 return false;
             });
             
-            $("#view").on("click", ".edit", function(){
-                var $self = $(this);
-                $.getJSON(this.href).then(function(data){
-                    var html = editTemplate(data);
-                    var $tr = $self.closest("tr").after(html).hide()
-                    $tr.next().find(".submit").one('click', function(){
-                        $.ajax({ url: '/user/', type: 'POST', data: $tr.next().find("input").serialize() })
-                        .done(function(data){
-                            location.reload();
-                        }).fail(function(data){
-                            alert(data.responseJSON.code);
-                        });
-                        return false;
-                    });
-                });
-                return false;
-            });
-            
+          
             $("#view").on("click", ".delete", function(){
                 $self = $(this); 
                 $.get(this.href).then(function(data){
-                    $("#myDialog .modal-title").html("Delete a user");
+                    $("#myDialog .modal-title").html("Delete a goal");
                     $("#myDialog .modal-body").html("<h5>Are you sure you want to delete " + data.Name + "?</h5>");
                     $("#myDialog .submit").one('click', function(){
-                        $.ajax({ url: '/user/' + data.id, type: 'DELETE'})
+                        $.ajax({ url: '/goal/' + data.id, type: 'DELETE'})
                         .done(function(data){
                             $self.closest('tr').remove();
                             $("#myDialog").modal('hide');
