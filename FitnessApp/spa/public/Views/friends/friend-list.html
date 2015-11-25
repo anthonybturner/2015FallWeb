@@ -10,7 +10,7 @@
 
                <div class="panel-body"><a class="btn btn-success create" ng-click="newRecordButton()">
                         <i class="glyphicon glyphicon-plus"></i>
-                        New Exericise
+                        New Goal
                     </a>
                     <a href="#" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
@@ -25,7 +25,7 @@
 
                 <div class="panel-heading" style="text-align: center;"> 
                 <i class="glyphicon glyphicon-list-alt"></i>
-                    <strong>Track your Exercises</strong>
+                    <strong>Your Friends list</strong>
                 </div>
            
                     <div class="panel-body">
@@ -34,8 +34,8 @@
                                 <tr>
                                     <th class="label label-primary col-sm-1">Actions</th>
                                     <th class="label label-primary col-sm-9">Name</th>
-                                    <th class="label label-primary col-sm-1">Minutes</th>
-                                    <th class="label label-primary col-sm-1">Accomplished</th>
+                                    <th class="label label-primary col-sm-1">Age</th>
+                                    <th class="label label-primary col-sm-1">Avatar</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -43,15 +43,15 @@
                                     <tr ng-repeat="row in vm.rows">
                                           <th scope="row">
                                             <div class="btn-group" role="group" aria-label="...">
-                                              <a ng-href="/exercise/{{row.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                              <a ng-href="/exercise/{{row.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( row.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
-                                              <a href="/exercise/{{row.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                              <a ng-href="/friend/{{row.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                              <a ng-href="/friend/{{row.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( row.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
+                                              <a href="/friend/{{row.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                                                
                                             </div>
                                           </th>
-                                        <td>{{row.Name}}</td>
-                                        <td>{{row.Minutes}}%</td>
-                                        <td>{{row.Accomplished}}</td>
+                                        <td>{{friend.Name}}</td>
+                                        <td>{{friend.Age}}%</td>
+                                        <td><img src="{{friend.Avvatar}}" height="56px" width="56px"></td>
                                        
                                     </tr>
                 

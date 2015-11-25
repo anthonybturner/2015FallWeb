@@ -1,0 +1,73 @@
+<div class="panel panel-info">
+        
+    <div class="panel-heading" style="text-align: center;"> 
+        <h2>{{vm.Heading.Message}}</h2> 
+        <h3>{{vm.Description.Message}}</h3>
+        <h5>{{vm.Intro.Title}}</h5>
+          
+        
+    </div>
+
+   <div class="panel-body">
+
+        <a class="btn btn-success create" ng-click="newRecordButton()">
+            <i class="glyphicon glyphicon-plus"></i>
+            New Goal
+        </a>
+
+        <a href="#" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Delete All
+            <span class="badge">{{rows.length}}</span>
+        </a>
+
+    </div>
+           
+</div>
+           
+<div class="panel panel-info">
+               
+
+    <div class="panel-heading" style="text-align: center;"> 
+        <i class="glyphicon glyphicon-list-alt"></i>
+        <strong>Track your nutrition habits</strong>
+    </div>
+           
+    <div class="panel-body">
+
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="label label-primary col-sm-1">Actions</th>
+                    <th class="label label-primary col-sm-9">Food Name</th>
+                    <th class="label label-primary col-sm-1">Calories</th>
+                    <th class="label label-primary col-sm-1">Carbohydrates</th>
+                </tr>
+            </thead>
+
+            <tbody >
+             
+                <tr ng-repeat="row in vm.rows">
+
+                    <th scope="row">
+
+                        <div class="btn-group" role="group" aria-label="...">
+
+                          <a ng-href="/food/{{row.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                          <a ng-href="#/food/{{row.id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                          <a href="/food/{{row.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                               
+                        </div>
+                    </th>
+
+                    <td>{{row.Name}}</td>
+                    <td>{{row.Calories}}</td>
+                    <td>{{row.Carbohydrates}}</td>
+                   
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

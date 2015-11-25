@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Fitness App 2015 - Goals</title>
+    <title>Fitness App 2015</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/global.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
       
+<<<<<<< HEAD
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
@@ -312,5 +314,103 @@
     </script>
 
   
+=======
+                  
+  </head>
+ <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script> -->
+
+  <body>
+    
+
+        <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Fitness App 2015</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a ng-href="#/">Home</a></li>
+              <li><a ng-href="#/user">Users</a></li>
+              <li><a href="#/food">Foods</a></li>
+              <li><a href="#/exercise">Exercises</a></li>
+              <li><a href="#/friend">Friends</a></li>
+             <li><a href="#/profile">Profile</a></li>
+
+              
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+         
+    <div class="container">
+
+      <div ng-view></div>
+ 
+      <!--      ### Tech Stuff ###      -->
+      <div class="modal fade" id="myDialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            
+              <form class="form-horizontal">
+                  
+                <div class="modal-header" >
+                  <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                  
+                  <h4 class="modal-title" ></h4>
+                </div>
+                
+                <div class="modal-body">
+                    
+                    
+                    
+                    <div>
+   
+                    </div>
+
+                  <tr
+                      <th></th>
+                       <input type="hidden" name="id" class="form-control" value="" />   
+                   </tr>
+                </div>
+                     
+          
+          	<div class="modal-footer">
+          		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+          		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" data-dismiss="modal" />
+          	</div>
+          </form>
+          
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+    </div> <!-- end main area -->
+
+    <script src="scripts/jquery-1.11.3.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/fitnessApp.js"></script>
+    <script src="scripts/controllers.js"></script>
+    
+>>>>>>> origin/localhost
   </body>
 </html>

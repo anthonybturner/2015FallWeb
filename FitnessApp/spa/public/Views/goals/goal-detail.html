@@ -1,0 +1,45 @@
+
+
+<div class="modal fade" id="myDialog" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+            <form class="form-horizontal">
+                
+              <div class="modal-header" >
+                <a href="/" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                
+                <h4 class="modal-title" >{{vm.Heading.Message}}</h4>
+              </div>
+              
+              <div class="modal-body">
+                  
+                  
+                  <div class="">
+                      
+                   <tr class="col-sm-12"><th><label>Goal Name: &nbsp;</label>{{vm.row.Name}}</th></tr><hr>
+                     <tr class="col-sm-12" >   <th ><label>Goal Percentage complete: &nbsp;</label>{{vm.row.PercentageComplete}}%</th></tr><hr>
+                     <tr class="col-sm-12">   <th ><label>Goal Accomplished?: &nbsp;</label>{{vm.row.Accomplished}}</th></tr><hr>
+                           
+                        
+                        
+                      
+                  </div>
+
+               
+              </div>
+                   
+        
+            <div class="modal-footer">
+                <a href="/" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+                <input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" ng-click="saveRecordButton()"/>
+            </div>
+        </form>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script>
+ $("#myDialog .submit ").hide();
+                     $("#myDialog").modal('show');
+</script>

@@ -1,16 +1,18 @@
 <div class="panel panel-info">
         
-                <div class="panel-heading" style="text-align: center;"> 
+                <div class="panel-heading" style="text-align: center; padding-right:0; padding-left:0; padding-top:0"> 
+
+                     <img class="thumbnail" src="{{vm.Heading.Banner}}"/ width="100%" height="256px" style="padding:0; margin:0"> 
                     <h2>{{vm.Heading.Message}}</h2> 
+                    
                     <h3>{{vm.Description.Message}}</h3>
-                      <h5>{{vm.Intro.Title}}</h5>
-                      
+                    <h5>{{vm.Intro.Title}}</h5>
                     
                 </div>
 
                <div class="panel-body"><a class="btn btn-success create" ng-click="newRecordButton()">
                         <i class="glyphicon glyphicon-plus"></i>
-                        New Exericise
+                        New Goal
                     </a>
                     <a href="#" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
@@ -25,7 +27,7 @@
 
                 <div class="panel-heading" style="text-align: center;"> 
                 <i class="glyphicon glyphicon-list-alt"></i>
-                    <strong>Track your Exercises</strong>
+                    <strong>Your current goals</strong>
                 </div>
            
                     <div class="panel-body">
@@ -33,8 +35,8 @@
                             <thead>
                                 <tr>
                                     <th class="label label-primary col-sm-1">Actions</th>
-                                    <th class="label label-primary col-sm-9">Name</th>
-                                    <th class="label label-primary col-sm-1">Minutes</th>
+                                    <th class="label label-primary col-sm-9">Goal Name</th>
+                                    <th class="label label-primary col-sm-1">Percentage Complete</th>
                                     <th class="label label-primary col-sm-1">Accomplished</th>
                                 </tr>
                             </thead>
@@ -43,14 +45,14 @@
                                     <tr ng-repeat="row in vm.rows">
                                           <th scope="row">
                                             <div class="btn-group" role="group" aria-label="...">
-                                              <a ng-href="/exercise/{{row.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                              <a ng-href="/exercise/{{row.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( row.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
-                                              <a href="/exercise/{{row.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                              <a ng-href="#/goal/{{row.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                              <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                              <a ng-href="#/goal/{{row.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                                                
                                             </div>
                                           </th>
                                         <td>{{row.Name}}</td>
-                                        <td>{{row.Minutes}}%</td>
+                                        <td>{{row.PercentageComplete}}%</td>
                                         <td>{{row.Accomplished}}</td>
                                        
                                     </tr>
