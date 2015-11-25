@@ -5,18 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Fitness App 2015 - Goals</title>
+    <title>Fitness App 2015</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/global.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
       
                   
   </head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
- 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script> -->
+
   <body>
     
 
@@ -29,16 +30,16 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Fitness App 2015</a>
+            <a class="navbar-brand" href="#/">Fitness App 2015</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="/Views/users">Users</a></li>
-              <li><a href="/Views/foods">Foods</a></li>
-              <li><a href="/Views/exercises">Exercises</a></li>
-              <li><a href="/Views/friends">Friends</a></li>
-             <li><a href="/Views/profile">Profile</a></li>
+              <li><a ng-href="#/">Home</a></li>
+              <li><a ng-href="#/user">Users</a></li>
+              <li><a href="#/food">Foods</a></li>
+              <li><a href="#/exercise">Exercises</a></li>
+              <li><a href="#/friend">Friends</a></li>
+             <li><a href="#/profile">Profile</a></li>
 
               
             </ul>
@@ -52,291 +53,60 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+
+
          
     <div class="container">
-        
-        <div id="view"  ng-controller="main">
-        
-            <div class="panel panel-info">
-        
-                <div class="panel-heading" style="text-align: center;"> 
-                    <h2>{{Heading.Message}}</h2> 
-                    <h3>{{Description.Message}}</h3>
-                      <h5>{{Intro.Title}}</h5>
-                      
-                    
-                </div>
 
-               <div class="panel-body"><a class="btn btn-success create" ng-click="newRecordButton()">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        New Goal
-                    </a>
-                    <a href="#" class="btn btn-danger">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        Delete All
-                        <span class="badge">{{rows.length}}</span>
-                    </a></div>
-           
-           </div>
-           
-           <div class="panel panel-info">
-               
-
-                <div class="panel-heading" style="text-align: center;"> 
-                <i class="glyphicon glyphicon-list-alt"></i>
-                    <strong>Track your goals</strong>
-                </div>
-           
-                    <div class="panel-body">
-                        <table class="table table-condensed table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="label label-primary col-sm-1">Actions</th>
-                                    <th class="label label-primary col-sm-9">Goal Name</th>
-                                    <th class="label label-primary col-sm-1">Percentage Complete</th>
-                                    <th class="label label-primary col-sm-1">Accomplished</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                             
-                                    <tr ng-repeat="goal in Goals">
-                                          <th scope="goal">
-                                            <div class="btn-group" role="group" aria-label="...">
-                                              <a ng-href="/goal/{{goal.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                              <a ng-href="/goal/{{goal.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( goal.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
-                                              <a href="/goal/{{goal.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
-                                               
-                                            </div>
-                                          </th>
-                                        <td>{{goal.Name}}</td>
-                                        <td>{{goal.PercentageComplete}}%</td>
-                                        <td>{{goal.Accomplished}}</td>
-                                       
-                                    </tr>
-                
-                            </tbody>
-                        </table>
-                        
-                    
-                    </div>
-                </div>
-                
-            </div> <!-- end main area -->
-                
-            <!--      ### Tech Stuff ###      -->
-            <div class="modal fade" id="myDialog" >
-              <div class="modal-dialog">
-                <div class="modal-content">
+      <div ng-view></div>
+ 
+      <!--      ### Tech Stuff ###      -->
+      <div class="modal fade" id="myDialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            
+              <form class="form-horizontal">
                   
-                    <form class="form-horizontal">
-                        
-                      <div class="modal-header" >
-                        <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-                        
-                        <h4 class="modal-title" >{{Modal.Title}}</h4>
-                      </div>
-                      
-                      <div class="modal-body">
-                          
-                          
-                          <div ng-repeat="data in Modal.Data">
-                              
-                               <tr>
-                                    <th>{{data.key}}</th>
-                                    <td><input type="text" name="{{data.key}}" class="form-control" placeholder="{{data.key}}" value="{{data.value}}" /> <br></td>
-                                </tr>
-                                
-                              
-                          </div>
-  
-                        <tr
-                            <th></th>
-                            <td><img src="{{Modal.Avatar}}" height="256" width="256px"> <br></td>
-                             <input type="hidden" name="id" class="form-control" value="{{Modal.id}}" />   
-                         </tr>
-                      </div>
-                           
+                <div class="modal-header" >
+                  <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                  
+                  <h4 class="modal-title" ></h4>
+                </div>
                 
-                	<div class="modal-footer">
-                		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
-                		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" ng-click="saveRecordButton()"/>
-                	</div>
-                </form>
-                
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            
-        </div><!-- End controller main -->
-    </div>
-
+                <div class="modal-body">
+                    
+                    
+                    
+                    <div>
    
+                    </div>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
-    <script type="text/template" id="edit-tmpl" >
-        <tr>
-           <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
-           <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
-           <td>
-             <input type="submit" value="Submit" class="btn btn-primary submit"/>
-             <input type="hidden" name="id" value="{{id}}" /> 
-           </td>
-        </tr>
-    </script>
-    
-    <script type="text/template" id="index-tmpl" >
-       
-
-    </script>
-    
-     <script type="text/javascript">
-     
-        var mainApp = angular.module("app", []);
-         
-             mainApp.controller('main', function($scope, $http) {
-                 
-                 var self = this;
-                 var methodValue = "GET";
-                 $http({ url: '/goal/', method :methodValue  }).success(function(data){
+                  <tr
+                      <th></th>
+                       <input type="hidden" name="id" class="form-control" value="" />   
+                   </tr>
+                </div>
                      
-                    $scope.Heading = {"Message": "Welcome to FitnessApp 2015"};
-                    $scope.Description = {"Message":"Track your eating habits, keep fit with exercise goals, and talk with other members"};
-                    $scope.Intro = {
-                                    "Title" : "This page uses NodeJs for server side scripting, Express for routing, and is starting to use AngularJs."+
-                                    "It also uses Handlebars for some templating."
-                        
-                                    },
-                    $scope.Goals = data
-                    
-                });
-                
-                
-                
-                $scope.editButton = function(goalid){
-                    
-                    var methodValue = "GET";
-                    var title = "Edit Goal"
-
-                     $http({ url: '/goal/', method :methodValue, params: {id: goalid}  }).success(function(row){
-                         
-                        console.log(row)
-                         $scope.Modal = {
-                            "Title" :title,
-                            "Data": [
-
-                                        {"key": "Name", "value": row.Name },
-                                        {"key": "PercentageComplete", "value": row.PercentageComplete },
-                                        {"key": "Accomplish", "value": row.Accomplish }
-                                    ],
-                                     
-                            "id" : row.id
-                        }
-                             
-                         $("#myDialog").modal('show');
-                         $("#myDialog .modal-body .btn-primary").hide();
-
-                     }).error(function(data){
-
-                         console.log(data)
-                     });
-                         
-                 };
-                    
-                $scope.newRecordButton = function(){
-                    
-                    var methodValue = "GET";
-                    var title = "Add a goal";
-                    
-                     $("#myDialog").modal('show');
-                     $("#myDialog .modal-body .btn-primary").hide();
-                     
-                     $scope.Modal = {
-                             "Title" :title,
-                             "Data" : null
-                             
-                    }
-                }
-                        
-                        
-                $scope.saveRecordButton = function(){
-                    
-                    var methodValue = "POST";
-
-                    $http({ url: '/goal/', method :methodValue, params: {id: goalid}  }).success(function(row){
-                     
-                        location.reload();
-
-                     }).error(function(data){
-
-                         alert(data.responseJSON.code);
-                         console.log(data)
-                     });
-                    
-                };
-                        
-   
-                 return true;
-                        
-            });
-
-
-        $(function(){
-          var editTemplate = Handlebars.compile($("#edit-tmpl").html());
-        //var indexTemplate = Handlebars.compile($("#index-tmpl").html());
-
-
-            $.getJSON("/food").then(function(data){
-                 //   var html = indexTemplate({rows: data});
-                   // $("#view").html(html);
-            });
-
-        
-            
-            $("#view").on("click", ".creat", function(){
-                $("#myDialog .modal-title").html("Add a goal");
-                $("#myDialog .modal-body").html(editTemplate({}));
-                $("#myDialog").modal('show');
-                $("#myDialog .modal-body .btn-primary").hide();
-                $("#myDialog .submit").one('click', function(){
-                    $.ajax({ url: '/goal/', type: 'POST', data: $("#myDialog input").serialize() })
-                    .done(function(data){
-                        location.reload();
-                    }).fail(function(data){
-                        alert(data.responseJSON.code);
-                    });
-                    return false;
-                });
-                return false;
-            });
-            
           
-            $("#view").on("click", ".delete", function(){
-                $self = $(this); 
-                $.get(this.href).then(function(data){
-                    $("#myDialog .modal-title").html("Delete a goal");
-                    $("#myDialog .modal-body").html("<h5>Are you sure you want to delete " + data.Name + "?</h5>");
-                    $("#myDialog .submit").one('click', function(){
-                        $.ajax({ url: '/goal/' + data.id, type: 'DELETE'})
-                        .done(function(data){
-                            $self.closest('tr').remove();
-                            $("#myDialog").modal('hide');
-                        }).fail(function(data){
-                            alert(data.responseJSON.code);
-                        });
-                        return false;
-                    });
-                    $("#myDialog").modal('show');
-                });
-                return false;
-            });
-        });
-        
-        
-    </script>
-    
-    
-    
-    
+          	<div class="modal-footer">
+          		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+          		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" data-dismiss="modal" />
+          	</div>
+          </form>
+          
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
 
+
+    </div> <!-- end main area -->
+
+    <script src="scripts/jquery-1.11.3.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/fitnessApp.js"></script>
+    <script src="scripts/controllers.js"></script>
+    
   </body>
 </html>
