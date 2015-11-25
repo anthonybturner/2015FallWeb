@@ -1,7 +1,9 @@
 var mysql = require("mysql");
 
 module.exports =  {
+  
     blank: function(){ return {} },
+    
     get: function(id, ret){
         var conn = GetConnection();
         var sql = 'SELECT * FROM 2015Fall_Goals ';

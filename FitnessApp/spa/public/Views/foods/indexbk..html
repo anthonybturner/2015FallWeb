@@ -223,36 +223,8 @@
        
     </script>
     <script type="text/ngtemplate" id="edit-tmpl" >
-        <tr>
-           <td></td>
-            <td></td>
-           <td><input type="hidden" name="updated_at" class="form-control" placeholder="Last updated" value="" /></td>
-           <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
-           <td><input type="text" name="Calories" class="form-control" placeholder="Calories" value="{{Calories}}" /></td>
-           <td><input type="text" name="Carbohydrates" class="form-control" placeholder="Carbohydrates" value="{{Carbohydrates}}" /></td>
-
-           <td><input type="text" name="Fiber" class="form-control" placeholder="Fiber" value="{{Fiber}}" /></td>
-           <td><input type="text" name="Cholestrol" class="form-control" placeholder="Cholestrol" value="{{Cholestrol}}" /></td>
-           <td><input type="text" name="Protein" class="form-control" placeholder="Protein" value="{{Protein}}" /></td>
-
-            <td>
-               <select name="2015Fall_MealTypes_id">
-                   <option value="1">Breakfast</option>
-                   <option value="2">Lunch</option>
-                   <option value="3">Dinner</option>
-                   <option value="4">Snack</option>
-               </select>
-            </td>
-            <input type="hidden" name="id" value="{{id}}" />
-
-
-        </tr>
-        <tr>
-          <td colspan="7"></td>
-           <td colspan="1">
-             <input type="submit" value="Submit" class="btn btn-primary submit"/>
-           </td>
-         </tr>
+        <tr
+          
     </script>
     
      <script type="text/template" id="detail-tmpl" >
@@ -297,7 +269,7 @@
 
     </script>
     
-    <script type="text/ng-template" id="index-tmpl" >
+    <script type="text/template" id="index-tmpl" >
     
                    
     <div class="panel panel-info">
@@ -339,7 +311,7 @@
             </thead>
             <tbody>
                 {{#each rows}}
-                    <tr>
+                    <tr ng-repeat="row in vm.rows">
                           <th scope="row">
                             <div class="btn-group" role="group" aria-label="...">
                               <a href="/food/{{id}}" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
@@ -358,6 +330,35 @@
                         <td>
                             {{MealType}}
                         </td>
+   
+                        <td></td>
+                       <td><input type="hidden" name="updated_at" class="form-control" placeholder="Last updated" value="" /></td>
+                       <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
+                       <td><input type="text" name="Calories" class="form-control" placeholder="Calories" value="{{Calories}}" /></td>
+                       <td><input type="text" name="Carbohydrates" class="form-control" placeholder="Carbohydrates" value="{{Carbohydrates}}" /></td>
+            
+                       <td><input type="text" name="Fiber" class="form-control" placeholder="Fiber" value="{{Fiber}}" /></td>
+                       <td><input type="text" name="Cholestrol" class="form-control" placeholder="Cholestrol" value="{{Cholestrol}}" /></td>
+                       <td><input type="text" name="Protein" class="form-control" placeholder="Protein" value="{{Protein}}" /></td>
+            
+                        <td>
+                           <select name="2015Fall_MealTypes_id">
+                               <option value="1">Breakfast</option>
+                               <option value="2">Lunch</option>
+                               <option value="3">Dinner</option>
+                               <option value="4">Snack</option>
+                           </select>
+                        </td>
+                        <input type="hidden" name="id" value="{{id}}" />
+            
+            
+                    </tr>
+                    <tr>
+                      <td colspan="7"></td>
+                       <td colspan="1">
+                         <input type="submit" value="Submit" class="btn btn-primary submit"/>
+                       </td>
+                     </tr>
                         
                     </tr>
                 {{/each}}

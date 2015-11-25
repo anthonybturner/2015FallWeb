@@ -11,13 +11,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/global.css">
       
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
-                  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
+     <!-- <script src="directives/alert.js"></script> --> 
+
   </head>
   
-  <body ng-controller="goalController as vm">
+  <body ng-controller>
     
 
         <nav class="navbar navbar-default navbar-inverse">
@@ -35,8 +37,8 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                       <li class="active"><a href="#">Home</a></li>
-                      <li><a ng-click="/Views/users" ng-click="vm.template">Users</a></li>
-                      <li><a href="/Views/foods">Foods</a></li>
+                      <li><a  ng-click="#/user">Users</a></li>
+                      <li><a href="#/food">Foods</a></li>
                       <li><a href="/Views/exercises">Exercises</a></li>
                       <li><a href="/Views/friends">Friends</a></li>
                       <li><a href="/Views/profile">Profile</a></li>
@@ -57,10 +59,11 @@
     
 
     <div class="container" >
-        
-        <div id="view"   ng-include src="'Views/users/user-index.html'" >
+        <!-- <mp-alert></mp-alert> -->
+        <div id="view"  ng-view >
         
         </div>
+     
 
 
         <!--      ### Tech Stuff ###      -->
@@ -121,12 +124,43 @@
   
      <script type="text/javascript">
      
-        var mainApp = angular.module("app", []);
-         
-             mainApp.controller('goalController', function($sce, $http) {
+        var mainApp = angular.module("app", ['ngRoute'])
+        .config(['$routeProvider',
+          function($routeProvider) {
+              
+            $routeProvider.
+              when('/user', {
+                  
+                templateUrl: 'Views/users/user-index.html',
+                controller: 'user', controllerAs: 'vm'
+                
+              }).
+              when('/user/:id', {
+                templateUrl: 'Views/users/user-details.html',
+                controller: 'userDetails'
+              }).
+              when('food', {
+                  
+                templateUrl: 'Views/foods/index.html',
+                controller: 'food'
+                
+              }).
+              when('/user/:id', {
+                templateUrl: 'Views/foods/food-details.html',
+                controller: 'userDetails'
+              }).
+              otherwise({
+                redirectTo: '/'
+              });
+          }])
+          .controller('goalController', function($sce, $http) {
                  
                  var self = this;
-                 self.template = '/Views/users/user-index.html';
+                 
+                 self.usersLink = function(){
+                    self.template = 'Views/users/user-index.html';
+                 
+                 };
  
                  $http.get("/goal").then(function(data){
                      

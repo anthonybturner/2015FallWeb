@@ -9,8 +9,8 @@ var friend = require("./Models/friend");
 
 
 app.use(express.static(__dirname+'/public'));
-
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/food", function(req, res){
   
@@ -163,14 +163,21 @@ app.get("/food", function(req, res){
   
 })
 .post("/goal", function(req, res){
+  
   var errors = goal.validate(req.body);
+  
   if(errors){
+    
     res.status(500).send(errors);
     return;
   }
+  
   goal.save(req.body, function(err, row){
+    
     res.send(row);
+    
   })
+  
 })
 .delete("/goal/:id", function(req, res){
   
