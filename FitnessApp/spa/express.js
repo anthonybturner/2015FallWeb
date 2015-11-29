@@ -82,24 +82,15 @@ app.get("/food", function(req, res){
   
 })
 .get("/user", function(req, res){
-     console.log(req.query.id);
-     if( req.query.id ){
-       
-       user.get(req.query.id, function(err, rows){
-       
-          res.send(rows[0]);
-        
-       })
-      
-     }else{
-      
+     
         user.get(null, function(err, rows){
           res.send(rows);
         })
-     }
+     
 })
 .get("/user/:id", function(req, res){
-  console.log("called")
+ 
+ 
   user.get(req.params.id, function(err, rows){
     res.send(rows[0]);
   })
@@ -132,40 +123,33 @@ app.get("/food", function(req, res){
   })
     
 })
-.get("/friend/:id", function(req, res){
+.get("/goal", function(req, res){
   
-  friend.get(req.params.id, function(err, rows){
-    res.send(rows[0]);
+ 
+  if( req.query.user_id){
+    
+    goal.getByUserId(req.query.user_id, function(err, rows){
+    res.send(rows);
   })
   
-}).get("/goal", function(req, res){
-     console.log(req.query.id);
-     if( req.query.id ){
-       
-       goal.get(req.query.id, function(err, rows){
-       
-          res.send(rows[0]);
-        
-       })
-      
-     }else{
-      
-        goal.get(null, function(err, rows){
-          res.send(rows);
-        })
-     }
-})
-.get("/goal/:id", function(req, res){
-  console.log("called")
+  }else{
+    
+    goal.get(null, function(err, rows){
+     res.send(rows);
+   })
+  }
+  
+    
+}).get("/goal/:id", function(req, res){
+
   goal.get(req.params.id, function(err, rows){
-    res.send(rows[0]);
+    res.send(rows);
   })
   
 })
 .post("/goal", function(req, res){
   
   var errors = goal.validate(req.body);
-  
   if(errors){
     
     res.status(500).send(errors);
@@ -174,10 +158,13 @@ app.get("/food", function(req, res){
   
   goal.save(req.body, function(err, row){
     
+      if(err){
+        res.status(500).send(err);
+        return;
+      }
+      
     res.send(row);
-    
   })
-  
 })
 .delete("/goal/:id", function(req, res){
   
