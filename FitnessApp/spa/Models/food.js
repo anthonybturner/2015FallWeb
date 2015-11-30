@@ -5,9 +5,23 @@ module.exports =  {
     
     get: function(id, ret){
         var conn = GetConnection();
-        var sql = "SELECT m.updated_at, m.Name, m.id, m.Calories, m.Carbohydrates, m.Fiber, m.Protein, m.Cholestrol, m.Users_id, mt.id as MealType_Id, mt.MealType FROM 2015Fall_Meals m left join 2015Fall_MealTypes mt on mt.id=m.2015Fall_MealTypes_id ";
+         var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ";
         if(id){
-          sql += " WHERE m.id = " + id;
+          sql += " WHERE foods.foods_id = " + id;
+        }
+       
+        conn.query(sql, function(err,rows){
+          
+          ret(err,rows);
+          conn.end();
+        });        
+    },
+    
+     getByUserId: function(id, ret){
+        var conn = GetConnection();
+        var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ";
+        if(id){
+          sql += " WHERE foods.users_id = " + id;
         }
         conn.query(sql, function(err,rows){
           ret(err,rows);
@@ -16,7 +30,7 @@ module.exports =  {
     },
     delete: function(id, ret){
         var conn = GetConnection();
-        conn.query("DELETE FROM 2015Fall_Meals WHERE id = " + id, function(err,rows){
+        conn.query("DELETE FROM Foods WHERE foods_id = " + id, function(err,rows){
           ret(err);
           conn.end();
         });        
@@ -25,20 +39,22 @@ module.exports =  {
         var sql;
         var conn = GetConnection();
         //  TODO Sanitize
-        if (row.id) {
-				  sql = " Update 2015Fall_Meals "
-							+ " Set updated_at= NOW(), Name=?, Calories=? , Fiber=?, Protein=?, Carbohydrates=?, Cholestrol=?, 2015Fall_MealTypes_id=?, Users_id=1"
-						  + " WHERE id = ? ";
+        if (row.foods_id) {
+				  sql = " Update Foods "
+							+ " Set updated_at= NOW(), foods_name=?, foods_calories=? , foods_fiber=?, foods_protein=?,  foods_cholestrol=?, foodstypes_id=?, users_id=?"
+						  + " WHERE foods_id = ? ";
 			  }else{
-				  sql = "INSERT INTO 2015Fall_Meals "
-						  + " (created_at, updated_at, Name, Calories, Fiber, Protein, Carbohydrates, Cholestrol, 2015Fall_MealTypes_id, Users_id ) "
-						  + "VALUES (CURDATE(), NOW(), ?, ?, ?, ?, ?, ?, 2, 1 ) ";				
+				  sql = "INSERT INTO Foods "
+						  + " (updated_at, foods_name, foods_calories, foods_fiber, foods_protein, foods_cholestrol, foodstypes_id, users_id ) "
+						  + "VALUES ( NOW(), ?, ?, ?, ?, ?, ?,  ? ) ";				
 			  }
 
-        conn.query(sql, [ row.Name, row.Calories, row.Fiber, row.Protein, row.Carbohydrates, row.Cholestrol, row.MealTypes_id, row.id],function(err,data){
-          if(!err && !row.id){
-            row.id = data.insertId;
+        conn.query(sql, [ row.foods_name, row.foods_calories, row.foods_fiber, row.foods_protein, row.foods_cholestrol, row.foodstypes_id, row.users_id, row.foods_id],function(err,data){
+          if(!err && !row.foods_id){
+            row.foods_id = data.insertId;
           }
+                  console.log(row)
+
           ret(err, row);
           conn.end();
         });        
@@ -46,7 +62,7 @@ module.exports =  {
     validate: function(row){
       var errors = {};
       
-      if(!row.Name) errors.Name = "is required"; 
+      if(!row.foods_name) errors.Name = "is required"; 
       
       return errors.length ? errors : false;
     }

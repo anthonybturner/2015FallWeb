@@ -48,19 +48,21 @@
                                   <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                                 </div>
                               </th>
-                            <td >{{row.Name}}</td>
-                            <td >{{row.PercentageComplete}}</td>
-                            <td ng-if-end>{{row.Accomplished}}</td>
+                            <td >{{row.goals_name}}</td>
+                            <td >{{row.goals_percentage_complete}}</td>
+                            <input type="hidden" name="goals_id" class="form-control" placeholder="goals id" ng-model="row.goals_id" />
+                            <input type="hidden" name="users_id" class="form-control" placeholder="users id" ng-model="row.users_id" />
+                            <td ng-if-end>{{row.goals_accomplished}}</td>
     
                             <td ng-if-start="row.isEditing">
                                 <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                                 <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                             </td>
-                            <td> <input type="text" name="Name" class="form-control" placeholder="Name" ng-model="row.Name" /></td>
-                            <td><input type="text" name="PercentageComplete" class="form-control" placeholder="Percentage" ng-model="row.PercentageComplete" /></td>
+                            <td> <input type="text" name="goals_name" class="form-control" placeholder="Name" ng-model="row.goals_name" /></td>
+                            <td><input type="text" name="goals_percentage_complete" class="form-control" placeholder="Percentage" ng-model="row.goals_percentage_complete" /></td>
     
-                            <td ng-if-end><input type="text" name="Accomplished" class="form-control" placeholder="Accomplished" ng-model="row.Accomplished" /></td>
-                           
+                            <td ng-if-end><input type="text" name="goals_accomplished" class="form-control" placeholder="Accomplished" ng-model="row.goals_accomplished" /></td>
+                            
                            
                         </tr>
                 </tbody>

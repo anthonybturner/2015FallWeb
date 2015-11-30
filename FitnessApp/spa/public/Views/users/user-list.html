@@ -49,23 +49,23 @@
                                           <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                                         </div>
                                       </th>
-                                    <td >{{row.Name}}</td>
-                                    <td >{{row.Age}}</td>
-                                    <td >{{row.Height}}</td>
-                                    <td >{{row.Weight}}</td>
-                                    <td ><img ng-src="{{row.Avatar}}" height="56px" width="56px"/></td>
-                                    <td ng-if-end>{{row.Status}}</td>
+                                    <td >{{row.users_name}}</td>
+                                    <td >{{row.users_age}}</td>
+                                    <td >{{row.users_height}}</td>
+                                    <td >{{row.users_weight}}</td>
+                                    <td ><img ng-src="{{row.users_avatar}}" height="56px" width="56px"/></td>
+                                    <td ng-if-end>{{row.users_status}}</td>
             
                                     <td ng-if-start="row.isEditing">
                                         <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                                         <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                                     </td>
-                                    <td> <input type="text" name="Name" class="form-control" placeholder="Name" ng-model="row.Name" /></td>
-                                    <td><input type="text" name="Age" class="form-control" placeholder="Age" ng-model="row.Age" /></td>
-                                    <td> <input type="text" name="Height" class="form-control" placeholder="Height" ng-model="row.Height" /></td>
-                                    <td><input type="text" name="Weight" class="form-control" placeholder="Weight" ng-model="row.Weight" /></td>
-                                    <td ><input type="text" name="Avatar" class="form-control" placeholder="Avatar" ng-model="row.Avatar" /></td>
-                                    <td ng-if-end><input type="text" name="Status" class="form-control" placeholder="Status" ng-model="row.Status" disabled/></td>
+                                    <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="row.users_name" /></td>
+                                    <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="row.users_age" /></td>
+                                    <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="row.users_height" /></td>
+                                    <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="row.users_weight" /></td>
+                                    <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" /></td>
+                                    <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="row.users_status" disabled/></td>
                                    
                                 </tr>
                             </tbody>

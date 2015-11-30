@@ -5,11 +5,12 @@ module.exports =  {
     get: function(id, ret){
         var conn = GetConnection();
         var sql = 'SELECT * FROM Users ';
-        if(id){
-          sql += " WHERE users_id = " + id;
-        }
+
+        sql+= " order by users_id desc"
         conn.query(sql, function(err,rows){
-          ret(err,rows);
+
+
+          ret(err,rows[0]);
           conn.end();
         });        
     },

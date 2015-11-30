@@ -5,7 +5,7 @@ angular.module('fitnessapp.directives', [])
     return {
         controller: function(alert, $scope){
             $scope.vm = alert;
-        },
+        },scope: true,
         template:   '<div class="alert alert-danger" ng-if="vm.msg">'
                 +   '<button ng-click="vm.msg = null" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
                 +   '{{vm.msg}}'
