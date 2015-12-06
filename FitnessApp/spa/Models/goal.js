@@ -21,7 +21,6 @@ module.exports =  {
         if(id){
           sql += " WHERE users_id = " + id;
         }
-        console.log(sql)
         conn.query(sql, function(err,rows){
           ret(err,rows);
           conn.end();
@@ -36,7 +35,7 @@ module.exports =  {
         });        
     },
     save: function(row, ret){
-      console.log(row)
+
         var sql;
         var conn = GetConnection();
         //  TODO Sanitize
@@ -49,7 +48,6 @@ module.exports =  {
 						  + " (goals_name, goals_percentage_complete, goals_accomplished, users_id ) "
 						  + "VALUES (?, ?, ?, ? ) ";				
 			  }
-        console.log(row)
         conn.query(sql, [row.goals_name, row.goals_percentage_complete, row.goals_accomplished, row.users_id, row.goals_id],function(err,data){
           
           if(!err && !row.goals_id){

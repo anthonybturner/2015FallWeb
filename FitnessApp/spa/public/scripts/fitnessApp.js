@@ -1,4 +1,4 @@
-angular.module("app", ['ngRoute',  'appControllers'])
+angular.module("app", ['ngRoute',  'fitnessapp.directives'])
   .config(function($routeProvider) {
 
             $routeProvider.
@@ -22,14 +22,19 @@ angular.module("app", ['ngRoute',  'appControllers'])
               }).when('/food', {
 
                 templateUrl: 'Views/foods/food-list.html',
-                controller: 'foodsCtrl', controllerAs: 'vm'
+                controller: 'foodCtrl', controllerAs: 'vm'
 
               }).when('/food/:id', {
 
-                templateUrl: 'Views/foods/food-detail.html',
-                controller: 'foodsCtrl', controllerAs: 'vm'
+                templateUrl: 'Views/foods/food-list.html',
+                controller: 'foodCtrl', controllerAs: 'vm'
 
-              }). when('/user', {
+              }).when('/food/new/:term', {
+
+                templateUrl: 'Views/foods/food-new.html',
+                controller: 'foodNewCtrl', controllerAs: 'vm'
+
+              }).when('/user', {
 
                 templateUrl: 'Views/users/user-list.html',
                 controller: 'usersCtrl', controllerAs: 'vm'
@@ -56,16 +61,26 @@ angular.module("app", ['ngRoute',  'appControllers'])
                 templateUrl: 'Views/friends/friend-list.html',
                 controller: 'friendsCtrl', controllerAs: 'vm'
 
-              }).
-              when('/friend/:id', {
+              }).when('/friend/:id', {
 
                 templateUrl: 'Views/friends/friend-list.html',
                 controller: 'friendsCtrl', controllerAs: 'vm'
 
+              }).when('/profile', {
+
+                templateUrl: 'Views/profiles/profile-list.html',
+                controller: 'profilesCtrl', controllerAs: 'vm'
+
+              }).
+              when('/profile/:id', {
+
+                templateUrl: 'Views/Profiles/friend-detail.html',
+                controller: 'profilesDetailCtrl', controllerAs: 'vm'
+
               }).
               otherwise({
 
-                redirectTo: '/user'
+                redirectTo: '/goal'
 
               });
 })

@@ -7,7 +7,19 @@ var food = require("./Models/food");
 var exercise = require("./Models/exercise");
 var friend = require("./Models/friend");
 var login = require("./Models/login");
+var unirest = require("unirest");
+var Twit = require("twit");
 
+//var twit = new Twit();
+//https://market.mashape.com/msilverman/nutritionix-nutrition-database
+//http://unirest.io/nodejs
+
+var twit = new Twit({
+    consumer_key:         'aSfk6iHFWusKo37mUoNBNaaSL'
+  , consumer_secret:      'rFTNvG6WuK2hLuG4rUxRqfPuPXZAsEiIQF6R2DEE75e0FpFRQy'
+  , access_token:         '401096761-taetwuKu7xVz1Our0yuTxILvEVmmNfjdWztpv3Hu'
+  , access_token_secret:  'YllZIT7uJ2LSndvNIeyNECWMg90bGf4ZZEkaRL1eOsJlH'
+})
 
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,12 +29,10 @@ app.get("/food", function(req, res){
   
 
     if( req.query.users_id){
-      
        food.getByUserId(req.query.users_id, function(err, rows){
          res.send(rows);
        })
     }else{
-      
         food.get(null, function(err, rows){
          res.send(rows);
        })
@@ -33,12 +43,10 @@ app.get("/food", function(req, res){
 })
 .get("/food/:id", function(req, res){
  
-
       food.get(req.params.id, function(err, rows){
-        res.send(rows[0]);
+        res.send(rows);
       })
-  
-  
+
 })
 .post("/food", function(req, res){
   var errors = food.validate(req.body);
@@ -94,6 +102,12 @@ app.get("/food", function(req, res){
     res.status(500).send(errors);
     return;
   }
+  
+  //twit.post('statuses/update', { status: '[App developers test-] I just accomplished ' + req.body.exercises_minutes + ' minutes with ' + req.body.exercises_name + ' and burned ' + req.body.exercises_calories_burned + ' calories' }, function(err, data, response) {
+      //console.log(data)
+    //})
+  
+  
   exercise.save(req.body, function(err, row){
     res.send(row);
   })
@@ -104,21 +118,20 @@ app.get("/food", function(req, res){
       if(err){
         res.status(500).send(err);
       }else{
-        res.send(req.body.params.id);
+       
+        res.send(req.params.id);
       }
   })
   
 })
 .get("/user", function(req, res){
      
-      
         user.get(null, function(err, rows){
           res.send(rows);
         })
      
 })
 .get("/user/:id", function(req, res){
- 
  
   user.get(req.params.id, function(err, rows){
     res.send(rows[0]);
@@ -145,7 +158,14 @@ app.get("/food", function(req, res){
       }
   })
   
-}).get("/friend", function(req, res){
+})
+.get("/fbuser/:access_token", function(req, res){
+    unirest.get("https://graph.facebook.com/me?access_token=" + req.params.access_token + "&fields=id,name,email")
+    .end(function (result) {
+        res.send(result.body);
+    });
+})
+.get("/friend", function(req, res){
   
   friend.get(null, function(err, rows){
     res.send(rows);
@@ -154,7 +174,6 @@ app.get("/food", function(req, res){
 })
 .get("/goal", function(req, res){
   
-  console.log(req)
   if( req.query.users_id){
 
     goal.getByUserId(req.query.users_id, function(err, rows){
@@ -227,6 +246,18 @@ app.get("/food", function(req, res){
     res.send(row);
   })
 })
+.get("/food/search/:term", function(req, res){
+    unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat")
+    .header("X-Mashape-Key", "qYpiKTaB8emshjm5EVuKkQwT8pLfp1L1LAdjsncmdtXipZViyv")
+    .header("Accept", "application/json")
+    .end(function (result) {
+      
+        res.send(result.body);
+    });
+    
+})
+
+
   
 
 

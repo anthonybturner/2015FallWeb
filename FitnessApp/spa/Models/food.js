@@ -53,7 +53,6 @@ module.exports =  {
           if(!err && !row.foods_id){
             row.foods_id = data.insertId;
           }
-                  console.log(row)
 
           ret(err, row);
           conn.end();

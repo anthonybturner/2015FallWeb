@@ -6,7 +6,7 @@ angular.module('fitnessapp.directives', [])
         controller: function(alert, $scope){
             $scope.vm = alert;
         },scope: true,
-        template:   '<div class="alert alert-danger" ng-if="vm.msg">'
+        template:   '<div class="alert alert-{{vm.alertType}}" ng-if="vm.msg">'
                 +   '<button ng-click="vm.msg = null" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
                 +   '{{vm.msg}}'
                 +   '</div>'
@@ -14,7 +14,11 @@ angular.module('fitnessapp.directives', [])
 }).service('alert', function(){
         var self = this;
         self.msg = null;
-        self.show = function(msg){
+        self.show = function(msg, alertType){
             self.msg = msg;
+            if( alertType )
+                self.alertType = alertType;
+            else
+               self.alertType = "info";
         }
 })
