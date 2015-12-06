@@ -1,9 +1,8 @@
-var mysql = require("mysql");
-
+var global = require("../inc/global");
 module.exports =  {
     blank: function(){ return {} },
     get: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         var sql = 'SELECT * FROM Users ';
 
         sql+= " order by users_id desc"
@@ -15,7 +14,7 @@ module.exports =  {
         });        
     },
     delete: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         conn.query("DELETE FROM Users WHERE users_id = " + id, function(err,rows){
           ret(err);
           conn.end();
@@ -23,7 +22,7 @@ module.exports =  {
     },
     save: function(row, ret){
         var sql;
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update Users "
@@ -51,13 +50,3 @@ module.exports =  {
       return errors.length ? errors : false;
     }
 };  
-
-function GetConnection(){
-        var conn = mysql.createConnection({
-          host: "localhost",
-          user: "anthonybjturner",
-          password: "",
-          database: "turnera1_db"
-        });
-    return conn;
-}

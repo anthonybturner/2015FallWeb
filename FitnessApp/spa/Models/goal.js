@@ -1,11 +1,10 @@
-var mysql = require("mysql");
-
+var global = require("../inc/global");
 module.exports =  {
   
     blank: function(){ return {} },
     
     get: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         var sql = 'SELECT * FROM Goals';
         if(id){
           sql += " WHERE goals_id = " + id;
@@ -16,7 +15,7 @@ module.exports =  {
           conn.end();
         });        
     }, getByUserId: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         var sql = 'SELECT * FROM Goals';
         if(id){
           sql += " WHERE users_id = " + id;
@@ -27,7 +26,7 @@ module.exports =  {
         });        
     }, 
     delete: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
        
         conn.query("DELETE FROM Goals WHERE goals_id = " + id, function(err,rows){
           ret(err);
@@ -37,7 +36,7 @@ module.exports =  {
     save: function(row, ret){
 
         var sql;
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         //  TODO Sanitize
         if (row.goals_id) {
 				  sql = " Update Goals "
@@ -65,13 +64,3 @@ module.exports =  {
       return errors.length ? errors : false;
     }
 };  
-
-function GetConnection(){
-        var conn = mysql.createConnection({
-          host: "localhost",
-          user: "anthonybjturner",
-          password: "",
-          database: "turnera1_db"
-        });
-    return conn;
-}

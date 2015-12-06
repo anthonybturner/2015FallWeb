@@ -1,10 +1,10 @@
-var mysql = require("mysql");
+var global = require("../inc/global");
 
 module.exports =  {
     blank: function(){ return {} },
     
     get: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         var sql = "SELECT u.Name as FriendName, u.Avatar from  2015Fall_Users u inner join 2015Fall_Friends f on f.Friend_id=u.id";
         if(id){
           sql += "  Where f.Users_id = 1"
@@ -15,7 +15,7 @@ module.exports =  {
         });        
     },
     delete: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         conn.query("DELETE FROM 2015Fall_Friends WHERE id = " + id, function(err,rows){
           ret(err);
           conn.end();
@@ -23,7 +23,7 @@ module.exports =  {
     },
     save: function(row, ret){
         var sql;
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update 2015Fall_Friends "
@@ -51,13 +51,3 @@ module.exports =  {
       return errors.length ? errors : false;
     }
 };  
-
-function GetConnection(){
-        var conn = mysql.createConnection({
-          host: "localhost",
-          user: "anthonybjturner",
-          password: "",
-          database: "turnera1_db"
-        });
-    return conn;
-}

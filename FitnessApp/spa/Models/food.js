@@ -1,10 +1,10 @@
-var mysql = require("mysql");
+var global = require("../inc/global");
 
 module.exports =  {
     blank: function(){ return {} },
     
     get: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
          var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ";
         if(id){
           sql += " WHERE foods.foods_id = " + id;
@@ -18,7 +18,7 @@ module.exports =  {
     },
     
      getByUserId: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ";
         if(id){
           sql += " WHERE foods.users_id = " + id;
@@ -29,7 +29,7 @@ module.exports =  {
         });        
     },
     delete: function(id, ret){
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         conn.query("DELETE FROM Foods WHERE foods_id = " + id, function(err,rows){
           ret(err);
           conn.end();
@@ -37,7 +37,7 @@ module.exports =  {
     },
     save: function(row, ret){
         var sql;
-        var conn = GetConnection();
+        var conn = global.GetConnection();
         //  TODO Sanitize
         if (row.foods_id) {
 				  sql = " Update Foods "
@@ -66,13 +66,3 @@ module.exports =  {
       return errors.length ? errors : false;
     }
 };  
-
-function GetConnection(){
-        var conn = mysql.createConnection({
-          host: "localhost",
-          user: "anthonybjturner",
-          password: "",
-          database: "turnera1_db"
-        });
-    return conn;
-}

@@ -1,5 +1,6 @@
 var express = require('express'),   app = express();
 
+
 var bodyParser = require('body-parser');
 var goal = require("./Models/goal");
 var user = require("./Models/user");
@@ -8,18 +9,12 @@ var exercise = require("./Models/exercise");
 var friend = require("./Models/friend");
 var login = require("./Models/login");
 var unirest = require("unirest");
-var Twit = require("twit");
 
-//var twit = new Twit();
+var global = require("./inc/global");
+var twit = global.GetTwitterConnection();
 //https://market.mashape.com/msilverman/nutritionix-nutrition-database
 //http://unirest.io/nodejs
 
-var twit = new Twit({
-    consumer_key:         'aSfk6iHFWusKo37mUoNBNaaSL'
-  , consumer_secret:      'rFTNvG6WuK2hLuG4rUxRqfPuPXZAsEiIQF6R2DEE75e0FpFRQy'
-  , access_token:         '401096761-taetwuKu7xVz1Our0yuTxILvEVmmNfjdWztpv3Hu'
-  , access_token_secret:  'YllZIT7uJ2LSndvNIeyNECWMg90bGf4ZZEkaRL1eOsJlH'
-})
 
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -103,9 +98,9 @@ app.get("/food", function(req, res){
     return;
   }
   
-  //twit.post('statuses/update', { status: '[App developers test-] I just accomplished ' + req.body.exercises_minutes + ' minutes with ' + req.body.exercises_name + ' and burned ' + req.body.exercises_calories_burned + ' calories' }, function(err, data, response) {
-      //console.log(data)
-    //})
+  twit.post('statuses/update', { status: '[App developers test-] I just accomplished ' + req.body.exercises_minutes + ' minutes with ' + req.body.exercises_name + ' and burned ' + req.body.exercises_calories_burned + ' calories' }, function(err, data, response) {
+    console.log(data)
+   })
   
   
   exercise.save(req.body, function(err, row){
