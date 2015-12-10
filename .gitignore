@@ -13,4 +13,4 @@ CakePHP 2
 /vendors/*
 phpMyAdmin/*
 *password*
-/FitnessApp/spa/inc/*
+/inc/*
