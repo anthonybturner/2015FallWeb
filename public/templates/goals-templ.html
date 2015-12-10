@@ -1,0 +1,63 @@
+<div class="panel panel-info">
+        
+                <div class="panel-heading" style="text-align: center;"> 
+                    <h2>{{vm.Heading.Message}}</h2> 
+                    <h3>{{vm.Description.Message}}</h3>
+                      <h5>{{vm.Intro.Title}}</h5>
+                      
+                    
+                </div>
+
+               <div class="panel-body"><a class="btn btn-success create" ng-click="newRecordButton()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        New Goal
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Delete All
+                        <span class="badge">{{rows.length}}</span>
+                    </a></div>
+           
+           </div>
+           
+           <div class="panel panel-info">
+               
+
+                <div class="panel-heading" style="text-align: center;"> 
+                <i class="glyphicon glyphicon-list-alt"></i>
+                    <strong>Track your goals</strong>
+                </div>
+           
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="label label-primary col-sm-1">Actions</th>
+                                    <th class="label label-primary col-sm-9">Goal Name</th>
+                                    <th class="label label-primary col-sm-1">Percentage Complete</th>
+                                    <th class="label label-primary col-sm-1">Accomplished</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                             
+                                    <tr ng-repeat="goal in vm.Goals">
+                                          <th scope="goal">
+                                            <div class="btn-group" role="group" aria-label="...">
+                                              <a ng-href="/goal/{{goal.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                              <a ng-href="/goal/{{goal.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="editButton( goal.id ); $event.preventDefault();"><i class="glyphicon glyphicon-edit"></i></a>
+                                              <a href="/goal/{{goal.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                               
+                                            </div>
+                                          </th>
+                                        <td>{{goal.Name}}</td>
+                                        <td>{{goal.PercentageComplete}}%</td>
+                                        <td>{{goal.Accomplished}}</td>
+                                       
+                                    </tr>
+                
+                            </tbody>
+                        </table>
+                        
+                    
+                    </div>
+            </div>

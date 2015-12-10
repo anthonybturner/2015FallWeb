@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Fitness App 2015 - Goals</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
+     <!-- <script src="directives/alert.js"></script> --> 
+
+  </head>
+  
+  <body ng-controller>
+    
+
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Fitness App 2015</a>
+                </div>
+                  
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a  ng-click="#/user">Users</a></li>
+                      <li><a href="#/food">Foods</a></li>
+                      <li><a href="/Views/exercises">Exercises</a></li>
+                      <li><a href="/Views/friends">Friends</a></li>
+                      <li><a href="/Views/profile">Profile</a></li>
+          
+                    </ul>
+                    
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+        
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+
+    
+
+    <div class="container" >
+        <!-- <mp-alert></mp-alert> -->
+        <div id="view"  ng-view >
+        
+        </div>
+     
+
+
+        <!--      ### Tech Stuff ###      -->
+        <div class="modal fade" id="myDialog" >
+              
+            <div class="modal-dialog">
+                
+                <div class="modal-content">
+                  
+                    <form class="form-horizontal">
+                        
+                          <div class="modal-header" >
+                              
+                            <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                            <h4 class="modal-title well" >{{vm.data.title}}</h4>
+                            
+                          </div>
+                      
+                          <div class="modal-body" ng-bind-html="vm.data.body">
+
+      
+                            <div ng-if="vm.isDeleteClicked">
+                                <table class="table table-hover table-bordered table-striped">
+                                    <tbody ng-repeat="(key, value) in vm.data.columns">
+                                        
+                                             <tr>
+                                                <th class="col-sm-1">
+                                                    <label>{{key}} </label>
+                                                </th>
+                                                
+                                                <td class="form-group">
+                                                   <input class="form-control" type="text" name="{{key}}" value="{{value}}"></input>
+                                                </td>
+                                                
+                                                 
+                                             </tr>
+                                        
+                                     </tbody>
+                                </table>
+                              </div>
+      
+                          </div>
+                           
+                
+                        	<div class="modal-footer">
+                        		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+                        		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" data-dismiss="modal" ng-click="vm.data.confirm()"/>
+                        	</div>
+                    </form>
+                
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+            
+        
+    </div>
+    
+  
+     <script type="text/javascript">
+     
+        var mainApp = angular.module("app", ['ngRoute'])
+        .config(['$routeProvider',
+          function($routeProvider) {
+              
+            $routeProvider.
+              when('/user', {
+                  
+                templateUrl: 'Views/users/user-index.html',
+                controller: 'user', controllerAs: 'vm'
+                
+              }).
+              when('/user/:id', {
+                templateUrl: 'Views/users/user-details.html',
+                controller: 'userDetails'
+              }).
+              when('food', {
+                  
+                templateUrl: 'Views/foods/index.html',
+                controller: 'food'
+                
+              }).
+              when('/user/:id', {
+                templateUrl: 'Views/foods/food-details.html',
+                controller: 'userDetails'
+              }).
+              otherwise({
+                redirectTo: '/'
+              });
+          }])
+          .controller('goalController', function($sce, $http) {
+                 
+                 var self = this;
+                 
+                 self.usersLink = function(){
+                    self.template = 'Views/users/user-index.html';
+                 
+                 };
+ 
+                 $http.get("/goal").then(function(data){
+                     
+                    self.Heading = {"Message": "Welcome to FitnessApp 2015", "Image": "/images/fitness.gif"};
+                    self.Description = {"Message":"Track your eating habits, keep fit with exercise goals, and talk with other members"};
+                    self.Intro = {
+                                    "Title" : "This page is in the works. It uses NodeJs for server side scripting, Express for routing, and is evolving with AngularJs."+
+                                    "It no longer uses Handlebars for templating. The Users and Foods modules/pages are fully functional with NodeJs and Express which will soon be converted to AngularJs."
+                        
+                                    },
+                    self.rows = data.data;
+
+                });
+                
+              
+                //Details button
+                 self.details = function(row, index){
+                    
+                   var html = "<input type='text' class='form-control' name='Name' placeholder='Name' value='"+row.Name+"' disabled></input>"+
+                                "<input type='text' class='form-control' name='PercentageComplete' placeholder='Percent complete' value='"+row.PercentageComplete+"' disabled></input>"+
+                                "<input type='text' class='form-control' name='Accomplished' placeholder='Accomplished so far' value='"+row.Accomplished+"' disabled></input>";
+                    
+                      self.data = {
+                      
+                        title: "Details for goal " + row.Name,
+                        columns: row,
+                        body: $sce.trustAsHtml(html),
+                        confirm: function(){
+                            
+                            console.log("trigger")
+                             $http.delete('/goal/' + row.id)
+                            .success(function(data){
+                                
+                                self.rows.splice(index, 1);
+                                $("#myDialog").modal('hide');
+                                
+                            }).errors(function(data){
+                                alert(data);
+                            });
+                            return false;
+                            
+                        }
+                     };
+                      $("#myDialog .submit ").hide();
+
+                     $("#myDialog").modal('show');
+                }
+                
+                //Delete button
+                self.delete = function(row, index){
+                    
+                   console.log(row)
+                    self.data = {
+                      
+                        title: "Delete a goal",
+                        body: $sce.trustAsHtml("<h3>Are you sure you want to delete '" + row.Name + "?'</h3>"),
+                        
+                        confirm: function(){
+                            console.log("Delete")
+                            $http.delete('/goal/' + row.id)
+                            
+                                .success(function(res){
+                                
+                                    self.rows.splice(index, 1);
+                                    $("#myDialog").modal('hide');
+                                
+                            }).error(function(res){
+                                
+                                alert(res);
+                                
+                            });
+                            
+                            return false;
+                        }
+                     };
+                     
+                     $("#myDialog").modal('show');
+                
+                }
+                
+                //Edit button
+                self.edit = function(row, index){
+                  
+                    self.isDeleteClicked = false;
+                    self.data = {
+                        
+                            title: "Edit Goal " + row.Name,
+                            columns: row,
+                           
+                            confirm: function(){
+                       
+                            $http.post('/goal/' + row.id)
+                                .success(function(res){
+                                
+                                    self.rows.splice(index, 1);
+                                    $("#myDialog").modal('hide');
+                                
+                            }).error(function(res){
+                                
+                                alert(res.code);
+                                
+                            });
+                        }
+                           
+                    }
+
+                     $("#myDialog").modal('show');
+                     $("#myDialog .modal-body .btn-primary").hide();
+                     
+                 };
+                 
+                 
+                    
+                self.create = function(){
+                    
+                    
+                    self.rows.push({isEditing: true})
+                    var html = "<input type='text' class='form-control' name='Name' placeholder='Name' value=''></input>"+
+                                "<input type='text' class='form-control' name='PercentageComplete' placeholder='Percent complete' value=''></input>"+
+                                "<input type='text' class='form-control' name='Accomplished' placeholder='Accomplished so far' value=''></input>";
+                    
+                    self.data = {
+                      
+                        title: "Add a goal",
+                        columns: self.rows,
+                        body:  $sce.trustAsHtml( html ),
+                        confirm: function(){
+                            
+                            $http.post('/goal/', self.rows)
+                            
+                                .then(function(res){
+                                
+                                    $("#myDialog").modal('hide');
+                                
+                                 }, function(res){
+                                
+                                        alert(res.code);
+                                
+                                });
+                            
+                            return false;
+                        }
+                     };
+                     
+                     $("#myDialog").modal('show');
+                }
+                
+                
+                self.cancel = function(row, index){
+                    
+                   if(row.id){
+                       
+                        row.isEditing = false;
+                        
+                   }else{
+                       
+                        self.rows.splice(index, 1);
+                    }
+                }
+                        
+                        
+                self.save = function(row, index){
+                    
+                    $http.post('/goal', row  )
+                        .success(function(data){
+                            
+                            data.isEditing = false;
+                            
+                            self.rows[index] = data;
+                            
+                    }).error(function(data){
+                        
+                        alert(data.code);
+                        
+                    });
+                };
+
+                        
+            });
+
+
+        
+    </script>
+
+  
+  </body>
+</html>

@@ -1,0 +1,54 @@
+
+
+<div class="modal fade" id="myDialog" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+            <form class="form-horizontal">
+                
+              <div class="modal-header" >
+                <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                
+                <h4 class="modal-title" >{{vm.Heading}}</h4>
+              </div>
+              
+              <div class="modal-body">
+                  
+                  
+                  <div >
+                      
+                       <div class="row" >
+                              <div class="col-sm-12">
+                                <div class="btn-group" role="group" aria-label="...">
+                                  <a ng-href="/food/{{vm.id}}" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                  <a ng-href="/food/{{vm.id}}" title="Edit" class="btn btn-default btn-xs edit" ng-click="edit( vm.id ); "><i class="glyphicon glyphicon-edit"></i></a>
+                                  <a href="/food/{{vm.id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                   
+                                </div>
+                              </div>
+                            <div class="col-sm-12">{{vm.Name}}</div>
+                            <div class="col-sm-12">{{row.Calories}}%</div>
+                            <div class="col-sm-12">{{row.Carbohydrates}}</div>
+                           
+                        </div>
+                        
+                      
+                  </div>
+
+               
+              </div>
+                   
+        
+            <div class="modal-footer">
+                <a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+                <input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" ng-click="saveRecordButton()"/>
+            </div>
+        </form>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script>
+ $("#myDialog .submit ").hide();
+                     $("#myDialog").modal('show');
+</script>

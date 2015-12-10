@@ -1,0 +1,111 @@
+.panel-success>.panel-heading{
+    
+     background-image: url("/FitnessApp/images/gradient-white.png");
+
+}
+
+
+.panel-success>.panel-body{
+    
+       
+ background-image: url("/FitnessApp/images/gradient-white.png");
+    
+}
+#header-avatar{
+    
+    display: inline-block;
+    width: 150px;
+}
+
+#header-avatar img{
+    
+    width: 100%;
+   display: inline-block;
+}
+
+#header-title{
+    
+   display: inline-block; 
+   margin-left: 32px; 
+   width: 70%;
+  
+   
+}
+
+#header-title h2{
+    
+    padding-top: 0; 
+    margin-top: 0;
+    text-align: center;
+}
+
+body{
+
+    background: url("../images/background.jpg");
+    background-size: cover;
+    
+}
+
+
+.alert{
+    
+
+text-align: center;    
+}
+
+
+#total-nutrition td{
+    
+    text-align: center
+}
+
+#navigation ul{
+    
+    list-style-type: none;
+}
+
+#navigation ul li {
+    
+    display: inline;
+    padding-right: 8px;
+    list-style: none;
+}
+
+#footer-navigation{
+    
+        list-style-type: none;
+
+    
+}
+
+#footer-navigation ul li{
+    
+           display: block !important;
+
+    background-color:#000;
+    
+}
+
+h1{
+    
+    text-align: center;
+    padding: 16px;
+}
+
+h2{
+    
+    text-align: center;
+}
+
+.progress{
+    
+   background-image: none;
+    background-color: darkBlue;
+  
+    
+}
+
+.progress-bar span{
+    
+      padding-left: 8px;
+}

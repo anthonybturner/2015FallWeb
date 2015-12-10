@@ -1,0 +1,55 @@
+
+<div class="form-group">
+    <input class="form-control" type="text" ng-model="vm.term"/>
+    <button class="btn btn-search" ng-click="vm.search()" >Search</button>
+</div>
+
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="choice in vm.choices" ng-click="vm.choose(choice)">
+      {{choice.fields.item_name}}
+  </li>
+  
+</ul>
+
+<table>
+    <tr>
+
+    <td >
+        <input type="text" name="Name" class="form-control" placeholder="Name" ng-model="vm.row.Name" />
+    </td>
+    <td><input type="text" name="Calories" class="form-control" placeholder="Calories" ng-model="vm.row.Calories" /></td>
+    
+    </tr>
+    
+    <tr>
+    <td><input type="text" name="Fat" class="form-control" placeholder="Fat" ng-model="vm.row.Fat" /></td>
+    <td><input type="text" name="Carbs" class="form-control" placeholder="Carbs" ng-model="vm.row.Carbs" /></td>
+    
+    </tr>
+    
+    <tr>
+    <td><input type="text" name="Fiber" class="form-control" placeholder="Fiber" ng-model="vm.row.Fiber" /></td>
+    <td><input type="text" name="Time" class="form-control date-time" placeholder="Time" ng-model="vm.row.Time" /></td>
+    
+    </tr>
+    
+    <tr>
+    <td>
+        <select ng-options="option.id as option.Name for option in vm.persons" ng-model="vm.row.UserId" class="form-control"></select>
+     </td>
+     
+     </tr>
+     </tr>
+     
+     
+     
+     <tr>
+            <td >
+                <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
+                <a href="#/food" class="btn btn-default btn-sm submit" >Cancel</a>
+            </td>
+    
+        </tr>
+
+    
+</table>

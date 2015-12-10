@@ -1,0 +1,26 @@
+table tr{
+    
+    margin-bottom: 28px;
+}
+
+
+
+h4, .modal-title{
+    
+    text-align: center;
+}
+
+#banner-area{
+    
+    background-image: url('/images/fitness-app-banner.jpg'); 
+    height: 458px;
+    padding: 8px;
+    
+}
+
+#banner-area #info{
+    
+    color: #fff;
+    position: relative;
+    top: 144px;
+}

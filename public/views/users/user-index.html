@@ -1,0 +1,82 @@
+ <div class="panel" style="box-shadow: 2px 2px 2px 2px; ">
+        
+                <div class="panel-heading" style="text-align: center; padding: 2px"> 
+                    <img src={{vm.Heading.Image}} Height="256px" Width="100%"/>
+                    <h2>{{vm.Heading.Message}}</h2> 
+                    <h3>{{vm.Description.Message}}</h3>
+                    <h5>{{vm.Intro.Title}}</h5>
+                    
+                      
+                    <hr>
+                </div>
+
+               <div class="panel-body"><a class="btn btn-success create" ng-click="vm.create()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        New Goal
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Delete All
+                        <span class="badge">{{vm.rows.length}}</span>
+                    </a></div>
+           
+           </div>
+           
+           <div class="panel panel-info">
+               
+
+                <div class="panel-heading" style="text-align: center;"> 
+                <i class="glyphicon glyphicon-list-alt"></i>
+                    <strong>Track your goals</strong>
+                </div>
+           
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="label label-primary col-sm-1">Actions</th>
+                                    <th class="label label-primary col-sm-7">Goal Name</th>
+                                    <th class="label label-primary col-sm-1">Percentage Complete</th>
+                                    <th class="label label-primary col-sm-1">Accomplished</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                             
+                                <tr ng-repeat="row in vm.rows">
+                             
+                                    <!--// Show this section if not editing otherwise hide it -->
+                                   <th ng-if-start="!row.isEditing" scope="row">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                          <a ng-click="vm.details(row,$index)" title="View" class="btn btn-default btn-xs detail"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                          <a ng-click="row.isEditing = true" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                          <a ng-click="vm.delete(row,$index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                           
+                                        </div>
+                                   </th>
+                                  
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.PercentageComplete}}%</td>
+                                    <td ng-if-end>{{row.Accomplished}}</td>
+                                  
+                                    <!--// Show this part if editing otherwise hide it -->
+                                    <th ng-if-start="row.isEditing" scope="row">
+                                        <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{row.Name}}" /></td>
+                                        <td><input type="text" name="PercentageComplete" class="form-control" placeholder="Percent complete" value="{{row.PercentageComplete}}" /></td>
+                                        <td><input type="text" name="Accomplished" class="form-control" placeholder="Accomplished" value="{{row.Accomplished}}" /></td>
+                                    </th>
+                                 
+                                    <td ng-if-end>
+                                    
+                                         <a ng-click="vm.save(row, $index)" class="btn btn-primary" >Save</a>
+                                         <a ng-click="vm.cancel(row, $index)" class="btn btn-default">Cancel</a>
+                                         <input type="hidden" name="id" value="{{row.id}}" /> 
+                                    </td>
+                                                   
+                                </tr>
+                
+                            </tbody>
+                        </table>
+                        
+                    
+                    </div>
+                </div>

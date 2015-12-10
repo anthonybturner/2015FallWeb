@@ -1,0 +1,310 @@
+<?php
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Fitness App 2015</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/FitnessApp/css/fitness-app.css">
+  </head>
+  <body>
+      
+      <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?= $path ?>">Fitness App</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul id="navigation" class="nav navbar-nav">
+        <li><a href="/FitnessApp/">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="">Users</a></li>
+        <li><a href="/FitnessApp/Views/foods//index.html" class="ajax">Meals</a></li>
+         <li><a href="/FitnessApp/Views/exercises/index.html">Exercise</a></li>
+        <li><a href="/FitnessApp/Views/friends/index.html">Friends</a></li>       
+        <li><a href="/FitnessApp/Views/profile/index.html">Profile</a></li>
+        
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+      
+      
+    <div class="container">
+           
+
+           <div class="panel panel-info">
+            <div class="panel-heading" style="background: url('/FitnessApp/images/banner.png'); background-size: 100% 250px" >
+        
+                
+                      <h1>Fitness App 2015</h1>
+                     
+                     </div>
+                   
+
+            </div>
+
+        <div id="View">
+            
+            
+        </div>
+        
+   
+
+    </div>
+    
+    <!--      ### Tech Stuff ###      -->
+    <div class="modal fade" id="myDialog" style="background-color:rgba(100, 149, 237, 0.5);">
+      <div class="modal-dialog">
+        <div class="modal-content" style="background: url('/FitnessApp/images/gradient-white.png')">
+        <form class="form-horizontal" >
+          <div class="modal-header">
+            <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+            <h4 class="modal-title" ></h4>
+          </div>
+        	<div class="modal-body">
+        	</div>
+        	<div class="modal-footer">
+        		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+        		<input type="submit" name="submit" class="btn btn-primary submit" value="Save changes" />
+        	</div>
+        </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    
+    <!-- load handlebars here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
+	  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/template" id="index-tmpl">
+    
+        <div class="panel panel-info">
+        
+           <div class="panel-heading"> &nbsp;Menu Options: </div>
+    
+            <div class="panel-body">
+               
+                <a href="/FitnessApp/Controllers/users.php?action=create" class="btn btn-success create">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    New Record
+                </a>
+                
+                <a href="#" class="btn btn-danger delete-all">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Delete All
+                    <span class="badge">{{count}}</span>
+                </a>
+            
+            </div>
+        </div>
+                
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                     <th class="col-sm-1 label label-primary">Actions</th>
+                     <th class="col-sm-2 label label-primary">Name</th>
+                     <th class="col-sm-1 label label-primary">Age</th>
+                     <th class="col-sm-1 label label-primary">Height</th>
+                     <th class="col-sm-1 label label-primary">Weight</th>
+                     <th class="col-sm-1 label label-primary">Avatar</th>
+                     <th class="col-sm-1 label label-primary">Status</th>
+
+                </tr>
+            </thead>
+            
+            <tbody>
+                {{#each rows}}
+                    <tr>
+                        <td scope="row">
+                          <div class="btn-group" role="group" aria-label="...">
+                          
+                            <a href="/FitnessApp/Controllers/users.php?&action=details&id={{id}}" title="View" class="btn btn-default btn-xs details"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <a href="/FitnessApp/Controllers/users.php?&action=edit&id={{id}}" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/user/{{id}}" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash" ></i></a>
+                          </div>
+                        </td>
+                        <td  class="col-sm-4">{{Name}}</td>
+                        <td  class="col-sm-3">{{Age}}</td>
+                        <td>{{Height}}</td>
+                        <td>{{Weight}}</td>
+                        <td><img src="{{Avatar}}"/></td>
+                        <td>{{Status}}</td>
+                    </tr>
+               {{/each}}
+            </tbody>
+        </table>
+        
+    </script>
+    
+    <script type="text/template" id="edit-tmpl" >
+        <tr class="row">
+           <td><input type="text" name="Name" class="form-control" placeholder="Name" value="{{Name}}" /></td>
+           <td><input type="text" name="Age" class="form-control" placeholder="Age" value="{{Age}}" /></td>
+           <td><input type="text" name="Height" class="form-control" placeholder="Enter Height" value="{{Height}}" /></td>
+           <td><input type="text" name="Weight" class="form-control" placeholder="Enter Weight" value="{{Weight}}" /></td>
+           <td><input type="text" name="Avatar" class="form-control" placeholder="Set Avatar" value="{{Avatar}}" /></td>
+
+           <td>
+             <input type="submit" value="Submit" class="btn btn-primary submit"/>
+             <input type="hidden" name="id" value="{{id}}" /> 
+           </td>
+        </tr>
+    </script>
+    
+<script type="text/javascript">
+
+  
+  var editTemplate = Handlebars.compile($("#edit-tmpl").html());
+  var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+		
+	$(function(){
+	  
+	   $.getJSON("/user",function(data){
+ 			
+ 			var html = indexTemplate({rows: data});
+ 			$("#View").html(html);
+ 			
+ 			
+ 		});
+	    
+	   
+	  $("#View").on("click", ".create", function(e){
+
+	      $("#myDialog .modal-title").html("Add a User");
+                $("#myDialog .modal-body").html(editTemplate({}));
+                $("#myDialog").modal('show');
+                $("#myDialog .modal-body .btn-primary").hide();
+                $("#myDialog .submit").one('click', function(){
+                   
+                    $.ajax({ url: '/FitnessApp/Controllers/users.php?action=save', type: 'POST', data: $("#myDialog input").serialize() })
+                    .done(function(data){
+                      console.log(data);
+                      console.log((data.responseJSON));
+                       location.reload();
+                      //  setInterval(closeModal, 3000);
+                    }).fail(function(data){
+                        alert(data.responseJSON.code);
+                    });
+                    return false;
+                });
+                return false;
+                 
+                /* 
+
+                         
+        */
+             
+	 });
+	 
+ 
+					
+		$(".table").dataTable();
+		
+		$(".alert .close").click(function(){
+			$(this).closest(".alert").slideUp();
+		});
+		
+		 $("#view").on("click", ".edit", function(){
+                var $self = $(this);
+                $.getJSON(this.href).then(function(data){
+                    var html = editTemplate(data);
+                    var $tr = $self.closest("tr").after(html).hide()
+                    $tr.next().find(".submit").one('click', function(){
+                        $.ajax({ url: '/person/', type: 'POST', data: $tr.next().find("input").serialize() })
+                        .done(function(data){
+                            location.reload();
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                        return false;
+                    });
+                });
+                return false;
+            });
+            
+            
+            $("#View").on("click", ".delete", function(){
+                $self = $(this); 
+                console.log(this)
+                $.get("/FitnessApp/Controllers/users.php?").then(function(data){
+                    $("#myDialog .modal-title").html("Delete a user");
+                    $("#myDialog .modal-body").html("<h5>Are you sure you want to delete " + data.Name + "?</h5>");
+                    $("#myDialog .submit").one('click', function(){
+                        $.ajax({ url: '/user/' + data.id, type: 'DELETE'})
+                        .done(function(data){
+                            $self.closest('tr').remove();
+                            $("#myDialog").modal('hide');
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                        return false;
+                    });
+                    $("#myDialog").modal('show');
+                });
+                return false;
+            });
+            
+        	$("#View").on("click", ".edit", (function(data){
+  		     console.log("view edit click");
+  		    var $self = $(this);
+  	 	   $.getJSON(this.href+"&format=json").then(function(data){
+   			
+   		    //	var html = editTemplate( data);
+   		    //	$("#View").html(html);
+                //  var $tr = $self.closest("tr").after(html).hide();
+   			
+   		    })    
+  		
+  		    return false;
+  		}));    
+            
+            
+        
+		
+	
+	
+	});
+	
+	function closeModal(){
+	  
+	  
+	   $("#myDialog").slideUp( function(){
+                            
+        location.reload();
+
+     });
+	}
+    
+	</script>
+   
+  </body>
+</html>

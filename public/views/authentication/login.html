@@ -1,0 +1,131 @@
+<div class="panel panel-info" id="banner-area" >
+          
+  
+<div class="col-sm-5" id="info">
+    <h2> {{vm.title}}</h2>
+    <h3>{{vm.pagedescription}}</h3>
+</div>       
+     
+</div>
+
+
+<!-- BEGIN # MODAL LOGIN -->
+<div class="panel panel-info col-sm-6" ng-controller="fbCtrl as fbCtrlUser">
+
+     <!-- Begin # DIV Form -->
+               <div class="panel panel-heading" style="text-align: center;">
+                
+                    <!-- Begin # Login Form -->
+		            <span > Login to Fitness App</span>
+		        </div>
+                  
+                <div class="panel panel-body col-sm-8 col-sm-offset-2">
+                    
+                        <form id="login-form">
+    				    		
+                                
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        				    		<input id="login_username" class="form-control" type="text" placeholder="Username " required>
+    				    		</div>
+    				    		
+    				    		<div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        				    		<input id="login_password" class="form-control" type="password" placeholder="Password" required>
+        				    	</div>
+        				    	
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+            		    	
+        				        <div class="footer">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                                    </div>
+        				    	    <div>
+                                        <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button><br>
+                                       
+                                          <hr>
+                                          <div style="text-align: center;" >or  <br> Login with Facebook <br>
+                                         <input type="image" src="/images/fb-login-white.png" ng-click="fbCtrlUser.login()" />
+                                         </div>
+                                    </div>
+        				        </div>
+                            </form>
+       
+                            
+                    <!-- End # Login Form -->
+                    
+                    <!-- Begin | Lost Password Form -->
+                    <form id="lost-form" style="display:none;">
+    	    		    <div class="modal-body">
+		    				<div id="div-lost-msg">
+                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                <span id="text-lost-msg">Type your e-mail.</span>
+                            </div>
+		    				<input id="lost_email" class="form-control" type="text" placeholder="E-Mail " required>
+            			</div>
+		    		    <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                            </div>
+                            <div>
+                                <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+                                <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+                            </div>
+		    		    </div>
+                    </form>
+                    <!-- End | Lost Password Form -->
+                    
+                                <!-- End # DIV Form -->
+                </div>
+</div>
+<!-- END  LOGIN -->
+		
+		
+<!-- BEGIN Register -->
+<!-- BEGIN # MODAL LOGIN -->
+<div class="panel panel-info col-sm-6" >
+    
+     <!-- Begin # DIV Form -->
+               <div class="panel panel-heading" style="text-align: center;">
+                
+                    <!-- Begin # Login Form -->
+		            <span > Register </span>
+		        </div>
+                  
+                <div class="panel panel-body col-sm-8 col-sm-offset-2">
+                    
+                        <form id="register-form">
+    				    		
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        				    		<input id="users_name" class="form-control" type="email" placeholder="Email " required>
+    				    		</div>
+    				    		
+    				    		<div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        				    		<input id="users_password" class="form-control" type="password" placeholder="Password" required>
+        				    		<input id="users_password_confirm" class="form-control" type="password" placeholder="Confirm Password" required>
+        				    	</div>
+        				    	
+            		    	
+        				        <div class="footer">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                                    </div>
+        				    	    <div>
+                                          <hr>
+                                          <div style="text-align: center;" >or  <br> Register with Facebook <br>
+                                         <input type="image" src="/images/fb-login-white.png" ng-click="vm.register()" />
+                                         </div>
+                                    </div>
+        				        </div>
+                            </form>
+  
+                            <!-- End # DIV Form -->
+                </div>
+</div>
+<!-- END  Register -->

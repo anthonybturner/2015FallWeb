@@ -1,0 +1,78 @@
+<div class="panel panel-info">
+        
+    <div class="panel-heading" style="text-align: center;"> 
+        <h3>{{vm.title}}</h3> 
+  
+        
+    </div>
+
+   <div class="panel-body">
+
+        <a class="btn btn-success create" ng-click="vm.create()">
+            <i class="glyphicon glyphicon-plus"></i>
+            New Exercise
+        </a>
+
+        <a href="#" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Delete All
+            <span class="badge">{{rows.length}}</span>
+        </a>
+
+    </div>
+           
+</div>
+           
+<div class="panel panel-info">
+               
+
+    <div class="panel-heading" style="text-align: center;"> 
+        <i class="glyphicon glyphicon-list-alt"></i>
+        <strong>Track your Exercises</strong>
+    </div>
+           
+    <div class="panel-body">
+
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="label label-primary col-sm-2">Actions</th>
+                    <th class="label label-primary col-sm-3">Name</th>
+                    <th class="label label-primary col-sm-2">Minutes</th>
+                    <th class="label label-primary col-sm-2">Calories_Burned</th>
+                </tr>
+            </thead>
+
+             <tbody>
+                <tr ng-repeat="row in vm.rows">
+                  
+                     <th  ng-if-start="!row.isEditing"scope="row">
+                        <div class="btn-group" role="group" aria-label="...">
+                          <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                          <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                          <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                        </div>
+                      </th>
+                    <td >{{row.exercises_name}}</td>
+                    <td >{{row.exercises_minutes}}</td>
+                    <td ng-if-end>{{row.exercises_calories_burned}}</td>
+
+                    <td ng-if-start="row.isEditing">
+                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
+                        <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
+                    </td>
+                    <td> <input type="text" name="exercises_name" class="form-control" placeholder="Name" ng-model="row.exercises_name" /></td>
+                    <td><input type="text" name="exercises_minutes" class="form-control" placeholder="Minutes" ng-model="row.exercises_minutes" /></td>
+                    
+                    <td ng-if-end> <input type="text" name="exercises_calories_burned" class="form-control" placeholder="Calories Burned" ng-model="row.exercises_calories_burned" /></td>
+                    <input type="hidden" name="users_id" class="form-control"  ng-model="row.users_id"/>
+                    <input type="hidden" name="exercises_id" class="form-control"  ng-model="row.exercises_id"/>
+
+                    
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
