@@ -4,7 +4,14 @@ angular.module("app")
         $rootScope.pagetitle = "Users"
 
         var self = this;
-        self.title = "Socialize with other members";
+                 self.title = "Community users"
+                 self.description  = "Members using this app";
+                 self.rows = [];
+                 self.isViewing = false;
+                 self.bgimage = "users.jpg";
+                 self.createItemButtonText = "New Goal";
+                 self.deleteItemsButtonText = "Delete all";
+
 
         $http.get("/user", {
             params: {

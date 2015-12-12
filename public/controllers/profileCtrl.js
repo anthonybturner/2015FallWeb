@@ -3,8 +3,12 @@ angular.module("app")
                  
                  $rootScope.pagetitle = "Profile"
                  var self = this;
-                 self.title  = "Socialize with other members";
-                self.row = {};
+                 self.title = "Profile"
+                 self.description  = "Your personal information";
+                 self.rows = [];
+                 self.isViewing = false;
+                 self.bgimage = "profile.jpg";
+                
                  self.users_id = null;
                  
                    

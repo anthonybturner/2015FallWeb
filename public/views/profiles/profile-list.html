@@ -1,32 +1,23 @@
-<div class="panel panel-info">
+ <div class="row" id="header-area">
         
-                <div class="panel-heading" style="text-align: center;"> 
-                    <h2>{{vm.title}}</h2> 
-                
+        
+        <div class="col-sm-12 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
+            
+            <div id="info">
+                <div style="float:left; position: relative; right: 235px; top:0; color:#000;">
+                <h1  >{{vm.title}}: {{vm.description}}</h1>
                 </div>
+            </div>
+            
+    
+        </div>
+</div>
 
-               <div class="panel-body"><a class="btn btn-success create" ng-click="vm.create()">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        New User
-                    </a>
-                    <a href="#" class="btn btn-danger">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        Delete All
-                        <span class="badge">{{vm.row.length}}</span>
-                    </a>
-                </div>
-           
-           </div>
-           
-           <div class="panel panel-info">
-               
+<hr>
+<div class="row">
 
-                <div class="panel-heading" style="text-align: center;"> 
-                <i class="glyphicon glyphicon-list-alt"></i>
-                    <strong>User profiles</strong>
-                </div>
            
-                    <div class="panel-body">
+    <div >
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>

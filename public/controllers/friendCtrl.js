@@ -2,9 +2,17 @@ angular.module("app")
     .controller('friendsCtrl', function($http, $rootScope,alert) {
         $rootScope.pagetitle = "Friends"
 
-        var self = this;
-        self.title = "Keep in touch with other Fitness App members";
-        self.rows = [];
+
+     var self = this;
+     self.title = "Friends List"
+     self.description  = "Keep in contact with your Fitness App friends";
+     self.rows = [];
+     self.isViewing = false;
+     self.bgimage = "friends.jpg";
+     self.createItemButtonText = "Add Friend";
+     self.deleteItemsButtonText = "Delete all";
+
+           
 
         self.users_id = null;
 

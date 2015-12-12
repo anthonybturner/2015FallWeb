@@ -24,3 +24,14 @@ h4, .modal-title{
     position: relative;
     top: 144px;
 }
+
+#header-area #info{
+    
+    color: #fff;
+    text-align:center;
+    box-shadow:  1px #ccc; 
+     position: relative;
+    left: 240px;
+    bottom: 15px;
+
+}

@@ -46,7 +46,7 @@ module.exports =  {
 
         var sql;
         var conn = global.GetConnection();
-        console.log("in save")
+
         //  TODO Sanitize
         if (row.goals_id) {
 				  sql = " Update Goals "

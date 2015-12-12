@@ -8,44 +8,56 @@ angular.module("app").service('facebook', function($q, $http, alert){
                     
                     FB.login(function(response) {
                         
-                         console.log("loggin connected")
                         FB.api('/me', function(fbUser){
                         
-                        
-                            $http.get('/fbUser/', {params: {access_token: fbUser.id} });
+                            $http.get('/session/', {params: {access_token: fbUser.id} });
                             deferred.resolve(fbUser);
                         });
+                        
+                        
                     }, {scope: 'public_profile,email'});
                     return deferred.promise;
                 },
                 
                 getUser: function(){
+                    
                     var deferred = $q.defer();
-                    console.log("Get user func")
+            
  
                     FB.init({
-                        appId      : '1526912157622194',
-                        cookie     : true,  
-                        xfbml      : true,  
-                        version    : 'v2.5' 
-                    });
+                        appId      : '701683419973901',
+                        cookie     : true,  // enable cookies to allow the server to access 
+                                            // the session
+                        xfbml      : true,  // parse social plugins on this page
+                        version    : 'v2.2', // use version 2.2
+                        oauth : true,
+                        status: false
+                      }
+                    );
+                    
+                   
+                    
+                 //   FB.Event.subscribe('auth.statusChange', auth_response_change_callback);
+                    
+                    
                     
                     FB.getLoginStatus(function(response) {
                         
-                            console.log("Get login status func")
+                     
+                        
                          if(response.status === 'connected'){
                             //response.authResponse.accessToken
                                 FB.api('/me', function(fbUser){
                                     deferred.resolve(fbUser);
                                 });
-                                 console.log(" connected")
+                                
                                 $http.post('/fbLogin', { access_token: response.authResponse.accessToken })
                         }else{
                             
                                 console.log("not connected")
                         }
                         
-                    });
+                    }, false);
                     
                     return deferred.promise;
                 }

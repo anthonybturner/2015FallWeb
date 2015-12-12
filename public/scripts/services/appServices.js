@@ -36,7 +36,14 @@ angular.module('fitnessapp.directives')
         
         
          
+}).service('calendarService', function(){
+        var self = this;
+        self.editstate = true;
+        self.date = "";
 });
+
+
+
       
     
    

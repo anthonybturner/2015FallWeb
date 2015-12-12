@@ -28,19 +28,25 @@ app.use(bodyParser.json());
 app.use(session({  secret: 'my secret'} ));
 
 app.get("/food", function(req, res){
-  
+   
 
-    if( req.query.users_id){
-       food.getByUserId(req.query.users_id, function(err, rows){
-         res.send(rows);
-       })
-    }else{
-        food.get(null, function(err, rows){
-         res.send(rows);
-       })
+  if( req.query.users_id){
+
+    food.getByUserId(req.query.users_id, function(err, rows){
+    res.send(rows);
+  })
   
-    }
-  
+  }else if( users_id ){
+    
+     var row = [users_id, req.query.created_at];
+     
+       food.getByDate(row, function(err, rows){
+         
+         res.send(rows);
+
+       });
+
+  }
     
 })
 .get("/food/:id", function(req, res){
@@ -60,7 +66,7 @@ app.get("/food", function(req, res){
   food.save(req.body, function(err, row){
     
     if(err){
-     var errors = {"code": err.code, "msg": "Error saving: " + row.Name};
+     var errors = {"code": err.Error, "msg": err};
       res.status(500).send(errors); 
     }else{
       
@@ -82,10 +88,24 @@ app.get("/food", function(req, res){
 }).get("/exercise", function(req, res){
   
    
-       exercise.getByUserId(req.query.users_id, function(err, rows){
+     
+  if( req.query.users_id){
+
+    exercise.getByUserId(req.query.users_id, function(err, rows){
+    res.send(rows);
+  })
+  
+  }else if( users_id ){
+    
+     var row = [users_id, req.query.created_at];
+       exercise.getByDate(row, function(err, rows){
          
+    
          res.send(rows);
-       })
+
+       });
+
+  }
   
 })
 .get("/exercise/:id", function(req, res){
@@ -102,7 +122,7 @@ app.get("/food", function(req, res){
     return;
   }
   
-  twit.post('statuses/update', { status: '[App developers test-] I just accomplished ' + req.body.exercises_minutes + ' minutes with ' + req.body.exercises_name + ' and burned ' + req.body.exercises_calories_burned + ' calories' }, function(err, data, response) {
+  twit.post('statuses/update', { status: '[App Developer Test] I just accomplished ' + req.body.exercises_minutes + ' minutes with ' + req.body.exercises_name + ' and burned ' + req.body.exercises_calories_burned + ' calories' }, function(err, data, response) {
    })
   
   
@@ -182,7 +202,7 @@ app.get("/food", function(req, res){
 })
 .get("/goal", function(req, res){
    
-  
+
   if( req.query.users_id){
 
     goal.getByUserId(req.query.users_id, function(err, rows){
@@ -190,16 +210,15 @@ app.get("/food", function(req, res){
   })
   
   }else if( users_id ){
+    
      var row = [users_id, req.query.created_at];
      
        goal.getByDate(row, function(err, rows){
          
-         console.log(rows)
          res.send(rows);
 
        });
 
-    
   }
   
 
@@ -220,7 +239,6 @@ app.get("/food", function(req, res){
     res.status(500).send(errors);
     return;
   }
-  
   goal.save(req.body, function(err, row){
     
       if(err){
@@ -243,11 +261,8 @@ app.get("/food", function(req, res){
 })
 .get("/login", function(req, res){
      
-      
-        login.get(null, function(err, row){
 
-          res.send(row);
-        })
+    res.send({"users_id": users_id});
      
 })
 .get("/login/:id", function(req, res){
@@ -270,8 +285,7 @@ app.get("/food", function(req, res){
   })
 }).post("/fbLogin", function(req, res){
   
-  
- 
+
  unirest.get("https://graph.facebook.com/me?access_token=" + req.body.access_token + "&fields=id,name,email")
     .end(function (result) {
       
@@ -280,19 +294,18 @@ app.get("/food", function(req, res){
      
       user.get(req.session.fbUser.id, function(err, rows){
         
-        
-        
-        
         if( rows && rows.length){//If we have that user then store there data
-          
-          
+
           req.session.user = rows[0];
+          users_id = rows[0].users_id;
           
         }else{
       
           user.save({users_name: fbUser.name, facebook_id: fbUser.id, users_age: '26', users_height: null, users_weight: null, users_avatar: fbUser.id, TypeId: 6 }, function(err, row){
             
             req.session.user = row;
+            users_id = row.users_id;
+
             
           })
         }
@@ -304,7 +317,7 @@ app.get("/food", function(req, res){
       
     });
   
-}).get("/fbUser", function(req, res){
+}).get("/session", function(req, res){
   
    user.get(req.query.access_token, function(err, rows){
         
@@ -318,11 +331,14 @@ app.get("/food", function(req, res){
         
         
       }, 'facebook');
+      
+      res.send({"users_id": users_id});
    
    
   
 })
 .get("/fbuser/:access_token", function(req, res){
+   
    
    user.get(req.session.fbUser.id, function(err, rows){
         
@@ -330,15 +346,20 @@ app.get("/food", function(req, res){
         if( rows && rows.length){//If we have that user then store there data
           
           req.session.user = rows[0];
+
           
         }else{
       
           user.save({users_name: fbUser.name, facebook_id: fbUser.id, users_age: '26', users_height: null, users_weight: null, users_avatar: fbUser.id, TypeId: 6 }, function(err, row){
             
             req.session.user = row;
+           
             
           })
         }
+        
+         users_id = req.session.user.users_id;
+
         
         
       }, 'facebook');
@@ -346,7 +367,7 @@ app.get("/food", function(req, res){
    
 })
 .get("/food/search/:term", function(req, res){
-    unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat")
+    unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_ingredien%2Ct_statement%2Cnf_sodium%2Cnf_cholesterol%2Cnf_polyunsaturated_fat%2Cnf_total_carbohydrate%2Cnf_dietary_fiber%2C+nf_monounsaturated_fat%2Cnf_protein")
     .header("X-Mashape-Key", "qYpiKTaB8emshjm5EVuKkQwT8pLfp1L1LAdjsncmdtXipZViyv")
     .header("Accept", "application/json")
     .end(function (result) {

@@ -4,12 +4,19 @@ angular.module("app")
                  $rootScope.pagetitle = "Goals";
                  
                  var self = this;
-                 self.title  = "Keep fit with exercise goals";
+                 self.title = "Goals"
+                 self.description  = "Daily, weekly, monthly, and yearly goals";
                  self.rows = [];
                  self.isViewing = false;
+                 self.bgimage = "goals.png";
+                 self.createItemButtonText = "New Goal";
+                 self.deleteItemsButtonText = "Delete all";
+
+           
                    
                    $scope.updateCalendar = function(){
 
+                           
                        $http.get('/goal',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
                       
                             self.rows = data.data;
@@ -19,22 +26,14 @@ angular.module("app")
                        
                    }
 
-                 self.users_id = null;
-                 
-                   
-                    $http.get("/login").then(function(data){//Get a pseudo random user id and gather data based on that user
-                                       
 
-                        self.users_id = data.data.users_id;
-                        $http.get('/goal',  {    params: { users_id: data.data.users_id }}).then(function(data){
-                      
-                            self.rows = data.data;
+                $http.get('/goal').then(function(data){
+                                        
+                    self.rows = data.data;
+    
+              
+                 });
 
-                      
-                         });
-                    
-                    });
-                
                 self.delete = function(row, index){
                     
 
@@ -97,33 +96,33 @@ angular.module("app")
                         //Details button
                  self.create = function(){
                     
-                    
+                 
                      self.rows.push({ isEditing: true });
-                  
+                                     
+
 
                  }
                  
                   self.save = function(row, index){
                       
+                         $http.get('/login').success( function(data){
+                             
+                           row.users_id =  data.users_id;
+                           row.created_at = calendarService.date;
 
-                      if( !row.users_id ){
-                          
-                          row.users_id = self.users_id;
-                      }
-                      
-                      row.created_at = calendarService.date;
+                            $http.post('/goal', row)
+                            .success(function(data){
+                                
+                                data.isEditing = false;
+                                self.rows[index] = data;
+                                
+                            }).error(function(data){
+                                
+                                alert.show(data.code, 'danger');
+                                
+                            });
+                         })
 
-                        $http.post('/goal', row)
-                        .success(function(data){
-                            
-                            data.isEditing = false;
-                            self.rows[index] = data;
-                            
-                        }).error(function(data){
-                            
-                            alert.show(data.code, 'danger');
-                            
-                        });
                     }
 
 

@@ -10,7 +10,7 @@ angular.module("app")
                 if( fbUser){
                     
                     
-                    $rootScope.loggedUser = fbUser;
+                    $rootScope.user = fbUser;
                 }
                 
 
@@ -27,11 +27,9 @@ angular.module("app")
                      if( fbUser){
                     
                     
-                    $rootScope.loggedUser = fbUser;
-                    $location.url("/");
-                }
-                    
-                  
+                            $rootScope.user = fbUser;
+                            $location.url("/");
+                        }
 
                 })
                 

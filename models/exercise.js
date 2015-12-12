@@ -11,11 +11,22 @@ module.exports =  {
           sql += " WHERE exercises.users_id = " + id;
         }
         conn.query(sql, function(err,rows){
-          console.log(err)
-          console.log(rows)
+        
           ret(err,rows);
           conn.end();
         });        
+    },getByDate: function(row, ret){
+        var conn = global.GetConnection();
+        var sql = "SELECT exercises.updated_at, exercises.exercises_id, exercises.exercises_name, exercises.exercises_minutes, exercises.exercises_calories_burned, exercises.exercisestypes_id, exercises.users_id "+
+        "FROM Exercises exercises left join ExercisesTypes exercisesTypes on exercisesTypes.exercisestypes_id=exercises.exercisestypes_id "+
+        "WHERE exercises.users_id = " + row[0] + " and exercises.created_at like '%"+row[1]+"%'";
+        
+        
+        conn.query(sql, function(err,rows){
+
+          ret(err,rows);
+          conn.end();
+        });    
     },
     getByUserId: function(id, ret){
         var conn = global.GetConnection();
@@ -40,19 +51,19 @@ module.exports =  {
         var sql;
         var conn = global.GetConnection();
         //  TODO Sanitize
-        console.log(row)
+      
       
         if (row.exercises_id) {
 				  sql = " Update Exercises "
-							+ " Set updated_at= NOW(), exercises_name=?, exercises_minutes=? , exercises_calories_burned=?, users_id=?, exercisestypes_id=?"
+							+ " Set created_at=?, updated_at= NOW(), exercises_name=?, exercises_minutes=? , exercises_calories_burned=?, users_id=?, exercisestypes_id=?"
 						  + " WHERE exercises_id = ? ";
 			  }else{
 				  sql = "insert into Exercises "
-						  + "(updated_at, exercises_name, exercises_minutes, exercises_calories_burned, users_id, exercisestypes_id) "
-						  + "values (NOW(), ?, ?, ?, ?, ?) ";				
+						  + "(created_at, updated_at, exercises_name, exercises_minutes, exercises_calories_burned, users_id, exercisestypes_id) "
+						  + "values (?, NOW(), ?, ?, ?, ?, ?) ";				
 			  }
 
-        conn.query(sql, [ row.exercises_name, row.exercises_minutes, row.exercises_calories_burned, row.users_id, row.exercisestypes_id, row.exercises_id],function(err,data){
+        conn.query(sql, [ row.created_at, row.exercises_name, row.exercises_minutes, row.exercises_calories_burned, row.users_id, row.exercisestypes_id, row.exercises_id],function(err,data){
           if(!err && !row.exercises_id){
             row.exercises_id = data.insertId;
           }

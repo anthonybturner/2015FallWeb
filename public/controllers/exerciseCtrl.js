@@ -1,15 +1,29 @@
 angular.module("app")
-    .controller('exercisesCtrl', function($http, $scope, $rootScope, panel, editpanel, alert) {
+    .controller('exercisesCtrl', function($http, $scope, $rootScope, panel, editpanel, alert, calendarService) {
 
         $rootScope.pagetitle = "Exercises";
 
-        var self = this;
-        self.title = "Exercise tracking";
-        self.users_id = null;
+         var self = this;
+         self.title = "Exercises"
+         self.description  = "Keep track of your exercises";
+         self.rows = [];
+         self.isViewing = false;
+         self.bgimage = "exercise.jpg";
+         self.createItemButtonText = "New Exercise";
+         self.deleteItemsButtonText = "Delete all";
 
-        self.rows = [];
+           $scope.updateCalendar = function(){
+    
+                   
+               $http.get('/exercise',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
+              
+                    self.rows = data.data;
+    
+              
+                 });
+               
+           }
 
-        self.users_id = null;
 
 
         $http.get("/login").then(function(data) { //Get a pseudo random user id and gather data based on that user
@@ -98,21 +112,23 @@ angular.module("app")
 
         self.save = function(row, index) {
 
-            if (!row.users_id) {
+            
+            $http.get('/login').success( function(data){
+                             
+                           row.users_id =  data.users_id;
+                           row.created_at = calendarService.date;
 
-                row.users_id = self.users_id;
-            }
-
-            $http.post('/exercise', row)
-                .success(function(data) {
-
-                    data.isEditing = false;
-                    self.rows[index] = data;
-
-                }).error(function(data) {
-
-                    alert.show(data.code, 'danger');
-
-                });
+                            $http.post('/exercise', row)
+                            .success(function(data){
+                                
+                                data.isEditing = false;
+                                self.rows[index] = data;
+                                
+                            }).error(function(data){
+                                
+                                alert.show(data.code , 'danger');
+                                
+                            });
+            })
         }
     })

@@ -1,55 +1,62 @@
-<div class="panel panel-info">
+ <div class="row" id="header-area">
         
-    <div class="panel-heading" style="text-align: center;"> 
-        <h3>{{vm.title}}</h3> 
-  
+        <calendar class="thumbnail" style="box-shadow: 1px 1px 1px 1px #ccc" selected="day" update-calendar="updateCalendar()"></calendar>
+
         
-    </div>
-
-   <div class="panel-body">
-
-        <a class="btn btn-success create" ng-click="vm.create()">
-            <i class="glyphicon glyphicon-plus"></i>
-            New Food
-        </a>
-
-        <a href="#" class="btn btn-danger">
-            <i class="glyphicon glyphicon-trash"></i>
-            Delete All
-            <span class="badge">{{rows.length}}</span>
-        </a>
-
-    </div>
-           
+        <div class="col-sm-8 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
+            
+            <div id="info">
+                <h1>{{vm.title}}</h1>
+                <h3>{{vm.description}}</h3>
+            </div>
+            
+    
+        </div>
 </div>
-           
-<div class="panel panel-info">
-               
-
-    <div class="panel-heading" style="text-align: center;"> 
-        <i class="glyphicon glyphicon-list-alt"></i>
-        <strong>Track your nutrition habits</strong>
-    </div>
-           
-    <div class="panel-body">
-
+<hr>
+<div class="row">
+        <div  ng-if="!vm.isViewing" >
+   
+                <div >
+                   
+                   <a class="btn btn-success create" ng-click="vm.create()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        {{vm.createItemButtonText}}
+                    </a>
+                    
+                    <a href="#" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                          {{vm.deleteItemsButtonText}}
+                        <span class="badge">{{rows.length}}</span>
+                    </a>
+         
+                </div>
+            </div>
+        <div>
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="label label-primary col-sm-2">Actions</th>
-                    <th class="label label-primary col-sm-3">Food Name</th>
-                    <th class="label label-primary col-sm-1">Calories</th>
-                    <th class="label label-primary col-sm-1">Cholestrol</th>
-                    <th class="label label-primary col-sm-1">Fiber</th>
-                    <th class="label label-primary col-sm-1">Protein</th>
-                    <th class="label label-primary col-sm-1">Meal Type</th>
+                    <th class="label label-info col-sm-1">Actions</th>
+                    <th class="label label-info col-sm-3">Food Name</th>
+                    <th class="label label-info col-sm-1">Calories</th>
+                    <th class="label label-info col-sm-1">Cholestrol</th>
+                    <th class="label label-info col-sm-1">Fiber</th> 
+                    <th class="label label-info col-sm-1">Carbs</th>
+                    <th class="label label-info col-sm-1">Fat</th>
+                    <th class="label label-info col-sm-1">Polyunstaturated fat</th>
+                    <th class="label label-info col-sm-1">Monounstaturated fat</th>
+                    <th class="label label-info col-sm-1">Sodium</th>
+                    <th class="label label-info col-sm-1">Protein</th>
+
+
+                    <th class="label label-info col-sm-1">Meal Type</th>
                 </tr>
             </thead>
 
              <tbody>
                 <tr ng-repeat="row in vm.rows">
                   
-                     <th  ng-if-start="!row.isEditing"scope="row">
+                     <th  ng-if-start="!row.isEditing"scope="row"  >
                         <div class="btn-group" role="group" aria-label="...">
                           <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
                           <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
@@ -60,19 +67,40 @@
                     <td >{{row.foods_name}}</td>
                     <td >{{row.foods_calories}}</td>
                     <td >{{row.foods_cholestrol}}</td>
-                    <td >{{row.foods_fiber}}</td>
-                    <td >{{row.foods_protein}}</td>
+                    <td >{{row.foods_fiber}}</td> 
+                    <td >{{row.foods_carbohydrates}}</td>
 
-                   <td ng-if-end>{{row.foodstypes_id}}</td>
+                    <td >{{row.foods_fat}}</td>
+                    <td >{{row.foods_polyunsaturated_fat}}</td>
+                    <td >{{row.foods_monounsaturated_fat}}</td>
+                    <td >{{row.foods_sodium}}</td>
+                    <td> {{row.foods_protein}}</td>
 
-                    <td ng-if-start="row.isEditing">
+                   <td ng-if-end>{{row.foodstypes_name}}</td>
+
+                    <td ng-if-start="row.isEditing" class="col-sm-2">
                         <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                         <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                     </td>
-                    <td> <input type="text" name="foods_name" class="form-control" placeholder="Name" ng-model="row.foods_name" /></td>
+                    <td> <input type="text" name="foods_name" class="form-control" placeholder="Name" ng-model="row.foods_name" ng-click="vm.search()"/>
+                    
+                        <ul class="list-group">
+                          <li class="list-group-item" ng-repeat="choice in vm.choices" ng-click="vm.choose(choice)">
+                              {{choice.fields.item_name}}
+                          </li>
+          
+                        </ul>
+                    
+                    </td>
                     <td> <input type="text" name="foods_calories" class="form-control" placeholder="Calories" ng-model="row.foods_calories" /></td>
                     <td> <input type="text" name="foods_cholestrol" class="form-control" placeholder="Cholestrol" ng-model="row.foods_cholestrol" /></td>
-                    <td> <input type="text" name="foods_fiber" class="form-control" placeholder="Fiber" ng-model="row.foods_fiber" />
+                    <td> <input type="text" name="foods_fiber" class="form-control" placeholder="Fiber" ng-model="row.foods_fiber" /> 
+                    <td> <input type="text" name="foods_carbohydrates" class="form-control" placeholder="Fiber" ng-model="row.foods_carbohydrates" />
+
+                    <td> <input type="text" name="foods_fat" class="form-control" placeholder="polyunsaturated fat" ng-model="row.foods_fat" />
+                    <td> <input type="text" name="foods_polyunsaturated_fat" class="form-control" placeholder="polyunsaturated fat" ng-model="row.foods_polyunsaturated_fat" />
+                    <td> <input type="text" name="foods_monounsaturated_fat" class="form-control" placeholder="monounsaturated fat" ng-model="row.foods_monounsaturated_fat" />
+                    <td> <input type="text" name="foods_sodium" class="form-control" placeholder="Sodium" ng-model="row.foods_sodium" />
                     <td> <input type="text" name="foods_protein" class="form-control" placeholder="Protein" ng-model="row.foods_protein" />
 
                     </td>
@@ -90,6 +118,5 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 </div>
