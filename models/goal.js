@@ -57,6 +57,8 @@ module.exports =  {
 						  + " (created_at, goals_name, goals_percentage_complete, goals_accomplished, users_id ) "
 						  + "VALUES (?, ?, ?, ?, ? ) ";				
 			  }
+			  
+			  console.log(row)
         conn.query(sql, [row.created_at, row.goals_name, row.goals_percentage_complete, row.goals_accomplished, row.users_id, row.goals_id],function(err,data){
           console.log(err)
           if(!err && !row.goals_id){

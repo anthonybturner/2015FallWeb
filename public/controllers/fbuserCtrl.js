@@ -1,39 +1,32 @@
 angular.module("app")
-    .controller('fbCtrl', function($http, $scope, $rootScope, facebook, $location) {
-                 
-         var self = this;
-            
-          
-         facebook.getUser().then(function(fbUser){
+    .controller('fbCtrl', function(facebook,$location, $http){
+            var self = this;
+            facebook.getUser().then(function(fbUser){
                 
-                self.fbUser = fbUser;
-                if( fbUser){
-                    
-                    
-                    $rootScope.user = fbUser;
-                }
-                
+                if(fbUser){
+                  
+                  self.fbUser = fbUser;
+                  
+                }else{
+                  //The user has been logged out, so redirect them to login page
+                      $location.url("/authlogin");
 
+
+                }
             });
-            
-            
             self.status = "Not Checked Yet."
             
             self.login = function(){
-                
+              
                 facebook.login().then(function(fbUser){
-                    
-                    self.fbUser = fbUser;
-                     if( fbUser){
-                    
-                    
-                            $rootScope.user = fbUser;
-                            $location.url("/");
-                        }
 
+                    self.fbUser = fbUser;
+                     $http.post('/fbLocalLogin', { facebookUser: fbUser }).then(function(data){
+                       
+                          $location.url("/");
+
+                     })
+                    
                 })
-                
             }
-      
-                
-    });
+})

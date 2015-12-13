@@ -18,7 +18,8 @@ module.exports =  {
         }
           
         conn.query(sql, function(err,rows){
-          
+          console.log("In users model query resuts")
+          console.log(err)
           ret(err,rows);
           conn.end();
         });        

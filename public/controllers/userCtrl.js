@@ -13,11 +13,7 @@ angular.module("app")
                  self.deleteItemsButtonText = "Delete all";
 
 
-        $http.get("/user", {
-            params: {
-                user_id: $scope.users_id
-            }
-        }).then(function(data) {
+        $http.get("/user", {params: {user_id: $scope.users_id } }).then(function(data) {
 
 
             self.rows = data.data;

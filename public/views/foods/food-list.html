@@ -1,15 +1,15 @@
  <div class="row" id="header-area">
         
-        <calendar class="thumbnail" style="box-shadow: 1px 1px 1px 1px #ccc" selected="day" update-calendar="updateCalendar()"></calendar>
 
         
-        <div class="col-sm-8 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
+        <div class="col-sm-12 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); background-size: 85%; height: 245px">
             
-            <div id="info">
+            <div id="info" class="pull-left" style=" position: relative; left: 0; top: 0px;  padding: 8px; height:  239px; border-radius: 2px 2px 2p; background-color:rgba(0, 0, 0, 0.5);">
                 <h1>{{vm.title}}</h1>
                 <h3>{{vm.description}}</h3>
             </div>
-            
+            <calendar class="thumbnail " style="box-shadow: 1px 1px 1px 1px #ccc; float:right" selected="day" update-calendar="updateCalendar()"></calendar>
+
     
         </div>
 </div>

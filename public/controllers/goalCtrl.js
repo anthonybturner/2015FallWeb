@@ -16,9 +16,9 @@ angular.module("app")
                    
                    $scope.updateCalendar = function(){
 
-                           
+           
                        $http.get('/goal',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
-                      
+
                             self.rows = data.data;
 
                       

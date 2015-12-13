@@ -44,7 +44,9 @@
                                     <td >{{vm.row.users_age}}</td>
                                     <td >{{vm.row.users_height}}</td>
                                     <td >{{vm.row.users_weight}}</td>
-                                    <td ><img ng-src="{{vm.row.users_avatar}}" height="56px" width="56px"/></td>
+                                    <td >         <img src="https://graph.facebook.com/{{vm.row.users_avatar}}/picture" width="32px" height="32px"/></td>
+                                                 
+
                                     <td ng-if-end>{{vm.row.users_status}}</td>
             
                                     <td ng-if-start="vm.row.isEditing">

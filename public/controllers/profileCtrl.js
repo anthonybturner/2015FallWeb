@@ -11,25 +11,17 @@ angular.module("app")
                 
                  self.users_id = null;
                  
-                   
-                 $http.get("/login").then(function(data){//Get a pseudo random user id and gather data based on that user
-                                       
-
-                        self.users_id = data.data.users_id;
+                 console.log("ProfileCtrl- Need to add users id in express js")
+            
                        
-                        $http.get("/profileuser/"+self.users_id ).then(function(data){
-                     
-                          self.row = data.data; 
-                          console.log( data.data)
+                $http.get("/profileuser/"+self.users_id ).then(function(data){
+                    console.log("profile user data")
+                    console.log(data)
+                  self.row = data.data; 
+                  console.log( data.data)
 
-                         });
-                    
-                    });
-
-                 
-                
+                 });
         
-                
                 self.confirm = function(){
                     
                     

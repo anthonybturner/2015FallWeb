@@ -89,26 +89,35 @@ angular.module("app", ['ngRoute',  'fitnessapp.directives'])
                 redirectTo: '/goal'
 
               });
-})
-.run( function($rootScope, $location, $http) {
+}).run( function($rootScope, $location, $http) {		
+ 		 
+           // register listener to watch route changes		  
+           $rootScope.$on( "$routeChangeStart", function(event, next, current) {		    
+       		       
+       		       
+       		        $http.get('/login').then(function(data){
 
-    // register listener to watch route changes
-    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-      
-      $http.get("/login").success(function (user){
-        console.log(user)
-        if ( !user.users_id ) {
-     
-          if ( next.templateUrl != "views/authentication/login.html" ) {
-           
-            // not going to #login, we should redirect now
-            $location.path( "/authlogin" );
-          }
-      }         
-        
-      });
-      
-      
-    });
+                          if( !data.data.fbUser){
+                           
+                           if ( next.templateUrl != "/views/authentication/login.html" ) {	
+                             
+                              // Not going to #login,  redirect needed
+                              $location.url("/authlogin")
+                            }else{
+                              
+                              // $location.url("/");
+                            }
+                           
+                         }
+                        
+       		        });
+                        
+          		
+            
     
-});
+         })
+     
+     });
+     
+     
+     
