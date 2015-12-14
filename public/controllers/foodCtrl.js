@@ -7,6 +7,7 @@ angular.module("app")
          self.title = "Nutrition"
          self.description  = "Keep track of your nutrtion";
          self.rows = [];
+         self.totalCals = 0, self.totalFat = 0, self.totalSodium = 0;
          self.isViewing = false;
          self.bgimage = "nutrition.jpg";
          self.createItemButtonText = "New food";
@@ -18,8 +19,17 @@ angular.module("app")
                $http.get('/food',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
               
                     self.rows = data.data;
-    
-              
+                    self.totalCals = 0;self.totalCals = 0, self.totalFat = 0, self.totalSodium = 0;
+
+                    for(var i = 0; i < self.rows.length; i++){
+                      
+                        var curRow = self.rows[i];
+                        
+                        self.totalCals +=curRow.foods_calories;
+                        self.totalFat += curRow.foods_fat;
+                        self.totalSodium += curRow.foods_sodium;
+                    }
+
                  });
                
            }

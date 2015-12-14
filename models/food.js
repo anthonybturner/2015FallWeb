@@ -28,16 +28,16 @@ module.exports =  {
           conn.end();
         });        
     },getByDate: function(row, ret){
+      
         var conn = global.GetConnection();
-        var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, "+
+        var sql = "select  foods.foods_calories, foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, "+
         "foods.foods_protein, foods.foods_cholestrol, foods.users_id, foods.foodstypes_id, foods.foods_carbohydrates, foods.foods_fat, foods.foods_polyunsaturated_fat,  "+
         "foods.foods_monounsaturated_fat, foods.foods_sodium, foodstypes.foodstypes_name, DATE_FORMAT(foods.created_at,'%b %d %Y %h:%i %p') as created_at "+
         "FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id "+
-        "WHERE foods.users_id = " + row[0] + " and foods.created_at like '%"+row[1]+"%'";
-        
-        
+        "WHERE foods.users_id = " + row[0] + " and foods.created_at like '%"+row[1]+"%' ";
+       
         conn.query(sql, function(err,rows){
-          console.log(rows)
+          
           ret(err,rows);
           conn.end();
         });    

@@ -39,7 +39,7 @@
                     <th class="label label-info col-sm-3">Actions</th>                        
                     <th class="label label-info col-sm-2">Date Added</th>
 
-                    <th class="label label-info col-sm-3">Food Name</th>
+                    <th class="label label-info col-sm-5">Food Name</th>
                     <th class="label label-info col-sm-1">Calories</th>
                     <th class="label label-info col-sm-1">Cholestrol</th>
                     <th class="label label-info col-sm-1">Fiber</th> 
@@ -49,7 +49,6 @@
                     <th class="label label-info col-sm-1">Monounstaturated fat</th>
                     <th class="label label-info col-sm-1">Sodium</th>
                     <th class="label label-info col-sm-1">Protein</th>
-
 
                     <th class="label label-info col-sm-1">Meal Type</th>
                 </tr>
@@ -78,7 +77,6 @@
                     <td >{{row.foods_monounsaturated_fat}}</td>
                     <td >{{row.foods_sodium}}</td>
                     <td> {{row.foods_protein}}</td>
-
                    <td ng-if-end>{{row.foodstypes_name}}</td>
 
                     <td ng-if-start="row.isEditing" class="col-sm-2">
@@ -120,6 +118,35 @@
                     
                     <input type="hidden" name="foods_id" ng-model="row.foods_id" />
                     <input type="hidden" name ="users_id" ng-model="row.users_id"/>
+                </tr>
+                <tr></tr>
+                
+                <tr>
+                    <th></th> 
+                    <th></th>
+                    <th></th>
+                    <th class="col-sm-2 label label-warning">Total Calories</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="col-sm-2 label label-warning">Total Fat</th> 
+                    <th></th>
+                    <th></th>
+                    <th class="col-sm-2 label label-warning">Total Sodium</th>
+                </tr>
+                
+                <tr>
+                    <td></td> 
+                    <td></td>
+                    <td></td>
+                    <td>{{vm.totalCals}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{vm.totalFat}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{vm.totalSodium}}</td>
                 </tr>
             </tbody>
         </table>

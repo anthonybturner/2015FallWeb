@@ -191,7 +191,7 @@ app.get("/food", function(req, res){
     return;
   }
    req.body.users_id =  req.session.fbUser.users_id;
-   console.log(req.body.users_id)
+
   user.save(req.body, function(err, row){
     res.send(row);
   })
@@ -210,9 +210,7 @@ app.get("/food", function(req, res){
 .get("/friend", function(req, res){
   
   if( req.session.fbUser ){
-    console.log( req.session.fbUser)
     friend.get(req.session.fbUser.users_id, function(err, rows){
-          console.log( err)
 
       if(err){
         res.status(500).send(err);
@@ -228,9 +226,9 @@ app.get("/food", function(req, res){
 }).post("/friend", function(req, res){
  
    req.body.users_id =  req.session.fbUser.users_id;
-console.log(req.body)
+
   friend.save(req.body, function(err, row){
-    console.log(err)
+
     res.send(row);
   })
 })
@@ -354,7 +352,7 @@ console.log(req.body)
     .end(function (result) {
       //result.body.user
       var fbUser = req.session.fbUser = JSON.parse(result.body);
-      console.log(req.session.fbUser)
+
       req.session.fbUser.access_token = req.body.access_token;
 
       user.get(req.body.facebookUser.id, function(err, rows){

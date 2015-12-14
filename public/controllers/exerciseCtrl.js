@@ -11,6 +11,7 @@ angular.module("app")
          self.bgimage = "exercise.jpg";
          self.createItemButtonText = "New Exercise";
          self.deleteItemsButtonText = "Delete all";
+         self.totalMinutes = 0, self.totalCalsBurned = 0;
 
            $scope.updateCalendar = function(){
     
@@ -18,6 +19,16 @@ angular.module("app")
                $http.get('/exercise',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
               
                     self.rows = data.data;
+                    self.totalMinutes = 0;
+                    self.totalCalsBurned = 0;
+
+                    for(var i = 0; i < self.rows.length; i++){
+                      
+                        var curRow = self.rows[i];
+                        
+                        self.totalMinutes +=curRow.exercises_minutes;
+                        self.totalCalsBurned += curRow.exercises_calories_burned;
+                    }
     
               
                  });
