@@ -35,3 +35,20 @@ h4, .modal-title{
     bottom: 15px;
 
 }
+
+
+     
+.tt-menu{
+ 
+ background-color: #fff;
+ width: 100%;
+ padding-left: 4px;
+ border-radius: 2px 2px 2px;
+}
+     
+.typeahead{
+    
+    width: 300px;
+    box-shadow: 2px 2px 2px #ccc;
+    
+}

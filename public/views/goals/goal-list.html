@@ -1,3 +1,5 @@
+
+ 
  <div class="row" id="header-area">
         
        
@@ -17,11 +19,15 @@
 </div>
 
 <hr>
+
+
+
+
 <div class="row">
                
-        <div  ng-if="!vm.isViewing" >
+        <div class="col-sm-8"  ng-if="!vm.isViewing" >
    
-                <div >
+                <div>
                    
                    <a class="btn btn-success create" ng-click="vm.create()">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -33,17 +39,18 @@
                           {{vm.deleteItemsButtonText}}
                         <span class="badge">{{rows.length}}</span>
                     </a>
-         
+
                 </div>
+ 
             </div>
             
-            
-        <div id="the-basics" class="pull-right">
-          <input class="typeahead" type="text" placeholder="States of USA">
-        </div>
-        
+            <div class="pull-right">
+                    <input class="typeahead form-control" type="text" placeholder="Search goals">
+
+            </div >
+                
+    </div>
     
-           
     <div >
             <table class="table table-striped table-hover table-bordered">
                 <thead>

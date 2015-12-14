@@ -3,11 +3,24 @@ var global = require("../inc/global");
 module.exports =  {
     blank: function(){ return {} },
     
-    get: function(id, ret){
+    get: function(id, ret, searchType){
         var conn = global.GetConnection();
          var sql = "SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ";
         if(id){
-          sql += " WHERE foods.foods_id = " + id;
+        
+           switch (searchType) {
+             
+              case 'search':
+
+              sql += " WHERE foods.foods_name like '%" + id +"%'";
+              
+              break;
+            
+              default:
+                  sql += " WHERE foods.foods_id = " + id;
+         
+            
+                }
         }
        
         conn.query(sql, function(err,rows){

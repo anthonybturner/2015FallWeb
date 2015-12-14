@@ -14,8 +14,9 @@
         </div>
 </div>
 <hr>
+
 <div class="row">
-        <div  ng-if="!vm.isViewing" >
+        <div class="col-sm-8" ng-if="!vm.isViewing" >
    
                 <div >
                    
@@ -32,7 +33,17 @@
          
                 </div>
             </div>
+            
+             
+            <div class=" pull-right">
+                    <input class="typeahead form-control" type="text" placeholder="Search foods">
+
+            </div >
+            
+</div>
         <div>
+            
+
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>

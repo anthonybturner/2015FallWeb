@@ -454,6 +454,9 @@ app.get("/food", function(req, res){
    
 })
 .get("/food/search/:term", function(req, res){
+  
+  
+  
     unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_ingredien%2Ct_statement%2Cnf_sodium%2Cnf_cholesterol%2Cnf_polyunsaturated_fat%2Cnf_total_carbohydrate%2Cnf_dietary_fiber%2C+nf_monounsaturated_fat%2Cnf_protein")
     .header("X-Mashape-Key", "qYpiKTaB8emshjm5EVuKkQwT8pLfp1L1LAdjsncmdtXipZViyv")
     .header("Accept", "application/json")
@@ -462,6 +465,15 @@ app.get("/food", function(req, res){
         res.send(result.body);
     });
     
+}).get("/food/search/local/:term", function(req, res){
+
+    food.get( req.params.term, function(err, rows){
+        
+        
+        res.send(rows);
+
+        
+      }, 'search');
 })
 .get("/user/search/:term", function(req, res){
     
