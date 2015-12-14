@@ -38,11 +38,13 @@ angular.module("app")
                         .success(function(data) {
 
                             self.rows.splice(index, 1);
+                             alert.show(row.foods_name + " deleted.", 'success')
                         }).error(function(data) {
 
 
                             alert.show(data.code, 'danger');
                         });
+                        panel.state = null;
                 }
             });
         }
@@ -105,7 +107,8 @@ angular.module("app")
                                 
                                 data.isEditing = false;
                                 self.rows[index] = data;
-                                
+                                alert.show(row.foods_name + " saved for "+ row.created_at+".", 'success')
+
                             }).error(function(data){
                                 
                                 alert.show(data.code , 'danger');

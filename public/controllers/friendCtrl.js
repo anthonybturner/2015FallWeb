@@ -1,5 +1,5 @@
 angular.module("app")
-    .controller('friendsCtrl', function($http, $rootScope,alert) {
+    .controller('friendsCtrl', function($http,$location, $rootScope,alert, panel) {
         $rootScope.pagetitle = "Friends"
 
 
@@ -9,42 +9,64 @@ angular.module("app")
      self.rows = [];
      self.isViewing = false;
      self.bgimage = "friends.jpg";
-     self.createItemButtonText = "Add Friend";
-     self.deleteItemsButtonText = "Delete all";
-
-           
+    
 
         self.users_id = null;
 
-
-        $http.get("/login").then(function(data) { //Get a pseudo random user id and gather data based on that user
-
-
-            self.users_id = data.data.users_id;
-            $http.get('/friend', {
-                params: {
-                    users_id: data.data.users_id
-                }
-            }).then(function(data) {
-
-                if (data.data)
-                    self.rows = data.data;
-
-            });
+        $http.get('/friend').then(function(data) {
+        console.log(data)
+            if (data.data)
+                self.rows = data.data;
 
         });
+
+
+        self.row = {};
+        self.term = null;
+        self.choices = [];
+
+        self.search = function() {
+            
+          if( self.term && self.term.length >1 ){
+            $http.get("/user/search/" + self.term)
+                .success(function(data) {
+                   
+                    self.choices = data;
+                });
+                
+          }
+        }
+        
+        self.add = function(row) {
+            
+          //  self.row.users_name = choice.users_name;
+          //  self.row.users_avatar = choice.users_avatar;;
+          //  self.row.users_id = choice.users_id;
+          row.friends_user_id = row.users_id;
+          row.users_id = null;
+           $http.post('/friend', row).success(function(data){
+                                
+                    alert.show("Friend " + row.users_name +" added successfully.", 'success');
+                });
+            self.choices = [];
+           
+        }
+        
 
         self.delete = function(row, index) {
 
 
             panel.show({
                 title: "Delete a friend",
-                body: "Are you sure you want to delete " + row.friends_name + "?",
+                body: "Are you sure you want to delete " + row.users_name + "?",
                 confirm: function() {
-                    $http.delete('/friend/' + row.friends_id)
+                    $http.delete('/friend/' + row.friends_user_id)
                         .success(function(data) {
 
                             self.rows.splice(index, 1);
+                             alert.show("Friend " + row.users_name +" deleted successfully.", 'success');
+                             panel.state = null;
+
                         }).error(function(data) {
 
 

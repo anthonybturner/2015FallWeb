@@ -21,6 +21,7 @@ angular.module("app")
                 facebook.login().then(function(fbUser){
 
                     self.fbUser = fbUser;
+                    console.log(fbUser)
                      $http.post('/fbLocalLogin', { facebookUser: fbUser }).then(function(data){
                        
                           $location.url("/");

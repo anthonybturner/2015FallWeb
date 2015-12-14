@@ -15,55 +15,75 @@
 
 <hr>
 <div class="row">
-
-           
-    <div >
-                        <table class="table table-condensed table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="label label-primary col-sm-2">Actions</th>
-                                    <th class="label label-primary col-sm-4">Name</th>
-                                    <th class="label label-primary col-sm-1">Age</th>
-                                    <th class="label label-primary col-sm-1">Height</th>
-                                    <th class="label label-primary col-sm-1">Weight</th>
-                                    <th class="label label-primary col-sm-2">Avatar</th>
-                                    <th class="label label-primary col-sm-1">Status</th>
-                                </tr>
-                            </thead>
-                           <tbody>
-                                <tr>
-                                  
-                                     <th  ng-if-start="!row.isEditing"scope="row">
-                                        <div class="btn-group" role="group" aria-label="...">
-                                          <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                          <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                                          <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
-                                        </div>
-                                      </th>
-                                    <td >{{vm.row.users_name}}</td>
-                                    <td >{{vm.row.users_age}}</td>
-                                    <td >{{vm.row.users_height}}</td>
-                                    <td >{{vm.row.users_weight}}</td>
-                                    <td >         <img src="https://graph.facebook.com/{{vm.row.users_avatar}}/picture" width="32px" height="32px"/></td>
-                                                 
-
-                                    <td ng-if-end>{{vm.row.users_status}}</td>
-            
-                                    <td ng-if-start="vm.row.isEditing">
-                                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(vm.row, $index)"/>
-                                        <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="vm.row.isEditing = false"/>
-                                    </td>
-                                    <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="vm.row.users_name" /></td>
-                                    <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="vm.row.users_age" /></td>
-                                    <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="vm.row.users_height" /></td>
-                                    <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="vm.row.users_weight" /></td>
-                                    <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="vm.row.users_avatar" /></td>
-                                    <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="vm.row.users_status" disabled/></td>
-                                   
-                                </tr>
-                            </tbody>
-                        </table>
-                        
+    
+    <div  class="col-sm-8">
+       <table class="table table-condensed table-striped table-bordered table-hover">
+                              
+           <tbody>
+               
+                  
+                    <tr>
+                        <th class="label label-info col-sm-2">Name</th>
+                        <td >{{vm.row.users_name}}</td>
+                    </tr>
                     
-                    </div>
-            </div>
+                    <tr>
+                        <th class="label label-info col-sm-2">Age</th>
+                        <td >{{vm.row.users_age}}</td>
+                    </tr>
+                    
+                      <tr>
+                        <th class="label label-info col-sm-2">Email</th>
+                        <td >{{vm.row.users_email}}</td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="label label-info col-sm-2">Height</th>
+                            <td >{{vm.row.users_height}}</td>
+                    </tr>
+                    
+                     <tr>
+                        <th class="label label-info col-sm-2">Weight</th>
+                            <td >{{vm.row.users_weight}}</td>
+                    </tr>
+                    
+                     <tr>
+                        <th class="label label-info col-sm-2">Status</th>
+                            <td >{{vm.row.users_status}}</td>
+                    </tr>
+                    <tr>
+                       <th  class="label label-info col-sm-2">Actions</th>
+                       <td>
+                            <div class="btn-group" role="group" aria-label="...">
+                              <a ng-click="vm.edit(vm.row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                            </div>
+                            </td>
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td class="col-sm-3" ng-if-start="vm.row.isEditing">
+                            <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(vm.row, $index)"/>
+                            <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="vm.row.isEditing = false"/>
+                        </td>
+                        <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="vm.row.users_name" /></td>
+                        <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="vm.row.users_age" /></td>
+                         <td><input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="vm.row.users_email" /></td>
+                        <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="vm.row.users_height" /></td>
+                        <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="vm.row.users_weight" /></td>
+                        <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="vm.row.users_avatar" />
+                        </td>
+                        <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="vm.row.users_status" disabled/></td>
+                        
+                    </tr>
+                   
+                
+            </tbody>
+        </table>
+    </div>
+                                       
+    <div class="col-sm-4">
+                     
+        <img class="thumbnail" src="https://graph.facebook.com/{{vm.row.users_avatar}}/picture?type=large" width="300px" height="300px"/>
+     </div>
+ </div>

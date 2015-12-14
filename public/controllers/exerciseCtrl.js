@@ -60,6 +60,7 @@ angular.module("app")
 
                             alert.show(data.code, 'danger');
                         });
+                        panel.state = null;
                 }
             });
         }
@@ -123,6 +124,7 @@ angular.module("app")
                                 
                                 data.isEditing = false;
                                 self.rows[index] = data;
+                                 alert.show(row.exercises_name + " saved for "+ row.created_at+".", 'success')
                                 
                             }).error(function(data){
                                 

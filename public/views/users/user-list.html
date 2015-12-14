@@ -22,13 +22,14 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="label label-primary col-sm-2">Actions</th>
-                                    <th class="label label-primary col-sm-4">Name</th>
-                                    <th class="label label-primary col-sm-1">Age</th>
-                                    <th class="label label-primary col-sm-1">Height</th>
-                                    <th class="label label-primary col-sm-1">Weight</th>
-                                    <th class="label label-primary col-sm-2">Avatar</th>
-                                    <th class="label label-primary col-sm-1">Status</th>
+                                    <th class="label label-info col-sm-1">Actions</th>
+                                    <th class="label label-info col-sm-4">Name</th>
+                                    <th class="label label-info col-sm-1">Age</th>
+                                    <th class="label label-info col-sm-1">Email</th>
+                                    <th class="label label-info col-sm-1">Height</th>
+                                    <th class="label label-info col-sm-1">Weight</th>
+                                    <th class="label label-info col-sm-2">Avatar</th>
+                                    <th class="label label-info col-sm-1">Status</th>
                                 </tr>
                             </thead>
                            <tbody>
@@ -37,12 +38,11 @@
                                      <th  ng-if-start="!row.isEditing"scope="row">
                                         <div class="btn-group" role="group" aria-label="...">
                                           <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                          <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                                          <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                                         </div>
                                       </th>
                                     <td >{{row.users_name}}</td>
                                     <td >{{row.users_age}}</td>
+                                     <td >{{row.users_email}}</td>
                                     <td >{{row.users_height}}</td>
                                     <td >{{row.users_weight}}</td>
                                     <td ng-if="row.facebook_id"> <img  src="https://graph.facebook.com/{{row.facebook_id}}/picture" width="32px" height="32px"/></td>
@@ -55,6 +55,8 @@
                                     </td>
                                     <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="row.users_name" /></td>
                                     <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="row.users_age" /></td>
+                                    <td><input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="row.users_email" /></td>
+
                                     <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="row.users_height" /></td>
                                     <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="row.users_weight" /></td>
                                     <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" /></td>

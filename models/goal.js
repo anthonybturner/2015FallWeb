@@ -16,7 +16,7 @@ module.exports =  {
         });        
     },getByDate: function(row, ret){
         var conn = global.GetConnection();
-        var sql = "SELECT * FROM Goals WHERE users_id = " + row[0] + " and created_at like '%"+row[1]+"%'";
+        var sql = "SELECT * , DATE_FORMAT(created_at,'%b %d %Y %h:%i %p') as created_at FROM Goals WHERE users_id = " + row[0] + " and created_at like '%"+row[1]+"%'";
         
         
         conn.query(sql, function(err,rows){
@@ -44,22 +44,23 @@ module.exports =  {
     },
     save: function(row, ret){
 
-        var sql;
+        var sql, rows;
         var conn = global.GetConnection();
 
         //  TODO Sanitize
         if (row.goals_id) {
 				  sql = " Update Goals "
-							+ " Set created_at=?, goals_name=?, goals_percentage_complete=? , goals_accomplished=?, users_id=?"
+							+ " Set updated_at=NOW(), goals_name=?, goals_percentage_complete=? , goals_accomplished=?, users_id=?"
 						  + " WHERE goals_id = ? ";
+						   rows = [  row.goals_name, row.goals_percentage_complete, row.goals_accomplished, row.users_id, row.goals_id]
 			  }else{
 				  sql = "INSERT INTO Goals "
 						  + " (created_at, goals_name, goals_percentage_complete, goals_accomplished, users_id ) "
 						  + "VALUES (?, ?, ?, ?, ? ) ";				
+						   rows =[ row.created_at, row.goals_name, row.goals_percentage_complete, row.goals_accomplished, row.users_id, row.goals_id]
 			  }
 			  
-			  console.log(row)
-        conn.query(sql, [row.created_at, row.goals_name, row.goals_percentage_complete, row.goals_accomplished, row.users_id, row.goals_id],function(err,data){
+        conn.query(sql, rows,function(err,data){
           console.log(err)
           if(!err && !row.goals_id){
             row.goals_id = data.insertId;

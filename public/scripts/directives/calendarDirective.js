@@ -46,13 +46,23 @@ angular.module('fitnessapp.directives')
                   case "Jun": month= "06";
                    break;
                   case "Jul": month= "07";
+                   break; 
+                  case "Aug": month= "08";
+                   break;
+                  case "Sept": month= "09";
+                   break;
+                  case "Oct": month= "10";
+                   break;
+                  case "Nov": month= "11";
                    break;
                   case "Dec": month= "12";
                     break;
                    
                 }
 
+                //Gathers the current date and uses it to get a Goals, Foods, Exercises data for when it page is first loaded
                 var currDate = year + "-"+ month + "-"+day;
+               
                 calendarService.date = currDate;
                
                 $scope.updateCalendar();

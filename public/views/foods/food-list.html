@@ -36,7 +36,9 @@
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="label label-info col-sm-1">Actions</th>
+                    <th class="label label-info col-sm-3">Actions</th>                        
+                    <th class="label label-info col-sm-2">Date Added</th>
+
                     <th class="label label-info col-sm-3">Food Name</th>
                     <th class="label label-info col-sm-1">Calories</th>
                     <th class="label label-info col-sm-1">Cholestrol</th>
@@ -64,6 +66,7 @@
 
                         </div>
                       </th>
+                    <td >{{row.created_at}}</td>
                     <td >{{row.foods_name}}</td>
                     <td >{{row.foods_calories}}</td>
                     <td >{{row.foods_cholestrol}}</td>
@@ -82,6 +85,8 @@
                         <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                         <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                     </td>
+                    
+                    <td> <input type="text" name="created_at" class="form-control" placeholder="Date created" ng-model="row.created_at" disabled/></td>
                     <td> <input type="text" name="foods_name" class="form-control" placeholder="Name" ng-model="row.foods_name" ng-click="vm.search()"/>
                     
                         <ul class="list-group">

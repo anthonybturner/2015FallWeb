@@ -190,6 +190,8 @@ app.get("/food", function(req, res){
     res.status(500).send(errors);
     return;
   }
+   req.body.users_id =  req.session.fbUser.users_id;
+   console.log(req.body.users_id)
   user.save(req.body, function(err, row){
     res.send(row);
   })
@@ -207,20 +209,41 @@ app.get("/food", function(req, res){
 })
 .get("/friend", function(req, res){
   
-  friend.get(null, function(err, rows){
-    res.send(rows);
-  })
+  if( req.session.fbUser ){
+    console.log( req.session.fbUser)
+    friend.get(req.session.fbUser.users_id, function(err, rows){
+          console.log( err)
+
+      if(err){
+        res.status(500).send(err);
+        return;
+       }else{
+        
+         res.send(rows);
+      }
+      
+     })
+  }
     
 }).post("/friend", function(req, res){
-  var errors = friend.validate(req.body);
-  if(errors){
-    res.status(500).send(errors);
-    return;
-  }
+ 
+   req.body.users_id =  req.session.fbUser.users_id;
+console.log(req.body)
   friend.save(req.body, function(err, row){
     console.log(err)
     res.send(row);
   })
+})
+.delete("/friend/:id", function(req, res){
+  var row = {friends_user_id: req.params.id,  users_id: req.session.fbUser.users_id};
+  friend.delete(row, function(err, rows){
+      if(err){
+        res.status(500).send(err);
+      }else{
+        res.send(req.params.id);
+      }
+  })
+  
 })
 .get("/goal", function(req, res){
    
@@ -327,6 +350,13 @@ app.get("/food", function(req, res){
 }).post("/fbLocalLogin", function(req, res){
   
 
+ unirest.get("https://graph.facebook.com/me?access_token=" + req.body.facebookUser.access_token + "&fields=id,name,email, birthday")
+    .end(function (result) {
+      //result.body.user
+      var fbUser = req.session.fbUser = JSON.parse(result.body);
+      console.log(req.session.fbUser)
+      req.session.fbUser.access_token = req.body.access_token;
+
       user.get(req.body.facebookUser.id, function(err, rows){
         
         if( rows && rows.length){//If we have that user then store there data
@@ -336,7 +366,7 @@ app.get("/food", function(req, res){
 
         }else{
       
-          user.save({users_name: facebookUser.name, facebook_id: facebookUser.id, users_age: '26', users_height: null, users_weight: null, users_avatar: facebookUser.id, TypeId: 6 }, function(err, row){
+          user.save({users_name: req.session.fbUser.name, facebook_id: req.session.fbUser.id, users_age: req.session.fbUser.birthday, users_email: req.session.fbUser.email, users_height: null, users_weight: null, users_avatar: req.session.fbUser.id, users_is_facebook_user: 1 }, function(err, row){
             
             req.session.fbUser = row;
             req.session.save();
@@ -346,8 +376,11 @@ app.get("/food", function(req, res){
         
         
       }, 'facebook');
+       res.send(res.body);
       
-      res.send(res.body);
+    });
+      
+   
  
   
 }).post("/fbLogin", function(req, res){
@@ -369,7 +402,7 @@ app.get("/food", function(req, res){
 
         }else{
       
-          user.save({users_name: fbUser.name, facebook_id: fbUser.id, users_age: '26', users_height: null, users_weight: null, users_avatar: fbUser.id, TypeId: 6 }, function(err, row){
+          user.save({users_name: fbUser.name, facebook_id: fbUser.id, users_age: null, users_height: null, users_weight: null, users_avatar: fbUser.id, TypeId: 6 }, function(err, row){
             
             req.session.fbUser = row;
             req.session.save();
@@ -420,6 +453,16 @@ app.get("/food", function(req, res){
         res.send(result.body);
     });
     
+})
+.get("/user/search/:term", function(req, res){
+    
+    user.get( req.params.term, function(err, rows){
+        
+        
+        res.send(rows);
+
+        
+      }, 'users');
 })
 
 

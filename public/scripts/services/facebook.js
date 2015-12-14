@@ -4,12 +4,14 @@ angular.module("app").service('facebook',function($q, $http){
                   
                     var deferred = $q.defer();
                     FB.login(function(response) {
-
+                        
+                        console.log(response)
                         FB.api('/me', function(fbUser){
+                            fbUser.access_token = response.authResponse.accessToken;
                             deferred.resolve(fbUser);
                         });
                         
-                    }, {scope: 'public_profile,email'});
+                    }, {scope: 'public_profile, email, user_birthday, user_actions.fitness'});
                     
                     return deferred.promise;
                 },

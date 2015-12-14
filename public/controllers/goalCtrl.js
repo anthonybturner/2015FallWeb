@@ -18,7 +18,7 @@ angular.module("app")
 
            
                        $http.get('/goal',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
-
+                                    console.log(data.data)
                             self.rows = data.data;
 
                       
@@ -45,6 +45,8 @@ angular.module("app")
                             .success(function(data){
            
                                 self.rows.splice(index, 1);
+                                alert.show(row.goals_name + " deleted.", 'success')
+
                             }).error(function(data){
                                 
                                 
@@ -115,6 +117,8 @@ angular.module("app")
                                 
                                 data.isEditing = false;
                                 self.rows[index] = data;
+                                alert.show(row.goals_name + " saved for "+ row.created_at+".", 'success')
+
                                 
                             }).error(function(data){
                                 

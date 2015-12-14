@@ -40,10 +40,11 @@
         <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="label label-primary col-sm-2">Actions</th>
-                    <th class="label label-primary col-sm-3">Name</th>
-                    <th class="label label-primary col-sm-2">Minutes</th>
-                    <th class="label label-primary col-sm-2">Calories_Burned</th>
+                    <th class="label label-info col-sm-2">Actions</th>                    
+                    <th class="label label-info col-sm-2">Date Added</th>
+                    <th class="label label-info col-sm-3">Name</th>
+                    <th class="label label-info col-sm-2">Minutes</th>
+                    <th class="label label-info col-sm-2">Calories_Burned</th>
                 </tr>
             </thead>
 
@@ -57,6 +58,7 @@
                           <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
                         </div>
                       </th>
+                    <td >{{row.created_at}}</td>
                     <td >{{row.exercises_name}}</td>
                     <td >{{row.exercises_minutes}}</td>
                     <td ng-if-end>{{row.exercises_calories_burned}}</td>
@@ -65,6 +67,7 @@
                         <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                         <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                     </td>
+                    <td> <input type="text" name="created_at" class="form-control" placeholder="Date created" ng-model="row.created_at" disabled/></td>
                     <td> <input type="text" name="exercises_name" class="form-control" placeholder="Name" ng-model="row.exercises_name" /></td>
                     <td><input type="text" name="exercises_minutes" class="form-control" placeholder="Minutes" ng-model="row.exercises_minutes" /></td>
                     

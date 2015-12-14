@@ -1,48 +1,52 @@
- <div class="row" id="header-area">
-        
-        
-        <div class="col-sm-12 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
-            
-            <div id="info">
-                <div style="position: relative; right: 235px; color: #000;">
-                <h1 style=" text-align: center;" >{{vm.title}}</h1>
+<div class="row" id="header-area">
+
+
+    <div class="col-sm-12 thumbnail" style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
+
+        <div id="info">
+            <div style="color: #fff; background-color:rgba(0, 0, 0, 0.8); width: 556px; height: 120px; padding: 8px; position:relative; top: 40px; left: 80px; border-radius: 2px 2px 2px">
+                <h1 style=" text-align: center;">{{vm.title}}</h1>
                 <h3>{{vm.description}}</h3>
-                </div>
             </div>
-            
-    
         </div>
+
+
+    </div>
 </div>
 
 <hr>
 <div class="row">
-               
-        <div  ng-if="!vm.isViewing" >
-   
-                <div >
-                   
-                   <a class="btn btn-success create" ng-click="vm.create()">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        {{vm.createItemButtonText}}
-                    </a>
-                    
-                    <a href="#" class="btn btn-danger">
-                        <i class="glyphicon glyphicon-trash"></i>
-                          {{vm.deleteItemsButtonText}}
-                        <span class="badge">{{rows.length}}</span>
-                    </a>
-         
-                </div>
-            </div>
-           
-    <div >
-                        <table class="table table-condensed table-striped table-bordered table-hover">
+
+  
+      
+    <form class="navbar-form" role="search">
+        <div class="form-group">
+            <td>
+                <input type="text" class="form-control" placeholder="Search for friends" ng-model="vm.term" ng-click="vm.search()" />
+
+            </td>
+        </div>
+        <button type="submit" class="btn btn-default"  ng-click="vm.search()">Search</button>
+    </form>
+</div>
+
+    
+<div class="row">
+    
+<div class=" col-sm-6">
+    <h3>Friends</h3>
+     <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="label label-primary col-sm-2">Actions</th>
-                                    <th class="label label-primary col-sm-4">Name</th>
-                                    <th class="label label-primary col-sm-1">Age</th>
-                                    <th class="label label-primary col-sm-2">Avatar</th>
+                                    <th class="label label-info col-sm-3">Actions</th>
+                                    <th class="label label-info col-sm-1">ID</th>
+                                    <th class="label label-info col-sm-4">Name</th>
+                                    <th class="label label-info col-sm-1">Age</th>
+                                    <th class="label label-info col-sm-1">Email</th>
+                                    <th class="label label-info col-sm-1">Height</th>
+                                    <th class="label label-info col-sm-1">Weight</th>
+                                    <th class="label label-info col-sm-2">Avatar</th>
+                                    <th class="label label-info col-sm-1">Status</th>
                                 </tr>
                             </thead>
                            <tbody>
@@ -50,27 +54,91 @@
                                   
                                      <th  ng-if-start="!row.isEditing"scope="row">
                                         <div class="btn-group" role="group" aria-label="...">
-                                          <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                          <a ng-click="vm.edit(row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                                          <a ng-click="vm.delete(row, $index)" title="Delete" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                          <a ng-click="vm.delete(row, $index)" title="Remove Friend" class="btn btn-default btn-xs delete"><i class="glyphicon glyphicon-trash"></i></a>
+
                                         </div>
                                       </th>
+                                    <td >{{row.friends_user_id}}</td>
                                     <td >{{row.users_name}}</td>
                                     <td >{{row.users_age}}</td>
-                                    <td ng-if-end ><img ng-src="{{row.users_avatar}}" height="56px" width="56px"/></td>
-
+                                     <td >{{row.users_email}}</td>
+                                    <td >{{row.users_height}}</td>
+                                    <td >{{row.users_weight}}</td>
+                                    <td ng-if="row.facebook_id"> <img  src="https://graph.facebook.com/{{row.facebook_id}}/picture" width="32px" height="32px"/></td>
+                                    <td ng-if="!row.facebook_id"> <img  src="{{row.users_avatar}}" width="32px" height="32px"/></td>
+                                    <td ng-if-end>{{row.users_status}}</td>
+            
                                     <td ng-if-start="row.isEditing">
-                                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(user, $index)"/>
+                                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
                                         <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
                                     </td>
-                                    <td> <select class="form-control"> ng-options="user.users_id as user.users_name for user in vm.users"  ng-click="vm.saveSelected(user, $index)"></option></option></select></td>
+                                    <td> <input type="text" name="users_id" class="form-control" placeholder="Name" ng-model="row.users_id" /></td>
+                                    <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="row.users_name" /></td>
                                     <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="row.users_age" /></td>
-                                    <td ng-if-end ><input type="text" name=users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" /></td>
+                                    <td><input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="row.users_email" /></td>
 
+                                    <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="row.users_height" /></td>
+                                    <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="row.users_weight" /></td>
+                                    <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" /></td>
+                                    <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="row.users_status" disabled/></td>
+                                   
                                 </tr>
                             </tbody>
                         </table>
                         
                     
+
+</div>
+ 
+
+<div class="col-sm-6">
+  
+    <h3>Add Friend</h3>
+
+    <table class="table table-condensed table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="label label-info col-sm-1">Actions</th>
+                <th class="label label-info col-sm-1">Id</th>
+                <th class="label label-info col-sm-4">Name</th>
+                <th class="label label-info col-sm-1">Age</th>
+                <th class="label label-info col-sm-2">Avatar</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+
+            <tr ng-repeat="choice in vm.choices">
+
+                <th scope="row">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a ng-click="vm.add(choice, $index)" title="add friend" class="btn btn-default btn-xs add"><i class="glyphicon glyphicon-plus"></i></a>
+
                     </div>
-            </div>
+                </th>
+                
+                <td>
+                    {{choice.users_id}}
+                </td>
+
+                <td>
+                    {{choice.users_name}}
+                </td>
+
+                <td>
+                    {{choice.users_age}}
+                </td>
+
+
+                <td>
+                    <img src="{{choice.users_avatar}}" height="128px" width="128px" />
+                </td>
+
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</div>

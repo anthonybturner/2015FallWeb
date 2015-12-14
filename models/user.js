@@ -11,14 +11,20 @@ module.exports =  {
               
               sql += " WHERE facebook_id = " + id;
               break;
+              
+              case 'users':
+              
+              sql += " WHERE users_name like '%" + id +"%'";
+              
+              break;
             
             default:
               sql += " WHERE users_id = " + id;
           }
         }
-          
+        
+       
         conn.query(sql, function(err,rows){
-          console.log("In users model query resuts")
           console.log(err)
           ret(err,rows);
           conn.end();
@@ -38,19 +44,19 @@ module.exports =  {
         if (row.users_id) {
           
 				  sql = " Update Users "
-							+ " Set users_name=?, users_age=? , users_height=? , users_weight=?, users_avatar=?, facebook_id, users_status='offline'"
+							+ " Set updated_at=NOW(), users_name=?, users_age=? , users_height=? , users_weight=?, users_avatar=?,users_email=?, facebook_id=?"
 						  + " WHERE users_id = ? ";
 						  
 			  }else{
 			    
 			   
 				  sql = "INSERT INTO Users "
-						  + " (users_name, users_age, users_height, users_weight, users_avatar, facebook_id, users_status ) "
-						  + "VALUES (?, ?, ?, ?, ?, ?,'offline' ) ";				
+						  + " (created_at, users_name, users_age, users_height, users_weight, users_avatar, users_email, facebook_id ) "
+						  + "VALUES (NOW(),?, ?, ?, ?, ?, ?, ? ) ";				
 			  }
 		
-
-        conn.query(sql, [row.users_name, row.users_age, row.users_height, row.users_weight, row.users_avatar, row.facebook_id, row.users_id],function(err,data){
+        conn.query(sql, [row.users_name, row.users_age, row.users_height, row.users_weight, row.users_avatar, row.users_email, row.facebook_id,  row.users_id],function(err,data){
+         
           if(!err && !row.users_id){
             row.users_id = data.insertId;
           }

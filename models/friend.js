@@ -5,18 +5,33 @@ module.exports =  {
     
     get: function(id, ret){
         var conn = global.GetConnection();
-        var sql = "SELECT * from Users u inner join Friends f on f.friends_user_id=u.users_id";
+        
         if(id){
-          sql += "  Where f.users_id = "+ id;
+          var sql = "SELECT * from Users u inner join Friends f on f.friends_user_id=u.users_id";
+          
+            sql += "  Where f.users_id = "+ id;
+                      console.log(sql)
+
+             conn.query(sql, function(err,rows){
+          
+            ret(err,rows);
+            conn.end();
+          });   
+             
+        }else{
+          var err = {"code": "no friends"};
+          ret(err, null);
         }
-        conn.query(sql, function(err,rows){
-          ret(err,rows);
-          conn.end();
-        });        
+        
+       
+            
     },
-    delete: function(id, ret){
+    delete: function(row, ret){
         var conn = global.GetConnection();
-        conn.query("DELETE FROM Friends WHERE id = " + id, function(err,rows){
+        var sql = "DELETE FROM Friends WHERE friends_user_id = " + row.friends_user_id + " and users_id=" + row.users_id;
+        
+        conn.query(sql, function(err,rows){
+          console.log(err)
           ret(err);
           conn.end();
         });        
@@ -24,7 +39,7 @@ module.exports =  {
     save: function(row, ret){
         var sql;
         var conn = global.GetConnection();
-         console.log(row)
+        
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update Friends "
@@ -32,11 +47,12 @@ module.exports =  {
 						  + " WHERE friends_id = ? ";
 			  }else{
 				  sql = "INSERT INTO Friends "
-						  + " ( updated_at, friends_user_id, users_id) "
-						  + "VALUES (NOW(), ?, ? ";				
+						  + " ( created_at, updated_at, friends_user_id, users_id) "
+						  + "VALUES (NOW(), NOW(), ?, ?) ";				
 			  }
         console.log(row)
         conn.query(sql, [ row.friends_user_id, row.users_id, row.friends_id],function(err,data){
+          console.log(sql)
           if(!err && !row.friends_id){
             row.friends_id = data.insertId;
           }
@@ -47,7 +63,7 @@ module.exports =  {
     validate: function(row){
       var errors = {};
       
-      if(!row.Name) errors.Name = "is required"; 
+      if(!row.users_id) errors.Name = "is required"; 
       
       return errors.length ? errors : false;
     }

@@ -17,7 +17,7 @@ module.exports =  {
         });        
     },getByDate: function(row, ret){
         var conn = global.GetConnection();
-        var sql = "SELECT exercises.updated_at, exercises.exercises_id, exercises.exercises_name, exercises.exercises_minutes, exercises.exercises_calories_burned, exercises.exercisestypes_id, exercises.users_id "+
+        var sql = "SELECT exercises.updated_at, exercises.exercises_id, exercises.exercises_name, exercises.exercises_minutes, exercises.exercises_calories_burned, exercises.exercisestypes_id, exercises.users_id, DATE_FORMAT(exercises.created_at,'%b %d %Y %h:%i %p') as created_at "+
         "FROM Exercises exercises left join ExercisesTypes exercisesTypes on exercisesTypes.exercisestypes_id=exercises.exercisestypes_id "+
         "WHERE exercises.users_id = " + row[0] + " and exercises.created_at like '%"+row[1]+"%'";
         
