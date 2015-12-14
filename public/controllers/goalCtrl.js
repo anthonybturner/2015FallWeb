@@ -11,8 +11,67 @@ angular.module("app")
                  self.bgimage = "goals.png";
                  self.createItemButtonText = "New Goal";
                  self.deleteItemsButtonText = "Delete all";
+                 
+                 var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+                      'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+                      'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+                      'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+                      'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+                      'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+                      'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+                      'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+                      'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+                    ];
+                    
+                       var substringMatcher = function(strs) {
+                        
+                          return function findMatches(q, cb) {
+                            var matches, substringRegex;
+                        
+                            // an array that will be populated with substring matches
+                            matches = [];
+                        
+                            // regex used to determine if a string contains the substring `q`
+                            substrRegex = new RegExp(q, 'i');
+                        
+                            // iterate through the pool of strings and for any string that
+                            // contains the substring `q`, add it to the `matches` array
+                            
+                             $http.get("/goal/search/" + q).success(function(data) {
+                                 
+                                   console.log("in succes of get search")
+                                    console.log(data)
+                                    for(var i=0; i < data.length; i++){
+                                        
+                                        var goal = data[i];
+                                        console.log(goal)
+                                         if (substrRegex.test(goal.goals_name)) {
+                                             console.log("It matches")
+                                            matches.push((goal.goals_name));
+                                          }
+                                    }
 
-           
+                                    cb(matches);
+
+                                });
+                                
+                                  
+                        
+                          };
+                        };
+                        
+
+
+                $('#the-basics .typeahead').typeahead({
+                      hint: true,
+                      highlight: true,
+                      minLength: 1
+                    },
+                    {
+                      name: 'states',
+                      source: substringMatcher(states)
+                    });
+                               
                    
                    $scope.updateCalendar = function(){
 
@@ -128,6 +187,8 @@ angular.module("app")
                          })
 
                     }
+                    
+                 
 
 
 })

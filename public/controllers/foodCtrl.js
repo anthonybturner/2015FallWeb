@@ -19,9 +19,9 @@ angular.module("app")
                $http.get('/food',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
               
                     self.rows = data.data;
-                    self.totalCals = 0;self.totalCals = 0, self.totalFat = 0, self.totalSodium = 0;
+                    self.totalCals = 0; self.totalFat = 0, self.totalSodium = 0;
 
-                    for(var i = 0; i < self.rows.length; i++){
+                    for(var i = 0; i < self.rows.length; i++){//Total column nutritions
                       
                         var curRow = self.rows[i];
                         

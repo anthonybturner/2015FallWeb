@@ -303,7 +303,18 @@ app.get("/food", function(req, res){
         res.send(req.params.id);
       }
   })
+}).get("/goal/search/:term", function(req, res){
+    console.log("goal search express")
+    console.log(req.params.term)
+    goal.get( req.params.term, function(err, rows){
+        
+        
+        res.send(rows);
+
+        
+      }, 'search');
 })
+
 .get("/login", function(req, res){
   
  

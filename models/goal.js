@@ -3,12 +3,29 @@ module.exports =  {
   
     blank: function(){ return {} },
     
-    get: function(id, ret){
+    get: function(id, ret, searchType){
+      
         var conn = global.GetConnection();
         var sql = 'SELECT * FROM Goals';
+        console.log("in goal model")
         if(id){
-          sql += " WHERE goals_id = " + id;
-        }
+          
+        
+            switch (searchType) {
+             
+              case 'search':
+
+              sql += " WHERE goals_name like '%" + id +"%'";
+              
+              break;
+            
+              default:
+                sql += " WHERE goals_id = " + id;
+            
+                }
+          
+          }
+        
         
         conn.query(sql, function(err,rows){
           ret(err,rows);
