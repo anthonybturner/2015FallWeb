@@ -35,7 +35,7 @@ angular.module("app")
            }
            
            
-            var states = [];
+            var foods = [];
 
                    
                    var substringMatcher = function(strs) {
@@ -54,7 +54,7 @@ angular.module("app")
                                     for(var i=0; i < data.length; i++){
                                         
                                         var food = data[i];
-                                         states.push(food.foods_name);
+                                         foods.push(food.foods_name);
                                           
                                     }
 
@@ -80,8 +80,8 @@ angular.module("app")
                                   minLength: 1
                                 },
                                 {
-                                  name: 'states',
-                                  source: substringMatcher(states)
+                                  name: 'foods',
+                                  source: substringMatcher(foods)
                           });
                         
                        

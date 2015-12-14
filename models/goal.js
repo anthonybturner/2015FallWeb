@@ -6,7 +6,9 @@ module.exports =  {
     get: function(id, ret, searchType){
       
         var conn = global.GetConnection();
-        var sql = 'SELECT * FROM Goals';
+    var sql = 'SELECT * FROM Goals';
+
+       
         console.log("in goal model")
         if(id){
           
@@ -15,7 +17,7 @@ module.exports =  {
              
               case 'search':
 
-              sql += " WHERE goals_name like '%" + id +"%'";
+              sql += " WHERE goals_name like '%" + id +"%' LIMIT 10";
               
               break;
             
@@ -50,7 +52,37 @@ module.exports =  {
           ret(err,rows);
           conn.end();
         });        
-    }, 
+    }, search: function(row, ret, searchType){
+      
+        var conn = global.GetConnection();
+    var sql = 'SELECT * FROM Goals';
+
+       
+        console.log("in goal model")
+        if(row.term){
+          
+        
+            switch (searchType) {
+             
+              case 'search':
+
+              sql += " WHERE users_id="+row.users_id+" and  goals_name like '%" + row.term +"%' LIMIT 10";
+              
+              break;
+            
+              
+                }
+        }
+          
+          
+        console.log(sql)
+        
+        conn.query(sql, function(err,rows){
+          console.log(rows)
+          ret(err,rows);
+          conn.end();
+        });        
+    },
     delete: function(id, ret){
         var conn = global.GetConnection();
        

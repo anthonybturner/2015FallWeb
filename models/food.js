@@ -12,7 +12,7 @@ module.exports =  {
              
               case 'search':
 
-              sql += " WHERE foods.foods_name like '%" + id +"%'";
+              sql += " WHERE foods.foods_name like '%" + id +"%' LIMIT 10";
               
               break;
             
@@ -54,6 +54,31 @@ module.exports =  {
           ret(err,rows);
           conn.end();
         });    
+    },search: function(row, ret, searchType){
+      
+        var conn = global.GetConnection();
+    var sql = 'SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ';
+
+
+        if(row.term){
+          
+        
+          switch (searchType) {
+           
+            case 'search':
+
+            sql += " WHERE foods.users_id="+row.users_id+" and  foods.foods_name like '%" + row.term +"%' LIMIT 10";
+            
+            break;
+          
+            
+              }
+        }
+          
+          conn.query(sql, function(err,rows){
+          ret(err,rows);
+          conn.end();
+        });        
     },delete: function(id, ret){
         var conn = global.GetConnection();
         conn.query("DELETE FROM Foods WHERE foods_id = " + id, function(err,rows){

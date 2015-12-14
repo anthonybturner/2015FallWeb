@@ -39,6 +39,35 @@ module.exports =  {
           ret(err,rows);
           conn.end();
         });        
+    },search: function(row, ret, searchType){
+      
+        var conn = global.GetConnection();
+    var sql = 'SELECT exercises.exercises_id,  exercises.exercises_name, exercises.exercises_minutes, exercises.exercises_calories_burned,  exercises.users_id,et.exercisestypes_id FROM Exercises exercises left join ExercisesTypes et on et.exercisestypes_id=exercises.exercisestypes_id ';
+
+       
+        if(row.term){
+          
+        
+            switch (searchType) {
+             
+              case 'search':
+
+              sql += " WHERE exercises.users_id="+row.users_id+" and exercises.exercises_name like '%" + row.term +"%' LIMIT 10";
+              
+              break;
+            
+              
+                }
+        }
+          
+          
+        console.log(sql)
+        
+        conn.query(sql, function(err,rows){
+          console.log(rows)
+          ret(err,rows);
+          conn.end();
+        });        
     },
     delete: function(id, ret){
         var conn = global.GetConnection();

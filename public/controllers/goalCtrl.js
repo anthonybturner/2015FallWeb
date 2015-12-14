@@ -12,23 +12,12 @@ angular.module("app")
                  self.createItemButtonText = "New Goal";
                  self.deleteItemsButtonText = "Delete all";
                  
-                 var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-                      'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-                      'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-                      'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-                      'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-                      'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-                      'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-                      'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-                      'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-                    ];
-                    
-                      
+
                    $scope.updateCalendar = function(){
 
            
                        $http.get('/goal',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
-                                    console.log(data.data)
+                                   
                             self.rows = data.data;
 
                       
@@ -37,7 +26,7 @@ angular.module("app")
                    }
                     
                     
-                  var states = [];
+                  var goals = [];
 
                    
                    var substringMatcher = function(strs) {
@@ -56,7 +45,7 @@ angular.module("app")
                                     for(var i=0; i < data.length; i++){
                                         
                                         var goal = data[i];
-                                         states.push(goal.goals_name);
+                                         goals.push(goal.goals_name);
                                           
                                     }
 
@@ -75,16 +64,18 @@ angular.module("app")
                         };
                         
                         
-                          $('.typeahead').typeahead({
-                                         
-                                          hint: true,
-                                          highlight: true,
-                                          minLength: 1
-                                        },
-                                        {
-                                          name: 'states',
-                                          source: substringMatcher(states)
-                                  });
+              $('.typeahead').typeahead({
+                             
+                              hint: true,
+                              highlight: true,
+                              limit: 2,
+                              minLength: 1,
+                              
+                            },
+                            {
+                              name: 'goals',
+                              source: substringMatcher(goals)
+                      });
                         
                        
 

@@ -103,6 +103,31 @@ app.get("/food", function(req, res){
       }
   })
   
+}).get("/food/search/:term", function(req, res){
+  
+  
+  
+    unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_ingredien%2Ct_statement%2Cnf_sodium%2Cnf_cholesterol%2Cnf_polyunsaturated_fat%2Cnf_total_carbohydrate%2Cnf_dietary_fiber%2C+nf_monounsaturated_fat%2Cnf_protein")
+    .header("X-Mashape-Key", "qYpiKTaB8emshjm5EVuKkQwT8pLfp1L1LAdjsncmdtXipZViyv")
+    .header("Accept", "application/json")
+    .end(function (result) {
+      
+        res.send(result.body);
+    });
+    
+}).get("/food/search/local/:term", function(req, res){
+
+
+console.log("search local")
+ var row = {users_id: req.session.fbUser.users_id, term: req.params.term};
+    console.log(row)
+    food.search( row, function(err, rows){
+      
+        res.send(rows);
+
+        
+      }, 'search');
+      
 }).get("/exercise", function(req, res){
   
    
@@ -160,6 +185,15 @@ app.get("/food", function(req, res){
       }
   })
   
+}).get("/exercise/search/:term", function(req, res){
+   
+    var row = {users_id: req.session.fbUser.users_id, term: req.params.term};
+    exercise.search( row, function(err, rows){
+        
+        res.send(rows);
+
+        
+      }, 'search');
 })
 .get("/user", function(req, res){
      
@@ -174,14 +208,6 @@ app.get("/food", function(req, res){
     res.send(rows[0]);
   })
   
-}).get("/profileuser/:id", function(req, res){
- 
- if( req.session.fbUser ){
-    user.get(req.session.fbUser.users_id, function(err, rows){
-      res.send(rows[0]);
-    })
- }
- 
 })
   
 .post("/user", function(req, res){
@@ -206,6 +232,23 @@ app.get("/food", function(req, res){
       }
   })
   
+}).get("/user/search/:term", function(req, res){
+    
+    user.get( req.params.term, function(err, rows){
+        
+        
+        res.send(rows);
+
+        
+      }, 'users');
+}).get("/profileuser/:id", function(req, res){
+ 
+ if( req.session.fbUser ){
+    user.get(req.session.fbUser.users_id, function(err, rows){
+      res.send(rows[0]);
+    })
+ }
+ 
 })
 .get("/friend", function(req, res){
   
@@ -304,10 +347,9 @@ app.get("/food", function(req, res){
       }
   })
 }).get("/goal/search/:term", function(req, res){
-    console.log("goal search express")
-    console.log(req.params.term)
-    goal.get( req.params.term, function(err, rows){
-        
+   
+    var row = {users_id: req.session.fbUser.users_id, term: req.params.term};
+    goal.search( row, function(err, rows){
         
         res.send(rows);
 
@@ -321,22 +363,6 @@ app.get("/food", function(req, res){
      res.send({"fbUser": req.session.fbUser});
 
     
-}).post("/fbsession", function(req, res){
-  
-
-     if(req.body.state){
-       
-       switch(req.body.state){
-         
-         case "destroy": req.session.fbUser = null; req.session.save();
-         break;
-        
-         
-       }
-     }
-     
-     res.send({"fbUser": null})
- 
 })
 .get("/login/:id", function(req, res){
  
@@ -452,39 +478,24 @@ app.get("/food", function(req, res){
       }, 'facebook');
    
    
-})
-.get("/food/search/:term", function(req, res){
+}).post("/fbsession", function(req, res){
   
-  
-  
-    unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat%2Cnf_ingredien%2Ct_statement%2Cnf_sodium%2Cnf_cholesterol%2Cnf_polyunsaturated_fat%2Cnf_total_carbohydrate%2Cnf_dietary_fiber%2C+nf_monounsaturated_fat%2Cnf_protein")
-    .header("X-Mashape-Key", "qYpiKTaB8emshjm5EVuKkQwT8pLfp1L1LAdjsncmdtXipZViyv")
-    .header("Accept", "application/json")
-    .end(function (result) {
-      
-        res.send(result.body);
-    });
-    
-}).get("/food/search/local/:term", function(req, res){
 
-    food.get( req.params.term, function(err, rows){
+     if(req.body.state){
+       
+       switch(req.body.state){
+         
+         case "destroy": req.session.fbUser = null; req.session.save();
+         break;
         
-        
-        res.send(rows);
-
-        
-      }, 'search');
+         
+       }
+     }
+     
+     res.send({"fbUser": null})
+ 
 })
-.get("/user/search/:term", function(req, res){
-    
-    user.get( req.params.term, function(err, rows){
-        
-        
-        res.send(rows);
 
-        
-      }, 'users');
-})
 
 
   
