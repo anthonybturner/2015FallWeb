@@ -1,89 +1,103 @@
- <div class="row" id="header-area">
-        
-        
-        <div class="col-sm-12 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
-            
-            <div id="info">
-                <div style="float:left; position: relative; right: 235px; top:0; color:#000;">
-                <h1  >{{vm.title}}: {{vm.description}}</h1>
-                </div>
-            </div>
-            
+<div id="header-area-wrapper">
     
-        </div>
+    <div class="thumbnail col-sm-12" id="header-area" style="background-image: url('{{vm.bgimage}}');">
+        
+        <div class="pull-left" id="info" style="color:#000;">
+                    <h1>{{vm.header}} - {{vm.pageDescription}}</h1>
+    
+    
+            </div>
+    </div>
+            
+
+
 </div>
 
+
 <hr>
-<div class="row">
-    
-    <div  class="col-sm-8">
-       <table class="table table-condensed table-striped table-bordered table-hover">
-                              
-           <tbody>
-               
-                  
-                    <tr>
-                        <th class="label label-info col-sm-2">Name</th>
-                        <td >{{vm.row.users_name}}</td>
-                    </tr>
-                    
-                    <tr>
-                        <th class="label label-info col-sm-2">Age</th>
-                        <td >{{vm.row.users_age}}</td>
-                    </tr>
-                    
-                      <tr>
-                        <th class="label label-info col-sm-2">Email</th>
-                        <td >{{vm.row.users_email}}</td>
-                    </tr>
-                    
-                    <tr>
-                        <th class="label label-info col-sm-2">Height</th>
-                            <td >{{vm.row.users_height}}</td>
-                    </tr>
-                    
-                     <tr>
-                        <th class="label label-info col-sm-2">Weight</th>
-                            <td >{{vm.row.users_weight}}</td>
-                    </tr>
-                    
-                     <tr>
-                        <th class="label label-info col-sm-2">Status</th>
-                            <td >{{vm.row.users_status}}</td>
-                    </tr>
-                    <tr>
-                       <th  class="label label-info col-sm-2">Actions</th>
-                       <td>
-                            <div class="btn-group" role="group" aria-label="...">
-                              <a ng-click="vm.edit(vm.row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
-                            </div>
-                            </td>
-                        
-                    </tr>
-                    
-                    <tr>
-                        <td class="col-sm-3" ng-if-start="vm.row.isEditing">
-                            <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(vm.row, $index)"/>
-                            <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="vm.row.isEditing = false"/>
-                        </td>
-                        <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="vm.row.users_name" /></td>
-                        <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="vm.row.users_age" /></td>
-                         <td><input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="vm.row.users_email" /></td>
-                        <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="vm.row.users_height" /></td>
-                        <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="vm.row.users_weight" /></td>
-                        <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="vm.row.users_avatar" />
-                        </td>
-                        <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="vm.row.users_status" disabled/></td>
-                        
-                    </tr>
-                   
-                
+<div>
+
+    <div class="col-sm-8">
+        <table class="table table-condensed table-striped table-bordered table-hover">
+
+            <tbody>
+
+
+                <tr>
+                    <th class="label label-info col-sm-2">Name</th>
+                    <td>{{vm.row.users_name}}</td>
+                </tr>
+
+                <tr>
+                    <th class="label label-info col-sm-2">Age</th>
+                    <td>{{vm.row.users_age}}</td>
+                </tr>
+
+                <tr>
+                    <th class="label label-info col-sm-2">Email</th>
+                    <td>{{vm.row.users_email}}</td>
+                </tr>
+
+                <tr>
+                    <th class="label label-info col-sm-2">Height</th>
+                    <td>{{vm.row.users_height}}</td>
+                </tr>
+
+                <tr>
+                    <th class="label label-info col-sm-2">Weight</th>
+                    <td>{{vm.row.users_weight}}</td>
+                </tr>
+
+                <tr>
+                    <th class="label label-info col-sm-2">Status</th>
+                    <td>{{vm.row.users_status}}</td>
+                </tr>
+                <tr>
+                    <th class="label label-info col-sm-2">Actions</th>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <a ng-click="vm.edit(vm.row, $index)" title="Edit" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3" ng-if-start="vm.row.isEditing">
+                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(vm.row, $index)" />
+                        <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="vm.row.isEditing = false" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="vm.row.users_name" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="vm.row.users_age" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="vm.row.users_email" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="vm.row.users_height" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="vm.row.users_weight" />
+                    </td>
+                    <td>
+                        <input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="vm.row.users_avatar" />
+                    </td>
+                    <td ng-if-end>
+                        <input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="vm.row.users_status" disabled/>
+                    </td>
+
+                </tr>
+
+
             </tbody>
         </table>
     </div>
-                                       
+
     <div class="col-sm-4">
-                     
-        <img class="thumbnail" src="https://graph.facebook.com/{{vm.row.users_avatar}}/picture?type=large" width="300px" height="300px"/>
-     </div>
- </div>
+
+        <img class="thumbnail" src="https://graph.facebook.com/{{vm.row.users_avatar}}/picture?type=large" width="300px" height="300px" />
+    </div>
+</div>

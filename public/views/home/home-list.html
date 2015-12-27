@@ -1,0 +1,90 @@
+<div id="header-area-wrapper">
+    
+    <div class="thumbnail col-sm-8" id="header-area" style="background-image: url('{{vm.bgimage}}');">
+        
+        <div class="pull-left" id="info">
+                    <h1>{{vm.header}}</h1>
+                    <h3>{{vm.pageDescription}}</h3>
+    
+    
+            </div>
+    </div>
+            
+
+    <calendar class="col-sm-4 calendar"  selected="day" update-calendar="updateCalendar()"></calendar>
+
+
+</div>
+
+
+
+
+<hr>
+
+
+<div class="panel panel-heading">
+
+    <h2>Weekly stats</h2>
+
+</div>
+
+<div class="col-sm-5 panel panel-info content">
+
+
+
+
+    <table class="table table-striped table-hover table-bordered panel panel-body">
+        <thead>
+            <tr>
+
+                <th class="label label-info col-sm-2">Total Goals</th>
+                <th class="label label-info col-sm-2">Total Goals Accomplished</th>
+                <th class="label label-info col-sm-2">Total Goals % Accomplished</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in vm.goal_rows">
+
+                <td>{{row.TotalGoals}}</td>
+                <td>{{row.TotalAccomplishedGoals}}</td>
+                <td>{{row.TotalAccomplishedGoalsPerc}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="goals-graph"></div>
+
+
+
+</div>
+
+<div class="col-sm-5  col-sm-offset-2 panel panel-info content">
+
+    <table class="table table-striped table-hover table-bordered panel panel-body">
+        <thead>
+            <tr>
+
+                <th class="label label-info col-sm-2">Number of Meals</th>
+                <th class="label label-info col-sm-2">Total Calories</th>
+                <th class="label label-info col-sm-2">Total Fiber</th>
+                <th class="label label-info col-sm-2">Total Cholestrol</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in vm.food_rows">
+
+                <td>{{row.TotalMeals}}</td>
+                <td>{{row.TotalCalories}}</td>
+                <td>{{row.TotalFiber}}</td>
+                <td>{{row.TotalCholestrol}}</td>
+
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="foods-graph"></div>
+</div>
+</div>

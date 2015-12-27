@@ -1,92 +1,99 @@
 angular.module("app")
     .controller('foodCtrl', function($http, $scope, $rootScope, panel, editpanel, alert, calendarService) {
 
-        $rootScope.pagetitle = "Nutrition"
+        $rootScope.title = "Nutrition"
+        
+        var self = this;
+        self.header = "Nutrition"
+        self.pageDescription = "Keep track of your nutrition";
+        self.rows = [];
+        self.totalCals = 0, self.totalFat = 0, self.totalSodium = 0;
+        self.isViewing = false;
+        self.bgimage = "/images/nutrition.jpg";
+        self.createItemButtonText = "New food";
+        self.deleteItemsButtonText = "Delete all";
 
-         var self = this;
-         self.title = "Nutrition"
-         self.description  = "Keep track of your nutrtion";
-         self.rows = [];
-         self.totalCals = 0, self.totalFat = 0, self.totalSodium = 0;
-         self.isViewing = false;
-         self.bgimage = "nutrition.jpg";
-         self.createItemButtonText = "New food";
-         self.deleteItemsButtonText = "Delete all";
+        $scope.updateCalendar = function() {
 
-           $scope.updateCalendar = function(){
-    
-                   
-               $http.get('/food',  {    params: { users_id: null, created_at: calendarService.date }}).then(function(data){
-              
-                    self.rows = data.data;
-                    self.totalCals = 0; self.totalFat = 0, self.totalSodium = 0;
 
-                    for(var i = 0; i < self.rows.length; i++){//Total column nutritions
-                      
-                        var curRow = self.rows[i];
+            $http.get('/food', {
+                params: {
+                    users_id: null,
+                    created_at: calendarService.date
+                }
+            }).then(function(data) {
+
+                self.rows = data.data;
+                self.totalCals = 0;
+                self.totalFat = 0, self.totalSodium = 0;
+
+                for (var i = 0; i < self.rows.length; i++) { //Total column nutritions
+
+                    var curRow = self.rows[i];
+
+                    self.totalCals += curRow.foods_calories;
+                    self.totalFat += curRow.foods_fat;
+                    self.totalSodium += curRow.foods_sodium;
+                }
+
+            });
+
+        }
+
+
+        var foods = [];
+
+
+        var substringMatcher = function(strs) {
+
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+                // console.log(c)
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+                $http.get("/food/search/local/" + q).success(function(data) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var food = data[i];
                         
-                        self.totalCals +=curRow.foods_calories;
-                        self.totalFat += curRow.foods_fat;
-                        self.totalSodium += curRow.foods_sodium;
+                        var foodStr = food.foods_name;
+                        foods.push(foodStr);
+
                     }
 
-                 });
-               
-           }
-           
-           
-            var foods = [];
+                });
 
-                   
-                   var substringMatcher = function(strs) {
-                       
-                          return function findMatches(q, cb) {
-                            var matches, substringRegex;
-                           // console.log(c)
-                        
-                            // an array that will be populated with substring matches
-                            matches = [];
-                        
-                            // regex used to determine if a string contains the substring `q`
-                            substrRegex = new RegExp(q, 'i');
-                            $http.get("/food/search/local/" +q).success(function(data) {
-                                 
-                                    for(var i=0; i < data.length; i++){
-                                        
-                                        var food = data[i];
-                                         foods.push(food.foods_name);
-                                          
-                                    }
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
 
-                         });
-                        
-                            // iterate through the pool of strings and for any string that
-                            // contains the substring `q`, add it to the `matches` array
-                            $.each(strs, function(i, str) {
-                              if (substrRegex.test(str)) {
-                                matches.push(str);
-                              }
-                            });
-                        
-                            cb(matches);
-                          };
-                        };
-                        
-                        
-                  $('.typeahead').typeahead({
-                                 
-                                  hint: true,
-                                  highlight: true,
-                                  minLength: 1
-                                },
-                                {
-                                  name: 'foods',
-                                  source: substringMatcher(foods)
-                          });
-                        
-                       
+                cb(matches);
+            };
+        };
 
-         
+
+        $('.typeahead').typeahead({
+
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'foods',
+            source: substringMatcher(foods)
+        });
+
+
+
+
 
 
         self.delete = function(row, index) {
@@ -100,13 +107,13 @@ angular.module("app")
                         .success(function(data) {
 
                             self.rows.splice(index, 1);
-                             alert.show(row.foods_name + " deleted.", 'success')
+                            alert.show(row.foods_name + " deleted.", 'success')
                         }).error(function(data) {
 
 
                             alert.show(data.code, 'danger');
                         });
-                        panel.state = null;
+                    panel.state = null;
                 }
             });
         }
@@ -159,44 +166,44 @@ angular.module("app")
 
         self.save = function(row, index) {
 
-            $http.get('/login').success( function(data){
-                             
-                           row.users_id =  data.users_id;
-                           row.created_at = calendarService.date;
+            $http.get('/login').success(function(data) {
 
-                            $http.post('/food', row)
-                            .success(function(data){
-                                
-                                data.isEditing = false;
-                                self.rows[index] = data;
-                                alert.show(row.foods_name + " saved for "+ row.created_at+".", 'success')
+                row.users_id = data.users_id;
+                row.created_at = calendarService.date;
 
-                            }).error(function(data){
-                                
-                                alert.show(data.code , 'danger');
-                                
-                            });
-                         })
+                $http.post('/food', row)
+                    .success(function(data) {
+
+                        data.isEditing = false;
+                        self.rows[index] = data;
+                        alert.show(row.foods_name + " saved for " + row.created_at + ".", 'success')
+
+                    }).error(function(data) {
+
+                        alert.show(data.code, 'danger');
+
+                    });
+            })
         }
-        
-         self.row = {};
+
+        self.row = {};
         self.term = null;
         self.choices = [];
 
         self.search = function() {
-            
-            var food = self.rows[self.rows.length-1]
-            //Get the value(foods name) that was input into the add new row
+
+            var food = self.rows[self.rows.length - 1]
+                //Get the value(foods name) that was input into the add new row
             $http.get("/food/search/" + food.foods_name)
                 .success(function(data) {
                     self.choices = data.hits;
                 });
         }
-        
+
         self.choose = function(choice) {
-            
-            var food = self.rows[self.rows.length-1]
-                
+
+            var food = self.rows[self.rows.length - 1]
+
             food.foods_name = choice.fields.item_name;
             food.foods_calories = choice.fields.nf_calories;
             food.foods_cholestrol = choice.fields.nf_cholesterol;
@@ -207,7 +214,7 @@ angular.module("app")
             food.foods_monounsaturated_fat = choice.fields.nf_monounsaturated_fat;
             food.foods_sodium = choice.fields.nf_sodium;
             food.foods_protein = choice.fields.nf_protein;
-            
+
             self.choices = [];
         }
 

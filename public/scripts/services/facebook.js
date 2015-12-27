@@ -5,7 +5,7 @@ angular.module("app").service('facebook',function($q, $http){
                     var deferred = $q.defer();
                     FB.login(function(response) {
                         
-                        console.log(response)
+                      
                         FB.api('/me', function(fbUser){
                             fbUser.access_token = response.authResponse.accessToken;
                             deferred.resolve(fbUser);
@@ -33,8 +33,6 @@ angular.module("app").service('facebook',function($q, $http){
 
                         if(response.status === 'connected'){
                             
-                             console.log("FB connected")
-                             
                                 FB.api('/me', function(fbUser){
                                     deferred.resolve(fbUser);
                                 });
@@ -45,8 +43,6 @@ angular.module("app").service('facebook',function($q, $http){
                                 
                         }else{
                           
-                          
-                             console.log("FB Not connected")
                            
                               //Delete the facebook user session
                               $http.post("/fbsession",  {state: "destroy"}).then(function(data){

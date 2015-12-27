@@ -5,8 +5,8 @@ angular.module("app", ['ngRoute',  'fitnessapp.directives'])
             $routeProvider.
              when('/', {
 
-                templateUrl: 'views/goals/goal-list.html',
-                controller: 'goalsCtrl', controllerAs: 'vm'
+                templateUrl: 'views/home/home-list.html',
+                controller: 'homeCtrl', controllerAs: 'vm'
 
               }).
               when('/goal', {
@@ -86,28 +86,28 @@ angular.module("app", ['ngRoute',  'fitnessapp.directives'])
               }).
               otherwise({
 
-                redirectTo: '/goal'
+                redirectTo: '/'
 
               });
-}).run( function($rootScope, $location, $http) {		
+}).run( function($rootScope, $location, $http, alert) {	
+  
+      
  		 
            // register listener to watch route changes		  
            $rootScope.$on( "$routeChangeStart", function(event, next, current) {		    
        		       
-       		       
+       		        if( alert.msg )//clear out any alerts when entering new page
+                    alert.msg= null;
+                    
        		        $http.get('/login').then(function(data){
 
                           if( !data.data.fbUser){
-                           
+                           $rootScope.loggedIn = false;
                            if ( next.templateUrl != "/views/authentication/login.html" ) {	
                              
                               // Not going to #login,  redirect needed
                               $location.url("/authlogin")
-                            }else{
-                              
-                              // $location.url("/");
                             }
-                           
                          }
                         
        		        });

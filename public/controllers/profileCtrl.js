@@ -1,52 +1,51 @@
 angular.module("app")
-    .controller('profilesCtrl', function($http, $scope, $rootScope, panel, editpanel,  alert) {
-                 
-                 $rootScope.pagetitle = "Profile"
-                 var self = this;
-                 self.title = "Profile"
-                 self.description  = "Your personal information";
-                 self.row = {}
-                 self.isViewing = false;
-                 self.bgimage = "profile.jpg";
-                
-                 self.users_id = null;
-                 
+    .controller('profilesCtrl', function($http, $scope, $rootScope, panel, editpanel, alert) {
 
-                       
-                $http.get("/profileuser/"+self.users_id ).then(function(data){
-                    console.log("profile user data")
-                    console.log(data)
-                  self.row = data.data; 
-                  console.log( data.data)
+        $rootScope.title = "Profile"
+        var self = this;
+        self.header = "Profile"
+        self.pageDescription = "Your personal information";
+        self.row = {}
+        self.isViewing = false;
+        self.bgimage = "/images/profile.jpg";
 
-                 });
-        
-                self.confirm = function(){
-                    
-                    
-                }
+        self.users_id = null;
 
-                     //Details button
-                 self.edit = function(row, index){
-                    row.isEditing = true;
-                    console.log(row)
-                 }
-                   
-              self.save = function(row, index){
-                  
-                 
-                    $http.post('/user', row).success(function(data){
-                        
-                        data.isEditing = false;
-                        row.isEditing = false;
-                        self.row[index] = data;
-                        console.log(data)
-                        
-                    }).error(function(data){
-                        
-                         alert.show(data.code, 'danger');
-                        
-                    });
-                }
-                    
- })
+
+
+        $http.get("/profileuser/" + self.users_id).then(function(data) {
+           
+            self.row = data.data;
+           
+
+        });
+
+        self.confirm = function() {
+
+
+        }
+
+        //Details button
+        self.edit = function(row, index) {
+            row.isEditing = true;
+            console.log(row)
+        }
+
+        self.save = function(row, index) {
+
+
+            $http.post('/user', row).success(function(data) {
+
+                data.isEditing = false;
+                row.isEditing = false;
+                self.row[index] = data;
+                console.log(data)
+
+            }).error(function(data) {
+
+                alert.show(data.code, 'danger');
+
+            });
+        }
+
+    })

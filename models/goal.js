@@ -6,27 +6,33 @@ module.exports =  {
     get: function(id, ret, searchType){
       
         var conn = global.GetConnection();
-    var sql = 'SELECT * FROM Goals';
+       var sql = 'SELECT * FROM Goals';
 
-       
-        console.log("in goal model")
         if(id){
           
         
             switch (searchType) {
              
               case 'search':
-
               sql += " WHERE goals_name like '%" + id +"%' LIMIT 10";
+              break;
               
+              case 'users id':
+              sql += " WHERE users_id = "+id;
+              break;
+              
+              case 'count':
+              sql = "select count(*) as TotalGoals FROM Goals WHERE goals_accomplished <> 'Yes' and users_id = "+id;
               break;
             
               default:
                 sql += " WHERE goals_id = " + id;
-            
-                }
+            }
           
           }
+          
+                        console.log(sql)
+
         
         
         conn.query(sql, function(err,rows){
@@ -34,6 +40,7 @@ module.exports =  {
           conn.end();
         });        
     },getByDate: function(row, ret){
+      
         var conn = global.GetConnection();
         var sql = "SELECT * , DATE_FORMAT(created_at,'%b %d %Y %h:%i %p') as created_at FROM Goals WHERE users_id = " + row[0] + " and created_at like '%"+row[1]+"%'";
         
@@ -42,7 +49,24 @@ module.exports =  {
           ret(err,rows);
           conn.end();
         });        
-    },getByUserId: function(id, ret){
+    },getWeekTotals: function(row, ret){
+      
+        var conn = global.GetConnection();
+        var sql = "select "+
+      "(select distinct count(goals.goals_accomplished) FROM Goals goals "+
+      	"where goals.goals_accomplished='Yes' and goals.created_at BETWEEN '" + row.start_date+ "' AND '" + row.end_date + "' and goals.users_id="+row.users_id+") as TotalAccomplishedGoals, "+ 
+      "(select distinct (count(goals.goals_accomplished)/count(g.goals_id))*100 FROM Goals goals "+
+      	"where goals.goals_accomplished='Yes' and goals.created_at BETWEEN '"+row.start_date+ "' and '" + row.end_date + "' and goals.users_id="+row.users_id+") as TotalAccomplishedGoalsPerc, "+ 
+      "count(g.goals_id) as TotalGoals "+
+      "FROM Goals g "+
+      	"where g.users_id="+row.users_id+" and g.created_at BETWEEN '"+ row.start_date + "' and '" +row.end_date+"'";
+        
+        conn.query(sql, function(err,rows){
+          ret(err,rows);
+          conn.end();
+        });        
+    }
+    ,getByUserId: function(id, ret){
         var conn = global.GetConnection();
         var sql = 'SELECT * FROM Goals';
         if(id){

@@ -1,14 +1,21 @@
 angular.module('fitnessapp.directives')
-.service('alert', function(){
+.service('alert' , function(){
     
         var self = this;
         self.msg = null;
-        self.show = function(msg, alertType){
+        self.show = function(msg, alertType, scope){
             self.msg = msg;
             if( alertType )
                 self.alertType = alertType;
             else
                self.alertType = "info";
+           
+           setInterval(function(){
+                                   
+               self.msg = null;
+               scope.$apply();
+
+           }, 5000);
         }
         
 }).service('panel', function(){
@@ -16,6 +23,7 @@ angular.module('fitnessapp.directives')
         self.state = null;
         self.show = function(state){
             self.state = state;
+             
         }
         
 }).service('loginService', function( ){

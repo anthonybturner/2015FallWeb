@@ -54,10 +54,30 @@ module.exports =  {
           ret(err,rows);
           conn.end();
         });    
+    },getWeekTotals: function(row, ret){
+      
+        var conn = global.GetConnection();
+        var sql = "select count(foods.foods_name) as TotalMeals, "+
+          "sum(foods.foods_calories) as TotalCalories, "+
+          "sum(foods.foods_fiber) as TotalFiber, "+
+          "sum(foods.foods_cholestrol)  as TotalCholestrol, "+
+          "sum(foods.foods_sodium) as TotalSodium, "+
+          "sum(foods.foods_fat) as TotalFat, "+
+          "sum(foods.foods_polyunsaturated_fat) as TotalPolyunsaturatedFat, "+
+          "sum(foods.foods_monounsaturated_fat) as TotalMonounsaturatedFat, "+
+          "sum(foods.foods_carbohydrates) as TotalCarbohydrates, "+
+          "sum(foods.foods_protein) as TotalProtein "+
+          "FROM Foods foods  where foods.users_id="+row.users_id+" and foods.created_at BETWEEN '"+row.start_date+ "' and '" + row.end_date + "'";
+        
+ 
+        conn.query(sql, function(err,rows){
+          ret(err,rows);
+          conn.end();
+        });        
     },search: function(row, ret, searchType){
       
         var conn = global.GetConnection();
-    var sql = 'SELECT foods.updated_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ';
+    var sql = 'SELECT foods.updated_at, foods.created_at, foods.foods_id, foods.foods_name, foods.foods_calories, foods.foods_carbohydrates, foods.foods_fiber, foods.foods_protein, foods.foods_cholestrol, foods.users_id, foodstypes.foodstypes_id  FROM Foods foods left join FoodsTypes foodstypes on foodstypes.foodstypes_id=foods.foodstypes_id ';
 
 
         if(row.term){

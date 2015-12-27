@@ -1,24 +1,24 @@
 <div class="panel panel-info" id="banner-area" >
           
   
-<div class="col-sm-5" id="info">
-    <h2> {{vm.title}}</h2>
-    <h3>{{vm.pagedescription}}</h3>
-</div>       
+    <div class="col-sm-5" id="info">
+        <h2> {{vm.header}}</h2>
+        <h3>{{vm.pageDescription}}</h3>
+    </div>       
      
 </div>
 
 
 <!-- BEGIN # MODAL LOGIN -->
-<div class="panel panel-info col-sm-6">
+<div class="panel panel-info ">
 
      <!-- Begin # DIV Form -->
                <div class="panel panel-heading" style="text-align: center;">
                 
                     <!-- Begin # Login Form -->
-		            <span > Login to Fitness App</span>
+		            <span >Login to Fitness App above</span>
 		        </div>
-                  
+                <!--   
                 <div class="panel panel-body col-sm-8 col-sm-offset-2">
                     
                         <form id="login-form">
@@ -48,18 +48,16 @@
                                         <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button><br>
                                        
                                           <hr>
-                                          <div style="text-align: center;" >or  <br> Login with Facebook <br>
-                                         <input type="image" src="/images/fb-login-white.png" />
+                                          <div style="text-align: center;">or  <br> Login with Facebook <br>
+                                          <input type="image" src="/images/fb-login-white.png" ng-click="vm.login()" />
                                          </div>
                                     </div>
         				        </div>
                             </form>
-       
-                            
                     <!-- End # Login Form -->
                     
                     <!-- Begin | Lost Password Form -->
-                    <form id="lost-form" style="display:none;">
+               <!--     <form id="lost-form" style="display:none;">
     	    		    <div class="modal-body">
 		    				<div id="div-lost-msg">
                                 <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -76,23 +74,21 @@
                                 <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
                             </div>
 		    		    </div>
-                    </form>
+                    </form> -->
                     <!-- End | Lost Password Form -->
                     
                                 <!-- End # DIV Form -->
                 </div>
-</div>
 <!-- END  LOGIN -->
 		
 		
-<!-- BEGIN Register -->
-<!-- BEGIN # MODAL LOGIN -->
+<!-- BEGIN Register 
+
 <div class="panel panel-info col-sm-6" >
     
-     <!-- Begin # DIV Form -->
                <div class="panel panel-heading" style="text-align: center;">
                 
-                    <!-- Begin # Login Form -->
+        
 		            <span > Register </span>
 		        </div>
                   
@@ -125,7 +121,6 @@
         				        </div>
                             </form>
   
-                            <!-- End # DIV Form -->
-                </div>
-</div>
+                        
+                </div> -->
 <!-- END  Register -->

@@ -1,27 +1,31 @@
 angular.module("app")
     .controller('usersCtrl', function($http, $scope, $rootScope, panel, editpanel, alert) {
 
-        $rootScope.pagetitle = "Users"
+        $rootScope.title = "Users"
 
         var self = this;
-                 self.title = "Community users"
-                 self.description  = "Members using this app";
-                 self.rows = [];
-                 self.isViewing = false;
-                 self.bgimage = "users.jpg";
-                 self.createItemButtonText = "New Goal";
-                 self.deleteItemsButtonText = "Delete all";
+        self.header = "Community users"
+        self.pageDescription = "Members using this app";
+        self.rows = [];
+        self.isViewing = false;
+        self.bgimage = "/images/users.jpg";
+        self.createItemButtonText = "New Goal";
+        self.deleteItemsButtonText = "Delete all";
 
 
-        $http.get("/user", {params: {user_id: $scope.users_id } }).then(function(data) {
+        $http.get("/user", {
+            params: {
+                user_id: $scope.users_id
+            }
+        }).then(function(data) {
 
 
             self.rows = data.data;
 
         });
 
-       
-   
+
+
         //Details button
         self.details = function(row, index) {
 

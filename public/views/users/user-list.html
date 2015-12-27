@@ -1,71 +1,83 @@
- <div class="row" id="header-area">
-        
+<div id="header-area">
 
-        
-        <div class="col-sm-12 thumbnail"  style="background-image: url('/images/{{vm.bgimage}}'); height: 237px">
-            
-            <div id="info">
-                <div style="float:left; position: relative; right: 235px; top: 135px; color: #000; text-align: center">
-                <h1  >{{vm.title}} - {{vm.description}}</h1>
-                </div>
+
+
+    <div class="col-sm-12 thumbnail" style="background-image: url('{{vm.bgimage}}'); height: 237px">
+
+        <div id="info">
+            <div style=" position: relative; top: 138px; color: #000; text-align: center">
+                <h1>{{vm.header}} - {{vm.pageDescription}}</h1>
             </div>
-            
-    
         </div>
+
+
+    </div>
 </div>
 
 <hr>
-<div class="row">
-      
-           
-    <div >
-                        <table class="table table-condensed table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="label label-info col-sm-1">Actions</th>
-                                    <th class="label label-info col-sm-4">Name</th>
-                                    <th class="label label-info col-sm-1">Age</th>
-                                    <th class="label label-info col-sm-1">Email</th>
-                                    <th class="label label-info col-sm-1">Height</th>
-                                    <th class="label label-info col-sm-1">Weight</th>
-                                    <th class="label label-info col-sm-2">Avatar</th>
-                                    <th class="label label-info col-sm-1">Status</th>
-                                </tr>
-                            </thead>
-                           <tbody>
-                                <tr ng-repeat="row in vm.rows">
-                                  
-                                     <th  ng-if-start="!row.isEditing"scope="row">
-                                        <div class="btn-group" role="group" aria-label="...">
-                                          <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                        </div>
-                                      </th>
-                                    <td >{{row.users_name}}</td>
-                                    <td >{{row.users_age}}</td>
-                                     <td >{{row.users_email}}</td>
-                                    <td >{{row.users_height}}</td>
-                                    <td >{{row.users_weight}}</td>
-                                    <td ng-if="row.facebook_id"> <img  src="https://graph.facebook.com/{{row.facebook_id}}/picture" width="32px" height="32px"/></td>
-                                    <td ng-if="!row.facebook_id"> <img  src="{{row.users_avatar}}" width="32px" height="32px"/></td>
-                                    <td ng-if-end>{{row.users_status}}</td>
-            
-                                    <td ng-if-start="row.isEditing">
-                                        <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
-                                        <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false"/>
-                                    </td>
-                                    <td> <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="row.users_name" /></td>
-                                    <td><input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="row.users_age" /></td>
-                                    <td><input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="row.users_email" /></td>
 
-                                    <td> <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="row.users_height" /></td>
-                                    <td><input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="row.users_weight" /></td>
-                                    <td ><input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" /></td>
-                                    <td ng-if-end><input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="row.users_status" disabled/></td>
-                                   
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                    
-                    </div>
-            </div>
+
+        <div>
+            <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="label label-info col-sm-1">Actions</th>
+                        <th class="label label-info col-sm-4">Name</th>
+                        <th class="label label-info col-sm-1">Age</th>
+                        <th class="label label-info col-sm-1">Email</th>
+                        <th class="label label-info col-sm-1">Height</th>
+                        <th class="label label-info col-sm-1">Weight</th>
+                        <th class="label label-info col-sm-2">Avatar</th>
+                        <th class="label label-info col-sm-1">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in vm.rows">
+
+                        <th ng-if-start="!row.isEditing" scope="row">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a ng-click="vm.details(row, $index)" title="View" class="btn btn-default btn-xs ajax"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            </div>
+                        </th>
+                        <td>{{row.users_name}}</td>
+                        <td>{{row.users_age}}</td>
+                        <td>{{row.users_email}}</td>
+                        <td>{{row.users_height}}</td>
+                        <td>{{row.users_weight}}</td>
+                        <td ng-if="row.facebook_id"> <img src="https://graph.facebook.com/{{row.facebook_id}}/picture" width="32px" height="32px" /></td>
+                        <td ng-if="!row.facebook_id"> <img src="{{row.users_avatar}}" width="32px" height="32px" /></td>
+                        <td ng-if-end>{{row.users_status}}</td>
+
+                        <td ng-if-start="row.isEditing">
+                            <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)" />
+                            <input type="button" value="Cancel" class="btn btn-default btn-sm submit" ng-click="row.isEditing = false" />
+                        </td>
+                        <td>
+                            <input type="text" name="users_name" class="form-control" placeholder="Name" ng-model="row.users_name" />
+                        </td>
+                        <td>
+                            <input type="text" name="users_age" class="form-control" placeholder="Age" ng-model="row.users_age" />
+                        </td>
+                        <td>
+                            <input type="text" name="users_email" class="form-control" placeholder="Email" ng-model="row.users_email" />
+                        </td>
+
+                        <td>
+                            <input type="text" name="users_height" class="form-control" placeholder="Height" ng-model="row.users_height" />
+                        </td>
+                        <td>
+                            <input type="text" name="users_weight" class="form-control" placeholder="Weight" ng-model="row.users_weight" />
+                        </td>
+                        <td>
+                            <input type="text" name="users_avatar" class="form-control" placeholder="Avatar" ng-model="row.users_avatar" />
+                        </td>
+                        <td ng-if-end>
+                            <input type="text" name="users_status" class="form-control" placeholder="Status" ng-model="row.users_status" disabled/>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>

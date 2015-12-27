@@ -1,14 +1,14 @@
 angular.module("app")
     .controller('exercisesCtrl', function($http, $scope, $rootScope, panel, editpanel, alert, calendarService) {
 
-        $rootScope.pagetitle = "Exercises";
-
+        $rootScope.title = "Exercises";
+       
          var self = this;
-         self.title = "Exercises"
-         self.description  = "Keep track of your exercises";
+         self.header = "Exercises"
+         self.pageDescription  = "Keep track of your exercises";
          self.rows = [];
          self.isViewing = false;
-         self.bgimage = "exercise.jpg";
+         self.bgimage = "/images/exercise.jpg";
          self.createItemButtonText = "New Exercise";
          self.deleteItemsButtonText = "Delete all";
          self.totalMinutes = 0, self.totalCalsBurned = 0;

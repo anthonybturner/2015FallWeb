@@ -2,8 +2,10 @@ var global = require("../inc/global");
 module.exports =  {
     blank: function(){ return {} },
     get: function(id, ret, searchType){
+      
         var conn = global.GetConnection();
         var sql = 'SELECT * FROM Users ';
+        
         if(id){
           switch (searchType) {
             
@@ -25,7 +27,7 @@ module.exports =  {
         
        
         conn.query(sql, function(err,rows){
-          console.log(err)
+          
           ret(err,rows);
           conn.end();
         });        
@@ -61,7 +63,6 @@ module.exports =  {
             row.users_id = data.insertId;
           }
           
-          console.log(err)
           ret(err, row);
           conn.end();
         });        
