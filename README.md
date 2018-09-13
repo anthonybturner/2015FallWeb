@@ -11,7 +11,7 @@ A web application for tracking nutrition, exercise, weight, and extra goals (eg.
 For example, setting goals for getting 8 hours of sleep each night.
 
 <b>TODO:</b> Add an enormous database of different foods with nutrition facts so the user does not need to input nutrition facts manually.
-
-https://fallweb2015-anthonybjturner.c9.io/ (newer SPA with NodeJs, Express, and AngularJs)
+https://ide.c9.io/anthonybjturner/fitnessapp (newer SPA with NodeJs, Express, and AngularJs)
 or
-http://cs.newpaltz.edu/~turnera1/WebProgramming/2015FallWeb/FitnessApp/ (Older non-SPA with MVC and non database calls)
+http://anthonybturner.com/FitnessApp/ (More up-to-date non-SPA with MVC and non database calls)
+http://cs.newpaltz.edu/~turnera1/WebProgramming/2015FallWeb/FitnessApp/  (Much older non-SPA with MVC and non database calls)
